@@ -1,0 +1,14 @@
+C:\Users\miken\source\repos\MikesAntiVirusScanner\bin\Debug\MikesAntiVirusScanner.exe
+C:\Users\miken\source\repos\MikesAntiVirusScanner\bin\Debug\MikesAntiVirusScanner.pdb
+C:\Users\miken\source\repos\MikesAntiVirusScanner\bin\Debug\MikesAntiVirusScanner.xml
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.mainForm.resources
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.Resources.resources
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.settingsForm.resources
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.vbproj.GenerateResource.cache
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.vbproj.CoreCompileInputs.cache
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.exe
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.xml
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.pdb
+C:\Users\miken\source\repos\MikesAntiVirusScanner\bin\Debug\MikesAntiVirusScanner.exe.config
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.vbprojAssemblyReference.cache
+C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.ScanUSBToast.resources
