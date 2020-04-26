@@ -29,37 +29,16 @@ Partial Class mainForm
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.folderScanButton = New System.Windows.Forms.Button()
         Me.quarantineButton = New System.Windows.Forms.Button()
-        Me.virusScanButton = New System.Windows.Forms.Button()
+        Me.quickScanButton = New System.Windows.Forms.Button()
         Me.fullScanButton = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.quarantineGroupBox = New System.Windows.Forms.GroupBox()
+        Me.scanGroupBox = New System.Windows.Forms.GroupBox()
         Me.iconPicBox = New System.Windows.Forms.PictureBox()
         Me.filesIconLabel = New System.Windows.Forms.Label()
         Me.totalProgressLabel = New System.Windows.Forms.Label()
         Me.percentLabel = New System.Windows.Forms.Label()
         Me.scanProgressBar = New System.Windows.Forms.ProgressBar()
-        Me.realTimeLabel = New System.Windows.Forms.Label()
-        Me.realTimeOffButton = New System.Windows.Forms.Button()
-        Me.realTimeOnButton = New System.Windows.Forms.Button()
-        Me.filesPropertiesButton = New System.Windows.Forms.Button()
-        Me.copyHashButton = New System.Windows.Forms.Button()
-        Me.stopFullScanButton = New System.Windows.Forms.Button()
-        Me.quarantineGridView = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.startFolderScan = New System.Windows.Forms.Button()
-        Me.folderScanLabel = New System.Windows.Forms.Label()
-        Me.stopFolderScan = New System.Windows.Forms.Button()
-        Me.startFullScan = New System.Windows.Forms.Button()
-        Me.stopQuickScan = New System.Windows.Forms.Button()
-        Me.startQuickScan = New System.Windows.Forms.Button()
-        Me.quickScanLabel = New System.Windows.Forms.Label()
-        Me.deleteAllButton = New System.Windows.Forms.Button()
-        Me.deletefileButton = New System.Windows.Forms.Button()
-        Me.restoreAllButton = New System.Windows.Forms.Button()
-        Me.restoreFileButton = New System.Windows.Forms.Button()
-        Me.quarantineLabel = New System.Windows.Forms.Label()
-        Me.fullScanLabel = New System.Windows.Forms.Label()
         Me.fileCountLabel = New System.Windows.Forms.Label()
         Me.onFileLabel = New System.Windows.Forms.Label()
         Me.numberInfectedFilesLabel = New System.Windows.Forms.Label()
@@ -68,6 +47,21 @@ Partial Class mainForm
         Me.elapsedLabel = New System.Windows.Forms.Label()
         Me.currentFile = New System.Windows.Forms.Label()
         Me.scanningFileLabel = New System.Windows.Forms.Label()
+        Me.realTimeLabel = New System.Windows.Forms.Label()
+        Me.realTimeOffButton = New System.Windows.Forms.Button()
+        Me.realTimeOnButton = New System.Windows.Forms.Button()
+        Me.filesPropertiesButton = New System.Windows.Forms.Button()
+        Me.copyHashButton = New System.Windows.Forms.Button()
+        Me.stopFullScanButton = New System.Windows.Forms.Button()
+        Me.startFolderScan = New System.Windows.Forms.Button()
+        Me.folderScanLabel = New System.Windows.Forms.Label()
+        Me.stopFolderScan = New System.Windows.Forms.Button()
+        Me.startFullScan = New System.Windows.Forms.Button()
+        Me.stopQuickScan = New System.Windows.Forms.Button()
+        Me.startQuickScan = New System.Windows.Forms.Button()
+        Me.quickScanLabel = New System.Windows.Forms.Label()
+        Me.quarantineLabel = New System.Windows.Forms.Label()
+        Me.fullScanLabel = New System.Windows.Forms.Label()
         Me.folderScanBGW = New System.ComponentModel.BackgroundWorker()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.FolderScanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -92,20 +86,30 @@ Partial Class mainForm
         Me.scanTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ListBox3 = New System.Windows.Forms.ListBox()
         Me.getSignatures = New System.ComponentModel.BackgroundWorker()
-        Me.scheduledScan = New System.Windows.Forms.Timer(Me.components)
+        Me.scheduledScanTimer = New System.Windows.Forms.Timer(Me.components)
         Me.loadMythodikalTimer = New System.Windows.Forms.Timer(Me.components)
         Me.scanRunningProcessesFull = New System.ComponentModel.BackgroundWorker()
         Me.statusLabel = New System.Windows.Forms.Label()
+        Me.quarantineGridView = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.restoreFileButton = New System.Windows.Forms.Button()
+        Me.restoreAllButton = New System.Windows.Forms.Button()
+        Me.deletefileButton = New System.Windows.Forms.Button()
+        Me.deleteAllButton = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.quarantineGroupBox.SuspendLayout()
+        Me.scanGroupBox.SuspendLayout()
         CType(Me.iconPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.menuPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -134,7 +138,7 @@ Partial Class mainForm
         Me.Panel2.BackColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.Panel2.Controls.Add(Me.folderScanButton)
         Me.Panel2.Controls.Add(Me.quarantineButton)
-        Me.Panel2.Controls.Add(Me.virusScanButton)
+        Me.Panel2.Controls.Add(Me.quickScanButton)
         Me.Panel2.Controls.Add(Me.fullScanButton)
         Me.Panel2.Location = New System.Drawing.Point(2, 53)
         Me.Panel2.Name = "Panel2"
@@ -165,17 +169,17 @@ Partial Class mainForm
         Me.quarantineButton.Text = "Quarantine"
         Me.quarantineButton.UseVisualStyleBackColor = False
         '
-        'virusScanButton
+        'quickScanButton
         '
-        Me.virusScanButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.virusScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.virusScanButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.virusScanButton.Location = New System.Drawing.Point(5, 12)
-        Me.virusScanButton.Name = "virusScanButton"
-        Me.virusScanButton.Size = New System.Drawing.Size(206, 39)
-        Me.virusScanButton.TabIndex = 1
-        Me.virusScanButton.Text = "Quick Scan"
-        Me.virusScanButton.UseVisualStyleBackColor = False
+        Me.quickScanButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.quickScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.quickScanButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.quickScanButton.Location = New System.Drawing.Point(5, 12)
+        Me.quickScanButton.Name = "quickScanButton"
+        Me.quickScanButton.Size = New System.Drawing.Size(206, 39)
+        Me.quickScanButton.TabIndex = 1
+        Me.quickScanButton.Text = "Quick Scan"
+        Me.quickScanButton.UseVisualStyleBackColor = False
         '
         'fullScanButton
         '
@@ -192,18 +196,14 @@ Partial Class mainForm
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.SystemColors.InfoText
-        Me.Panel3.Controls.Add(Me.iconPicBox)
-        Me.Panel3.Controls.Add(Me.filesIconLabel)
-        Me.Panel3.Controls.Add(Me.totalProgressLabel)
-        Me.Panel3.Controls.Add(Me.percentLabel)
-        Me.Panel3.Controls.Add(Me.scanProgressBar)
+        Me.Panel3.Controls.Add(Me.quarantineGroupBox)
+        Me.Panel3.Controls.Add(Me.scanGroupBox)
         Me.Panel3.Controls.Add(Me.realTimeLabel)
         Me.Panel3.Controls.Add(Me.realTimeOffButton)
         Me.Panel3.Controls.Add(Me.realTimeOnButton)
         Me.Panel3.Controls.Add(Me.filesPropertiesButton)
         Me.Panel3.Controls.Add(Me.copyHashButton)
         Me.Panel3.Controls.Add(Me.stopFullScanButton)
-        Me.Panel3.Controls.Add(Me.quarantineGridView)
         Me.Panel3.Controls.Add(Me.startFolderScan)
         Me.Panel3.Controls.Add(Me.folderScanLabel)
         Me.Panel3.Controls.Add(Me.stopFolderScan)
@@ -211,31 +211,53 @@ Partial Class mainForm
         Me.Panel3.Controls.Add(Me.stopQuickScan)
         Me.Panel3.Controls.Add(Me.startQuickScan)
         Me.Panel3.Controls.Add(Me.quickScanLabel)
-        Me.Panel3.Controls.Add(Me.deleteAllButton)
-        Me.Panel3.Controls.Add(Me.deletefileButton)
-        Me.Panel3.Controls.Add(Me.restoreAllButton)
-        Me.Panel3.Controls.Add(Me.restoreFileButton)
         Me.Panel3.Controls.Add(Me.quarantineLabel)
         Me.Panel3.Controls.Add(Me.fullScanLabel)
-        Me.Panel3.Controls.Add(Me.fileCountLabel)
-        Me.Panel3.Controls.Add(Me.onFileLabel)
-        Me.Panel3.Controls.Add(Me.numberInfectedFilesLabel)
-        Me.Panel3.Controls.Add(Me.infectedLabel)
-        Me.Panel3.Controls.Add(Me.elapsedTimeLabel)
-        Me.Panel3.Controls.Add(Me.elapsedLabel)
-        Me.Panel3.Controls.Add(Me.currentFile)
-        Me.Panel3.Controls.Add(Me.scanningFileLabel)
         Me.Panel3.Location = New System.Drawing.Point(217, 53)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(583, 400)
         Me.Panel3.TabIndex = 7
         '
+        'quarantineGroupBox
+        '
+        Me.quarantineGroupBox.Controls.Add(Me.quarantineGridView)
+        Me.quarantineGroupBox.Controls.Add(Me.restoreFileButton)
+        Me.quarantineGroupBox.Controls.Add(Me.restoreAllButton)
+        Me.quarantineGroupBox.Controls.Add(Me.deletefileButton)
+        Me.quarantineGroupBox.Controls.Add(Me.deleteAllButton)
+        Me.quarantineGroupBox.Location = New System.Drawing.Point(7, 55)
+        Me.quarantineGroupBox.Name = "quarantineGroupBox"
+        Me.quarantineGroupBox.Size = New System.Drawing.Size(571, 342)
+        Me.quarantineGroupBox.TabIndex = 74
+        Me.quarantineGroupBox.TabStop = False
+        '
+        'scanGroupBox
+        '
+        Me.scanGroupBox.Controls.Add(Me.iconPicBox)
+        Me.scanGroupBox.Controls.Add(Me.filesIconLabel)
+        Me.scanGroupBox.Controls.Add(Me.totalProgressLabel)
+        Me.scanGroupBox.Controls.Add(Me.percentLabel)
+        Me.scanGroupBox.Controls.Add(Me.scanProgressBar)
+        Me.scanGroupBox.Controls.Add(Me.fileCountLabel)
+        Me.scanGroupBox.Controls.Add(Me.onFileLabel)
+        Me.scanGroupBox.Controls.Add(Me.numberInfectedFilesLabel)
+        Me.scanGroupBox.Controls.Add(Me.infectedLabel)
+        Me.scanGroupBox.Controls.Add(Me.elapsedTimeLabel)
+        Me.scanGroupBox.Controls.Add(Me.elapsedLabel)
+        Me.scanGroupBox.Controls.Add(Me.currentFile)
+        Me.scanGroupBox.Controls.Add(Me.scanningFileLabel)
+        Me.scanGroupBox.Location = New System.Drawing.Point(7, 63)
+        Me.scanGroupBox.Name = "scanGroupBox"
+        Me.scanGroupBox.Size = New System.Drawing.Size(571, 333)
+        Me.scanGroupBox.TabIndex = 73
+        Me.scanGroupBox.TabStop = False
+        '
         'iconPicBox
         '
-        Me.iconPicBox.Location = New System.Drawing.Point(119, 212)
+        Me.iconPicBox.Location = New System.Drawing.Point(113, 163)
         Me.iconPicBox.Name = "iconPicBox"
         Me.iconPicBox.Size = New System.Drawing.Size(50, 39)
-        Me.iconPicBox.TabIndex = 77
+        Me.iconPicBox.TabIndex = 90
         Me.iconPicBox.TabStop = False
         '
         'filesIconLabel
@@ -243,39 +265,122 @@ Partial Class mainForm
         Me.filesIconLabel.AutoSize = True
         Me.filesIconLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.filesIconLabel.ForeColor = System.Drawing.Color.Snow
-        Me.filesIconLabel.Location = New System.Drawing.Point(46, 223)
+        Me.filesIconLabel.Location = New System.Drawing.Point(40, 174)
         Me.filesIconLabel.Name = "filesIconLabel"
         Me.filesIconLabel.Size = New System.Drawing.Size(58, 16)
-        Me.filesIconLabel.TabIndex = 76
+        Me.filesIconLabel.TabIndex = 89
         Me.filesIconLabel.Text = "File's Icon:"
         '
         'totalProgressLabel
         '
         Me.totalProgressLabel.AutoSize = True
         Me.totalProgressLabel.ForeColor = System.Drawing.Color.White
-        Me.totalProgressLabel.Location = New System.Drawing.Point(26, 371)
+        Me.totalProgressLabel.Location = New System.Drawing.Point(20, 310)
         Me.totalProgressLabel.Name = "totalProgressLabel"
         Me.totalProgressLabel.Size = New System.Drawing.Size(78, 13)
-        Me.totalProgressLabel.TabIndex = 75
+        Me.totalProgressLabel.TabIndex = 88
         Me.totalProgressLabel.Text = "Total Progress:"
         '
         'percentLabel
         '
         Me.percentLabel.AutoSize = True
         Me.percentLabel.ForeColor = System.Drawing.Color.White
-        Me.percentLabel.Location = New System.Drawing.Point(543, 371)
+        Me.percentLabel.Location = New System.Drawing.Point(537, 310)
         Me.percentLabel.Name = "percentLabel"
         Me.percentLabel.Size = New System.Drawing.Size(21, 13)
-        Me.percentLabel.TabIndex = 74
+        Me.percentLabel.TabIndex = 87
         Me.percentLabel.Text = "0%"
         '
         'scanProgressBar
         '
-        Me.scanProgressBar.Location = New System.Drawing.Point(119, 373)
+        Me.scanProgressBar.Location = New System.Drawing.Point(113, 312)
         Me.scanProgressBar.Name = "scanProgressBar"
         Me.scanProgressBar.Size = New System.Drawing.Size(418, 10)
         Me.scanProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
-        Me.scanProgressBar.TabIndex = 6
+        Me.scanProgressBar.TabIndex = 78
+        '
+        'fileCountLabel
+        '
+        Me.fileCountLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fileCountLabel.ForeColor = System.Drawing.Color.Snow
+        Me.fileCountLabel.Location = New System.Drawing.Point(112, 243)
+        Me.fileCountLabel.Name = "fileCountLabel"
+        Me.fileCountLabel.Size = New System.Drawing.Size(460, 16)
+        Me.fileCountLabel.TabIndex = 86
+        Me.fileCountLabel.Text = "0 Out Of 0"
+        '
+        'onFileLabel
+        '
+        Me.onFileLabel.AutoSize = True
+        Me.onFileLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.onFileLabel.ForeColor = System.Drawing.Color.Snow
+        Me.onFileLabel.Location = New System.Drawing.Point(6, 242)
+        Me.onFileLabel.Name = "onFileLabel"
+        Me.onFileLabel.Size = New System.Drawing.Size(92, 16)
+        Me.onFileLabel.TabIndex = 85
+        Me.onFileLabel.Text = "Currently On File:"
+        '
+        'numberInfectedFilesLabel
+        '
+        Me.numberInfectedFilesLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.numberInfectedFilesLabel.ForeColor = System.Drawing.Color.Snow
+        Me.numberInfectedFilesLabel.Location = New System.Drawing.Point(112, 276)
+        Me.numberInfectedFilesLabel.Name = "numberInfectedFilesLabel"
+        Me.numberInfectedFilesLabel.Size = New System.Drawing.Size(460, 15)
+        Me.numberInfectedFilesLabel.TabIndex = 84
+        Me.numberInfectedFilesLabel.Text = "0"
+        '
+        'infectedLabel
+        '
+        Me.infectedLabel.AutoSize = True
+        Me.infectedLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.infectedLabel.ForeColor = System.Drawing.Color.Snow
+        Me.infectedLabel.Location = New System.Drawing.Point(3, 276)
+        Me.infectedLabel.Name = "infectedLabel"
+        Me.infectedLabel.Size = New System.Drawing.Size(95, 16)
+        Me.infectedLabel.TabIndex = 83
+        Me.infectedLabel.Text = "# Of Files Infected:"
+        '
+        'elapsedTimeLabel
+        '
+        Me.elapsedTimeLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.elapsedTimeLabel.ForeColor = System.Drawing.Color.Snow
+        Me.elapsedTimeLabel.Location = New System.Drawing.Point(112, 209)
+        Me.elapsedTimeLabel.Name = "elapsedTimeLabel"
+        Me.elapsedTimeLabel.Size = New System.Drawing.Size(460, 19)
+        Me.elapsedTimeLabel.TabIndex = 82
+        Me.elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
+        '
+        'elapsedLabel
+        '
+        Me.elapsedLabel.AutoSize = True
+        Me.elapsedLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.elapsedLabel.ForeColor = System.Drawing.Color.Snow
+        Me.elapsedLabel.Location = New System.Drawing.Point(23, 208)
+        Me.elapsedLabel.Name = "elapsedLabel"
+        Me.elapsedLabel.Size = New System.Drawing.Size(75, 16)
+        Me.elapsedLabel.TabIndex = 81
+        Me.elapsedLabel.Text = "Elapsed Time:"
+        '
+        'currentFile
+        '
+        Me.currentFile.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.currentFile.ForeColor = System.Drawing.Color.Snow
+        Me.currentFile.Location = New System.Drawing.Point(112, 10)
+        Me.currentFile.Name = "currentFile"
+        Me.currentFile.Size = New System.Drawing.Size(461, 149)
+        Me.currentFile.TabIndex = 80
+        '
+        'scanningFileLabel
+        '
+        Me.scanningFileLabel.AutoSize = True
+        Me.scanningFileLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.scanningFileLabel.ForeColor = System.Drawing.Color.Snow
+        Me.scanningFileLabel.Location = New System.Drawing.Point(6, 10)
+        Me.scanningFileLabel.Name = "scanningFileLabel"
+        Me.scanningFileLabel.Size = New System.Drawing.Size(103, 16)
+        Me.scanningFileLabel.TabIndex = 79
+        Me.scanningFileLabel.Text = "File Being Scanned:"
         '
         'realTimeLabel
         '
@@ -350,47 +455,6 @@ Partial Class mainForm
         Me.stopFullScanButton.Text = "Stop Full Scan"
         Me.stopFullScanButton.UseVisualStyleBackColor = False
         Me.stopFullScanButton.Visible = False
-        '
-        'quarantineGridView
-        '
-        Me.quarantineGridView.AllowUserToAddRows = False
-        Me.quarantineGridView.AllowUserToDeleteRows = False
-        Me.quarantineGridView.AllowUserToResizeRows = False
-        Me.quarantineGridView.BackgroundColor = System.Drawing.SystemColors.Desktop
-        Me.quarantineGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.quarantineGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
-        Me.quarantineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.quarantineGridView.GridColor = System.Drawing.Color.White
-        Me.quarantineGridView.Location = New System.Drawing.Point(7, 55)
-        Me.quarantineGridView.MultiSelect = False
-        Me.quarantineGridView.Name = "quarantineGridView"
-        Me.quarantineGridView.ReadOnly = True
-        Me.quarantineGridView.RowHeadersVisible = False
-        Me.quarantineGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.quarantineGridView.Size = New System.Drawing.Size(569, 306)
-        Me.quarantineGridView.TabIndex = 51
-        Me.quarantineGridView.Visible = False
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Virus Location"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 250
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Virus Hash"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 200
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Size Of File"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 150
         '
         'startFolderScan
         '
@@ -477,58 +541,6 @@ Partial Class mainForm
         Me.quickScanLabel.TabIndex = 56
         Me.quickScanLabel.Text = "Quick Scan"
         '
-        'deleteAllButton
-        '
-        Me.deleteAllButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.deleteAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deleteAllButton.ForeColor = System.Drawing.Color.White
-        Me.deleteAllButton.Location = New System.Drawing.Point(462, 363)
-        Me.deleteAllButton.Name = "deleteAllButton"
-        Me.deleteAllButton.Size = New System.Drawing.Size(115, 23)
-        Me.deleteAllButton.TabIndex = 55
-        Me.deleteAllButton.Text = "Delete All Files"
-        Me.deleteAllButton.UseVisualStyleBackColor = False
-        Me.deleteAllButton.Visible = False
-        '
-        'deletefileButton
-        '
-        Me.deletefileButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.deletefileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deletefileButton.ForeColor = System.Drawing.Color.White
-        Me.deletefileButton.Location = New System.Drawing.Point(311, 363)
-        Me.deletefileButton.Name = "deletefileButton"
-        Me.deletefileButton.Size = New System.Drawing.Size(115, 23)
-        Me.deletefileButton.TabIndex = 54
-        Me.deletefileButton.Text = "Delete File"
-        Me.deletefileButton.UseVisualStyleBackColor = False
-        Me.deletefileButton.Visible = False
-        '
-        'restoreAllButton
-        '
-        Me.restoreAllButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.restoreAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.restoreAllButton.ForeColor = System.Drawing.Color.White
-        Me.restoreAllButton.Location = New System.Drawing.Point(155, 363)
-        Me.restoreAllButton.Name = "restoreAllButton"
-        Me.restoreAllButton.Size = New System.Drawing.Size(115, 23)
-        Me.restoreAllButton.TabIndex = 53
-        Me.restoreAllButton.Text = "Restore All"
-        Me.restoreAllButton.UseVisualStyleBackColor = False
-        Me.restoreAllButton.Visible = False
-        '
-        'restoreFileButton
-        '
-        Me.restoreFileButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.restoreFileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.restoreFileButton.ForeColor = System.Drawing.Color.White
-        Me.restoreFileButton.Location = New System.Drawing.Point(3, 363)
-        Me.restoreFileButton.Name = "restoreFileButton"
-        Me.restoreFileButton.Size = New System.Drawing.Size(115, 23)
-        Me.restoreFileButton.TabIndex = 52
-        Me.restoreFileButton.Text = "Restore File"
-        Me.restoreFileButton.UseVisualStyleBackColor = False
-        Me.restoreFileButton.Visible = False
-        '
         'quarantineLabel
         '
         Me.quarantineLabel.AutoSize = True
@@ -551,89 +563,6 @@ Partial Class mainForm
         Me.fullScanLabel.Size = New System.Drawing.Size(132, 27)
         Me.fullScanLabel.TabIndex = 44
         Me.fullScanLabel.Text = "Full Scan"
-        '
-        'fileCountLabel
-        '
-        Me.fileCountLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.fileCountLabel.ForeColor = System.Drawing.Color.Snow
-        Me.fileCountLabel.Location = New System.Drawing.Point(118, 297)
-        Me.fileCountLabel.Name = "fileCountLabel"
-        Me.fileCountLabel.Size = New System.Drawing.Size(460, 16)
-        Me.fileCountLabel.TabIndex = 39
-        Me.fileCountLabel.Text = "0 Out Of 0"
-        '
-        'onFileLabel
-        '
-        Me.onFileLabel.AutoSize = True
-        Me.onFileLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.onFileLabel.ForeColor = System.Drawing.Color.Snow
-        Me.onFileLabel.Location = New System.Drawing.Point(12, 297)
-        Me.onFileLabel.Name = "onFileLabel"
-        Me.onFileLabel.Size = New System.Drawing.Size(92, 16)
-        Me.onFileLabel.TabIndex = 38
-        Me.onFileLabel.Text = "Currently On File:"
-        '
-        'numberInfectedFilesLabel
-        '
-        Me.numberInfectedFilesLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.numberInfectedFilesLabel.ForeColor = System.Drawing.Color.Snow
-        Me.numberInfectedFilesLabel.Location = New System.Drawing.Point(118, 334)
-        Me.numberInfectedFilesLabel.Name = "numberInfectedFilesLabel"
-        Me.numberInfectedFilesLabel.Size = New System.Drawing.Size(460, 15)
-        Me.numberInfectedFilesLabel.TabIndex = 37
-        Me.numberInfectedFilesLabel.Text = "0"
-        '
-        'infectedLabel
-        '
-        Me.infectedLabel.AutoSize = True
-        Me.infectedLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.infectedLabel.ForeColor = System.Drawing.Color.Snow
-        Me.infectedLabel.Location = New System.Drawing.Point(9, 334)
-        Me.infectedLabel.Name = "infectedLabel"
-        Me.infectedLabel.Size = New System.Drawing.Size(95, 16)
-        Me.infectedLabel.TabIndex = 36
-        Me.infectedLabel.Text = "# Of Files Infected:"
-        '
-        'elapsedTimeLabel
-        '
-        Me.elapsedTimeLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.elapsedTimeLabel.ForeColor = System.Drawing.Color.Snow
-        Me.elapsedTimeLabel.Location = New System.Drawing.Point(118, 261)
-        Me.elapsedTimeLabel.Name = "elapsedTimeLabel"
-        Me.elapsedTimeLabel.Size = New System.Drawing.Size(460, 19)
-        Me.elapsedTimeLabel.TabIndex = 35
-        Me.elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
-        '
-        'elapsedLabel
-        '
-        Me.elapsedLabel.AutoSize = True
-        Me.elapsedLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.elapsedLabel.ForeColor = System.Drawing.Color.Snow
-        Me.elapsedLabel.Location = New System.Drawing.Point(29, 260)
-        Me.elapsedLabel.Name = "elapsedLabel"
-        Me.elapsedLabel.Size = New System.Drawing.Size(75, 16)
-        Me.elapsedLabel.TabIndex = 34
-        Me.elapsedLabel.Text = "Elapsed Time:"
-        '
-        'currentFile
-        '
-        Me.currentFile.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.currentFile.ForeColor = System.Drawing.Color.Snow
-        Me.currentFile.Location = New System.Drawing.Point(117, 56)
-        Me.currentFile.Name = "currentFile"
-        Me.currentFile.Size = New System.Drawing.Size(461, 148)
-        Me.currentFile.TabIndex = 33
-        '
-        'scanningFileLabel
-        '
-        Me.scanningFileLabel.AutoSize = True
-        Me.scanningFileLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.scanningFileLabel.ForeColor = System.Drawing.Color.Snow
-        Me.scanningFileLabel.Location = New System.Drawing.Point(4, 56)
-        Me.scanningFileLabel.Name = "scanningFileLabel"
-        Me.scanningFileLabel.Size = New System.Drawing.Size(103, 16)
-        Me.scanningFileLabel.TabIndex = 32
-        Me.scanningFileLabel.Text = "File Being Scanned:"
         '
         'folderScanBGW
         '
@@ -702,7 +631,7 @@ Partial Class mainForm
         'ListBox1
         '
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(497, 487)
+        Me.ListBox1.Location = New System.Drawing.Point(497, 511)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(120, 95)
         Me.ListBox1.TabIndex = 70
@@ -710,7 +639,7 @@ Partial Class mainForm
         'ListBox2
         '
         Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.Location = New System.Drawing.Point(12, 476)
+        Me.ListBox2.Location = New System.Drawing.Point(12, 500)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(475, 95)
         Me.ListBox2.TabIndex = 71
@@ -773,7 +702,7 @@ Partial Class mainForm
         'ListBox3
         '
         Me.ListBox3.FormattingEnabled = True
-        Me.ListBox3.Location = New System.Drawing.Point(634, 476)
+        Me.ListBox3.Location = New System.Drawing.Point(634, 500)
         Me.ListBox3.Name = "ListBox3"
         Me.ListBox3.Size = New System.Drawing.Size(132, 95)
         Me.ListBox3.TabIndex = 72
@@ -781,10 +710,10 @@ Partial Class mainForm
         'getSignatures
         '
         '
-        'scheduledScan
+        'scheduledScanTimer
         '
-        Me.scheduledScan.Enabled = True
-        Me.scheduledScan.Interval = 1000
+        Me.scheduledScanTimer.Enabled = True
+        Me.scheduledScanTimer.Interval = 1000
         '
         'loadMythodikalTimer
         '
@@ -804,12 +733,105 @@ Partial Class mainForm
         Me.statusLabel.TabIndex = 77
         Me.statusLabel.Text = "Status Bar"
         '
+        'quarantineGridView
+        '
+        Me.quarantineGridView.AllowUserToAddRows = False
+        Me.quarantineGridView.AllowUserToDeleteRows = False
+        Me.quarantineGridView.AllowUserToResizeRows = False
+        Me.quarantineGridView.BackgroundColor = System.Drawing.SystemColors.Desktop
+        Me.quarantineGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.quarantineGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
+        Me.quarantineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.quarantineGridView.GridColor = System.Drawing.Color.White
+        Me.quarantineGridView.Location = New System.Drawing.Point(6, 8)
+        Me.quarantineGridView.MultiSelect = False
+        Me.quarantineGridView.Name = "quarantineGridView"
+        Me.quarantineGridView.ReadOnly = True
+        Me.quarantineGridView.RowHeadersVisible = False
+        Me.quarantineGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.quarantineGridView.Size = New System.Drawing.Size(563, 302)
+        Me.quarantineGridView.TabIndex = 66
+        Me.quarantineGridView.Visible = False
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Virus Location"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 250
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Virus Hash"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 200
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Size Of File"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 150
+        '
+        'restoreFileButton
+        '
+        Me.restoreFileButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.restoreFileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.restoreFileButton.ForeColor = System.Drawing.Color.White
+        Me.restoreFileButton.Location = New System.Drawing.Point(6, 313)
+        Me.restoreFileButton.Name = "restoreFileButton"
+        Me.restoreFileButton.Size = New System.Drawing.Size(115, 23)
+        Me.restoreFileButton.TabIndex = 65
+        Me.restoreFileButton.Text = "Restore File"
+        Me.restoreFileButton.UseVisualStyleBackColor = False
+        Me.restoreFileButton.Visible = False
+        '
+        'restoreAllButton
+        '
+        Me.restoreAllButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.restoreAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.restoreAllButton.ForeColor = System.Drawing.Color.White
+        Me.restoreAllButton.Location = New System.Drawing.Point(147, 314)
+        Me.restoreAllButton.Name = "restoreAllButton"
+        Me.restoreAllButton.Size = New System.Drawing.Size(115, 23)
+        Me.restoreAllButton.TabIndex = 64
+        Me.restoreAllButton.Text = "Restore All"
+        Me.restoreAllButton.UseVisualStyleBackColor = False
+        Me.restoreAllButton.Visible = False
+        '
+        'deletefileButton
+        '
+        Me.deletefileButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.deletefileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deletefileButton.ForeColor = System.Drawing.Color.White
+        Me.deletefileButton.Location = New System.Drawing.Point(298, 314)
+        Me.deletefileButton.Name = "deletefileButton"
+        Me.deletefileButton.Size = New System.Drawing.Size(115, 23)
+        Me.deletefileButton.TabIndex = 63
+        Me.deletefileButton.Text = "Delete File"
+        Me.deletefileButton.UseVisualStyleBackColor = False
+        Me.deletefileButton.Visible = False
+        '
+        'deleteAllButton
+        '
+        Me.deleteAllButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.deleteAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deleteAllButton.ForeColor = System.Drawing.Color.White
+        Me.deleteAllButton.Location = New System.Drawing.Point(454, 314)
+        Me.deleteAllButton.Name = "deleteAllButton"
+        Me.deleteAllButton.Size = New System.Drawing.Size(115, 23)
+        Me.deleteAllButton.TabIndex = 62
+        Me.deleteAllButton.Text = "Delete All Files"
+        Me.deleteAllButton.UseVisualStyleBackColor = False
+        Me.deleteAllButton.Visible = False
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Highlight
-        Me.ClientSize = New System.Drawing.Size(805, 477)
+        Me.ClientSize = New System.Drawing.Size(805, 479)
         Me.Controls.Add(Me.statusLabel)
         Me.Controls.Add(Me.ListBox3)
         Me.Controls.Add(Me.ListBox2)
@@ -830,13 +852,16 @@ Partial Class mainForm
         Me.Panel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.quarantineGroupBox.ResumeLayout(False)
+        Me.scanGroupBox.ResumeLayout(False)
+        Me.scanGroupBox.PerformLayout()
         CType(Me.iconPicBox, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.menuPicBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -848,22 +873,10 @@ Partial Class mainForm
     Friend WithEvents titleLabel As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents quarantineButton As Button
-    Friend WithEvents virusScanButton As Button
+    Friend WithEvents quickScanButton As Button
     Friend WithEvents fullScanButton As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents fullScanLabel As Label
-    Friend WithEvents fileCountLabel As Label
-    Friend WithEvents onFileLabel As Label
-    Friend WithEvents numberInfectedFilesLabel As Label
-    Friend WithEvents infectedLabel As Label
-    Friend WithEvents elapsedTimeLabel As Label
-    Friend WithEvents elapsedLabel As Label
-    Friend WithEvents currentFile As Label
-    Friend WithEvents scanningFileLabel As Label
-    Friend WithEvents deleteAllButton As Button
-    Friend WithEvents deletefileButton As Button
-    Friend WithEvents restoreAllButton As Button
-    Friend WithEvents restoreFileButton As Button
     Friend WithEvents quarantineLabel As Label
     Friend WithEvents quickScanLabel As Label
     Friend WithEvents stopFolderScan As Button
@@ -887,10 +900,6 @@ Partial Class mainForm
     Friend WithEvents filesPropertiesButton As Button
     Friend WithEvents copyHashButton As Button
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents quarantineGridView As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
     Friend WithEvents ListBox1 As ListBox
     Friend WithEvents ListBox2 As ListBox
     Friend WithEvents scanRunningProcessesQuick As System.ComponentModel.BackgroundWorker
@@ -901,16 +910,34 @@ Partial Class mainForm
     Friend WithEvents realTimeOnButton As Button
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents ToolStripMenuItem3 As ToolStripMenuItem
-    Friend WithEvents scanProgressBar As ProgressBar
-    Friend WithEvents filesIconLabel As Label
-    Friend WithEvents totalProgressLabel As Label
-    Friend WithEvents percentLabel As Label
-    Friend WithEvents iconPicBox As PictureBox
     Friend WithEvents scanTimer As Timer
     Friend WithEvents ListBox3 As ListBox
     Friend WithEvents getSignatures As System.ComponentModel.BackgroundWorker
-    Friend WithEvents scheduledScan As Timer
+    Friend WithEvents scheduledScanTimer As Timer
     Friend WithEvents loadMythodikalTimer As Timer
     Friend WithEvents scanRunningProcessesFull As System.ComponentModel.BackgroundWorker
     Friend WithEvents statusLabel As Label
+    Friend WithEvents quarantineGroupBox As GroupBox
+    Friend WithEvents quarantineGridView As DataGridView
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents restoreFileButton As Button
+    Friend WithEvents restoreAllButton As Button
+    Friend WithEvents deletefileButton As Button
+    Friend WithEvents deleteAllButton As Button
+    Friend WithEvents scanGroupBox As GroupBox
+    Friend WithEvents iconPicBox As PictureBox
+    Friend WithEvents filesIconLabel As Label
+    Friend WithEvents totalProgressLabel As Label
+    Friend WithEvents percentLabel As Label
+    Friend WithEvents scanProgressBar As ProgressBar
+    Friend WithEvents fileCountLabel As Label
+    Friend WithEvents onFileLabel As Label
+    Friend WithEvents numberInfectedFilesLabel As Label
+    Friend WithEvents infectedLabel As Label
+    Friend WithEvents elapsedTimeLabel As Label
+    Friend WithEvents elapsedLabel As Label
+    Friend WithEvents currentFile As Label
+    Friend WithEvents scanningFileLabel As Label
 End Class

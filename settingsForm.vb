@@ -2,6 +2,9 @@
 Imports System.Runtime.InteropServices
 Imports Microsoft.VisualBasic.CompilerServices
 Public Class settingsForm
+
+    Dim scheduledScan As Boolean = False
+
     Public Const WM_NCLBUTTONDOWN As Integer = &HA1
     Public Const HT_CAPTION As Integer = &H2
 
@@ -67,14 +70,20 @@ Public Class settingsForm
     End Sub
 
     Private Sub clearScanDateAndTimeButton_Click(sender As Object, e As EventArgs) Handles clearScanDateAndTimeButton.Click
+        scheduledScan = True
+        scheduleDateAndTimeButton.Enabled = True
+        clearScanDateAndTimeButton.Enabled = False
+        mainForm.scheduledScanTimer.Enabled = False
         quickScanRadioButton.Checked = False
         fullScanRadioButton.Checked = False
         folderScanRadioButton.Checked = False
-        hourUpAndDown.Value = 0
+        MonthCalendar2.SelectionEnd = Date.Today
+        hourUpAndDown.Value = 1
         minuteUpAndDown.Value = 0
     End Sub
 
     Private Sub allowListButton_Click(sender As Object, e As EventArgs) Handles allowListButton.Click
+        aboutScheduledScansLabel.Visible = False
         aboutProgramLabel.Visible = False
         scheduleScanLabel.Visible = False
         scheduleScanGroupBox.Visible = False
@@ -100,6 +109,7 @@ Public Class settingsForm
     End Sub
 
     Private Sub generalSettingsButton_Click(sender As Object, e As EventArgs) Handles generalSettingsButton.Click
+        aboutScheduledScansLabel.Visible = False
         aboutProgramLabel.Visible = False
         scheduleScanLabel.Visible = False
         scheduleScanGroupBox.Visible = False
@@ -121,6 +131,7 @@ Public Class settingsForm
     End Sub
 
     Private Sub securityButton_Click(sender As Object, e As EventArgs) Handles securityButton.Click
+        aboutScheduledScansLabel.Visible = False
         aboutProgramLabel.Visible = False
         scheduleScanLabel.Visible = False
         scheduleScanGroupBox.Visible = False
@@ -166,9 +177,11 @@ Public Class settingsForm
         windowsStartCheckBox.Visible = False
         archivedFilesLabel.Visible = False
         archivedFilesCheckBox.Visible = False
+        aboutScheduledScansLabel.Visible = False
     End Sub
 
     Private Sub settingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         aboutProgramLabel.Text = "About Mythodikal Anti-Virus" & vbCrLf & vbCrLf &
                                  "Version 1.0.0" & vbCrLf & vbCrLf &
                                  "Programmed By:" & vbCrLf &
@@ -178,11 +191,21 @@ Public Class settingsForm
                                  "Number Of Times Loaded: " & My.Settings.numLoads & "" & vbCrLf & vbCrLf &
                                  "Total Virus Signatures: " & mainForm.signaturesCount.ToString("N0") & ""
 
-
         Dim aPath As String = Application.StartupPath()
-        'MessageBox.Show(aPath & "\ProgramSettings.ini")
         If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
             Dim lines = IO.File.ReadAllLines(aPath & "\ProgramSettings.ini")
+            If lines.Contains("realCheck = False") Then
+                My.Settings.realTimeScan = False
+                mainForm.realTimeOffButton.Enabled = False
+                mainForm.realTimeOnButton.Enabled = True
+            Else
+                My.Settings.realTimeScan = True
+                mainForm.realTimeOffButton.Enabled = True
+                mainForm.realTimeOnButton.Enabled = False
+                mainForm.statusLabel.Text = "Starting Real-Time Scan..."
+                FileSystemWatcher1.EnableRaisingEvents = True
+                WriteToLog("Real Time Scan Started At: " & Date.Now & "")
+            End If
 
             If lines.Contains("realCheck = False") Then
                 realTimeCheckBox.Checked = False
@@ -217,9 +240,62 @@ Public Class settingsForm
                 webProtectionCheckBox.Checked = True
                 webProtectionCheckBox.Text = "On"
             End If
-        Else
 
+            If lines.Contains("scheduledScan = False") Then
+                scheduleDateAndTimeButton.Enabled = True
+                clearScanDateAndTimeButton.Enabled = False
+            Else
+                scheduleDateAndTimeButton.Enabled = False
+                clearScanDateAndTimeButton.Enabled = True
+            End If
+            If lines.Contains("quickScan = True") = True Then
+                quickScanRadioButton.Checked = True
+            Else
+                quickScanRadioButton.Checked = False
+            End If
+            If lines.Contains("fullScan = True") = True Then
+                fullScanRadioButton.Checked = True
+            Else
+                fullScanRadioButton.Checked = False
+            End If
+            If lines.Contains("folderScan = True") = True Then
+                folderScanRadioButton.Checked = True
+            Else
+                folderScanRadioButton.Checked = False
+            End If
+            Dim dateEnd As Date = Nothing
+            If My.Settings.scheduleDate = "" Then
+                MonthCalendar2.SelectionEnd = Date.Today
+            Else
+                dateEnd = My.Settings.scheduleDate
+            End If
+            If lines.Contains("scanDate = " & dateEnd) Then
+                MonthCalendar2.SelectionEnd = dateEnd
+            Else
+            End If
+            Dim scanHourNow As String = Nothing
+            If My.Settings.scheduleHour = "" Then
+                hourUpAndDown.Value = 0
+            Else
+                scanHourNow = My.Settings.scheduleHour
+            End If
+            If lines.Contains("scanHour = " & scanHourNow) Then
+                hourUpAndDown.Value = scanHourNow
+            Else
+            End If
+
+            Dim scanMinuteNow As String = Nothing
+            If My.Settings.scheduleMinute = "" Then
+                minuteUpAndDown.Value = 0
+            Else
+                scanMinuteNow = My.Settings.scheduleMinute
+            End If
+            If lines.Contains("scanMinute = " & scanMinuteNow) Then
+                minuteUpAndDown.Value = scanMinuteNow
+            Else
+            End If
         End If
+
         aboutProgramLabel.Visible = False
         scheduleScanLabel.Visible = False
         scheduleScanGroupBox.Visible = False
@@ -288,6 +364,35 @@ Public Class settingsForm
             Else
                 writer.WriteLine("windowsStart = False")
                 windowsStartCheckBox.Checked = False
+            End If
+            If scheduleDateAndTimeButton.Enabled = True Then
+                writer.WriteLine("scheduledScan = False")
+            Else
+                writer.WriteLine("scheduledScan = True")
+                If quickScanRadioButton.Checked = True Then
+                    writer.WriteLine("quickScan = True")
+                Else
+                    writer.WriteLine("quickScan = False")
+                End If
+                If fullScanRadioButton.Checked = True Then
+                    writer.WriteLine("fullScan = True")
+                Else
+                    writer.WriteLine("fullScan = False")
+                End If
+                If folderScanRadioButton.Checked = True Then
+                    writer.WriteLine("folderScan = True")
+                Else
+                    writer.WriteLine("folderScan = False")
+                End If
+                Dim dateEnd As Date = MonthCalendar2.SelectionEnd
+                My.Settings.scheduleDate = dateEnd
+
+                writer.WriteLine("scanDate = " & dateEnd)
+                writer.WriteLine("scanHour = " & hourUpAndDown.Value)
+                writer.WriteLine("scanMinute = " & minuteUpAndDown.Value)
+                My.Settings.scheduleHour = hourUpAndDown.Value
+                My.Settings.scheduleMinute = minuteUpAndDown.Value
+                My.Settings.Save()
             End If
         End Using
 
@@ -364,7 +469,7 @@ Public Class settingsForm
             mainForm.statusLabel.Text = "Real-Time Scan Started..."
             mainForm.statusLabel.Refresh()
             FileSystemWatcher1.EnableRaisingEvents = True
-            WriteToLog("Real Time Scan Started At: " & Date.Now & "")
+            WriteToLog("Real Time Scan Started At:  " & Date.Now & "")
         Else
             realTimeCheckBox.Text = "Off"
             My.Settings.realTimeScan = False
@@ -495,6 +600,7 @@ Public Class settingsForm
     End Sub
 
     Private Sub scheduleScanButton_Click(sender As Object, e As EventArgs) Handles scheduleScanButton.Click
+        aboutScheduledScansLabel.Visible = True
         aboutProgramLabel.Visible = False
         scheduleScanLabel.Visible = True
         scheduleScanGroupBox.Visible = True
@@ -514,5 +620,29 @@ Public Class settingsForm
         windowsStartCheckBox.Visible = False
         archivedFilesLabel.Visible = False
         archivedFilesCheckBox.Visible = False
+    End Sub
+
+    Private Sub scheduleDateAndTimeButton_Click(sender As Object, e As EventArgs) Handles scheduleDateAndTimeButton.Click
+        If quickScanRadioButton.Checked = True Or fullScanRadioButton.Checked = True Or folderScanRadioButton.Checked = True Then
+            If hourUpAndDown.Value >= 1 Then
+                scheduledScan = True
+                mainForm.scheduledScanTimer.Enabled = True
+                scheduleDateAndTimeButton.Enabled = False
+                clearScanDateAndTimeButton.Enabled = True
+            End If
+        Else
+            MessageBox.Show("You Must Select The Type Of Scan To Perform On That Date!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
+    Private Sub hourUpAndDown_ValueChanged(sender As Object, e As EventArgs) Handles hourUpAndDown.ValueChanged
+        If hourUpAndDown.Value >= 12 Then
+            amPMLabel.Text = "PM"
+        Else
+            amPMLabel.Text = "AM"
+        End If
+        If hourUpAndDown.Value = 24 Then
+            amPMLabel.Text = "AM"
+        End If
     End Sub
 End Class

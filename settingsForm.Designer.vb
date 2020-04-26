@@ -23,6 +23,7 @@ Partial Class settingsForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(settingsForm))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.titleLabel = New System.Windows.Forms.Label()
         Me.exitPicBox = New System.Windows.Forms.PictureBox()
@@ -36,6 +37,8 @@ Partial Class settingsForm
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.scheduleScanGroupBox = New System.Windows.Forms.GroupBox()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.amPMLabel = New System.Windows.Forms.Label()
+        Me.militaryLabel = New System.Windows.Forms.Label()
         Me.fullScanRadioButton = New System.Windows.Forms.RadioButton()
         Me.minuteUpAndDown = New System.Windows.Forms.NumericUpDown()
         Me.folderScanRadioButton = New System.Windows.Forms.RadioButton()
@@ -64,7 +67,7 @@ Partial Class settingsForm
         Me.scheduleScanLabel = New System.Windows.Forms.Label()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
         Me.creditTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.militaryLabel = New System.Windows.Forms.Label()
+        Me.aboutScheduledScansLabel = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -222,17 +225,20 @@ Partial Class settingsForm
         '
         'scheduleScanGroupBox
         '
+        Me.scheduleScanGroupBox.Controls.Add(Me.aboutScheduledScansLabel)
         Me.scheduleScanGroupBox.Controls.Add(Me.GroupBox8)
         Me.scheduleScanGroupBox.Controls.Add(Me.MonthCalendar2)
+        Me.scheduleScanGroupBox.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.scheduleScanGroupBox.Location = New System.Drawing.Point(13, 107)
         Me.scheduleScanGroupBox.Name = "scheduleScanGroupBox"
-        Me.scheduleScanGroupBox.Size = New System.Drawing.Size(560, 187)
+        Me.scheduleScanGroupBox.Size = New System.Drawing.Size(560, 246)
         Me.scheduleScanGroupBox.TabIndex = 90
         Me.scheduleScanGroupBox.TabStop = False
-        Me.scheduleScanGroupBox.Text = "Schedule Scan"
+        Me.scheduleScanGroupBox.Text = "Schedule Monthly Scan"
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.amPMLabel)
         Me.GroupBox8.Controls.Add(Me.militaryLabel)
         Me.GroupBox8.Controls.Add(Me.fullScanRadioButton)
         Me.GroupBox8.Controls.Add(Me.minuteUpAndDown)
@@ -241,12 +247,33 @@ Partial Class settingsForm
         Me.GroupBox8.Controls.Add(Me.Label27)
         Me.GroupBox8.Controls.Add(Me.quickScanRadioButton)
         Me.GroupBox8.Controls.Add(Me.Label29)
-        Me.GroupBox8.Location = New System.Drawing.Point(251, 19)
+        Me.GroupBox8.ForeColor = System.Drawing.Color.White
+        Me.GroupBox8.Location = New System.Drawing.Point(251, 72)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(303, 162)
         Me.GroupBox8.TabIndex = 9
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Select Scan"
+        '
+        'amPMLabel
+        '
+        Me.amPMLabel.AutoSize = True
+        Me.amPMLabel.ForeColor = System.Drawing.Color.White
+        Me.amPMLabel.Location = New System.Drawing.Point(256, 71)
+        Me.amPMLabel.Name = "amPMLabel"
+        Me.amPMLabel.Size = New System.Drawing.Size(23, 13)
+        Me.amPMLabel.TabIndex = 18
+        Me.amPMLabel.Text = "AM"
+        '
+        'militaryLabel
+        '
+        Me.militaryLabel.AutoSize = True
+        Me.militaryLabel.ForeColor = System.Drawing.Color.White
+        Me.militaryLabel.Location = New System.Drawing.Point(100, 21)
+        Me.militaryLabel.Name = "militaryLabel"
+        Me.militaryLabel.Size = New System.Drawing.Size(173, 13)
+        Me.militaryLabel.TabIndex = 17
+        Me.militaryLabel.Text = "Hours And Minutes In Military Time:"
         '
         'fullScanRadioButton
         '
@@ -262,7 +289,7 @@ Partial Class settingsForm
         '
         'minuteUpAndDown
         '
-        Me.minuteUpAndDown.Location = New System.Drawing.Point(210, 118)
+        Me.minuteUpAndDown.Location = New System.Drawing.Point(188, 120)
         Me.minuteUpAndDown.Maximum = New Decimal(New Integer() {60, 0, 0, 0})
         Me.minuteUpAndDown.Name = "minuteUpAndDown"
         Me.minuteUpAndDown.Size = New System.Drawing.Size(62, 20)
@@ -282,11 +309,13 @@ Partial Class settingsForm
         '
         'hourUpAndDown
         '
-        Me.hourUpAndDown.Location = New System.Drawing.Point(211, 69)
+        Me.hourUpAndDown.Location = New System.Drawing.Point(188, 69)
         Me.hourUpAndDown.Maximum = New Decimal(New Integer() {24, 0, 0, 0})
+        Me.hourUpAndDown.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.hourUpAndDown.Name = "hourUpAndDown"
         Me.hourUpAndDown.Size = New System.Drawing.Size(62, 20)
         Me.hourUpAndDown.TabIndex = 14
+        Me.hourUpAndDown.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label27
         '
@@ -322,7 +351,7 @@ Partial Class settingsForm
         '
         'MonthCalendar2
         '
-        Me.MonthCalendar2.Location = New System.Drawing.Point(12, 19)
+        Me.MonthCalendar2.Location = New System.Drawing.Point(12, 72)
         Me.MonthCalendar2.Name = "MonthCalendar2"
         Me.MonthCalendar2.TabIndex = 0
         '
@@ -462,7 +491,7 @@ Partial Class settingsForm
         Me.allowProgramsListBox.BackColor = System.Drawing.SystemColors.Desktop
         Me.allowProgramsListBox.ForeColor = System.Drawing.Color.White
         Me.allowProgramsListBox.FormattingEnabled = True
-        Me.allowProgramsListBox.Location = New System.Drawing.Point(0, 81)
+        Me.allowProgramsListBox.Location = New System.Drawing.Point(8, 81)
         Me.allowProgramsListBox.Name = "allowProgramsListBox"
         Me.allowProgramsListBox.Size = New System.Drawing.Size(571, 316)
         Me.allowProgramsListBox.TabIndex = 77
@@ -472,7 +501,7 @@ Partial Class settingsForm
         Me.removeProgramButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.removeProgramButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.removeProgramButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.removeProgramButton.Location = New System.Drawing.Point(373, 4)
+        Me.removeProgramButton.Location = New System.Drawing.Point(374, 6)
         Me.removeProgramButton.Name = "removeProgramButton"
         Me.removeProgramButton.Size = New System.Drawing.Size(206, 39)
         Me.removeProgramButton.TabIndex = 76
@@ -507,6 +536,7 @@ Partial Class settingsForm
         'clearScanDateAndTimeButton
         '
         Me.clearScanDateAndTimeButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.clearScanDateAndTimeButton.Enabled = False
         Me.clearScanDateAndTimeButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.clearScanDateAndTimeButton.ForeColor = System.Drawing.SystemColors.Control
         Me.clearScanDateAndTimeButton.Location = New System.Drawing.Point(373, 6)
@@ -537,9 +567,9 @@ Partial Class settingsForm
         Me.scheduleScanLabel.ForeColor = System.Drawing.Color.Snow
         Me.scheduleScanLabel.Location = New System.Drawing.Point(214, 9)
         Me.scheduleScanLabel.Name = "scheduleScanLabel"
-        Me.scheduleScanLabel.Size = New System.Drawing.Size(159, 22)
+        Me.scheduleScanLabel.Size = New System.Drawing.Size(151, 22)
         Me.scheduleScanLabel.TabIndex = 68
-        Me.scheduleScanLabel.Text = "Schedule S can"
+        Me.scheduleScanLabel.Text = "Schedule Scan"
         '
         'FileSystemWatcher1
         '
@@ -550,22 +580,22 @@ Partial Class settingsForm
         'creditTimer
         '
         '
-        'militaryLabel
+        'aboutScheduledScansLabel
         '
-        Me.militaryLabel.AutoSize = True
-        Me.militaryLabel.ForeColor = System.Drawing.Color.White
-        Me.militaryLabel.Location = New System.Drawing.Point(100, 21)
-        Me.militaryLabel.Name = "militaryLabel"
-        Me.militaryLabel.Size = New System.Drawing.Size(173, 13)
-        Me.militaryLabel.TabIndex = 17
-        Me.militaryLabel.Text = "Hours And Minutes In Military Time:"
+        Me.aboutScheduledScansLabel.ForeColor = System.Drawing.Color.White
+        Me.aboutScheduledScansLabel.Location = New System.Drawing.Point(9, 22)
+        Me.aboutScheduledScansLabel.Name = "aboutScheduledScansLabel"
+        Me.aboutScheduledScansLabel.Size = New System.Drawing.Size(545, 47)
+        Me.aboutScheduledScansLabel.TabIndex = 18
+        Me.aboutScheduledScansLabel.Text = resources.GetString("aboutScheduledScansLabel.Text")
+        Me.aboutScheduledScansLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'settingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Highlight
-        Me.ClientSize = New System.Drawing.Size(810, 453)
+        Me.ClientSize = New System.Drawing.Size(807, 453)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.minimizePicBox)
@@ -634,4 +664,6 @@ Partial Class settingsForm
     Friend WithEvents removeProgramButton As Button
     Friend WithEvents allowProgramsListBox As ListBox
     Friend WithEvents militaryLabel As Label
+    Friend WithEvents amPMLabel As Label
+    Friend WithEvents aboutScheduledScansLabel As Label
 End Class
