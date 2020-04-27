@@ -3191,10 +3191,10 @@ cancelScan:
             ' (Application.StartupPath & "\" & "VirusSignatures.dat")
             If IO.File.Exists(Application.StartupPath & "\" & "VirusSignatures.dat") Then
                 signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
+                signaturesCount = signatures.Count
             Else
                 MessageBox.Show("You Must Have The (VirusSignatures.dat) File Inside Of The Main Program Directory!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
-            signaturesCount = signatures.Count
         Catch ex As IO.FileNotFoundException
             MessageBox.Show(ex.Message)
         End Try
