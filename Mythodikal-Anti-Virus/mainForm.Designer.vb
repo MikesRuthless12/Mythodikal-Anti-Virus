@@ -33,14 +33,6 @@ Partial Class mainForm
         Me.fullScanButton = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.quarantineGroupBox = New System.Windows.Forms.GroupBox()
-        Me.quarantineGridView = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.restoreFileButton = New System.Windows.Forms.Button()
-        Me.restoreAllButton = New System.Windows.Forms.Button()
-        Me.deletefileButton = New System.Windows.Forms.Button()
-        Me.deleteAllButton = New System.Windows.Forms.Button()
         Me.scanGroupBox = New System.Windows.Forms.GroupBox()
         Me.iconPicBox = New System.Windows.Forms.PictureBox()
         Me.filesIconLabel = New System.Windows.Forms.Label()
@@ -98,11 +90,18 @@ Partial Class mainForm
         Me.loadMythodikalTimer = New System.Windows.Forms.Timer(Me.components)
         Me.scanRunningProcessesFull = New System.ComponentModel.BackgroundWorker()
         Me.statusLabel = New System.Windows.Forms.Label()
+        Me.quarantineGridView = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.restoreFileButton = New System.Windows.Forms.Button()
+        Me.restoreAllButton = New System.Windows.Forms.Button()
+        Me.deletefileButton = New System.Windows.Forms.Button()
+        Me.deleteAllButton = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.quarantineGroupBox.SuspendLayout()
-        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scanGroupBox.SuspendLayout()
         CType(Me.iconPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -110,6 +109,7 @@ Partial Class mainForm
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -225,104 +225,11 @@ Partial Class mainForm
         Me.quarantineGroupBox.Controls.Add(Me.restoreAllButton)
         Me.quarantineGroupBox.Controls.Add(Me.deletefileButton)
         Me.quarantineGroupBox.Controls.Add(Me.deleteAllButton)
-        Me.quarantineGroupBox.Location = New System.Drawing.Point(7, 56)
+        Me.quarantineGroupBox.Location = New System.Drawing.Point(7, 55)
         Me.quarantineGroupBox.Name = "quarantineGroupBox"
         Me.quarantineGroupBox.Size = New System.Drawing.Size(571, 342)
         Me.quarantineGroupBox.TabIndex = 74
         Me.quarantineGroupBox.TabStop = False
-        '
-        'quarantineGridView
-        '
-        Me.quarantineGridView.AllowUserToAddRows = False
-        Me.quarantineGridView.AllowUserToDeleteRows = False
-        Me.quarantineGridView.AllowUserToResizeRows = False
-        Me.quarantineGridView.BackgroundColor = System.Drawing.SystemColors.Desktop
-        Me.quarantineGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.quarantineGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
-        Me.quarantineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.quarantineGridView.GridColor = System.Drawing.Color.White
-        Me.quarantineGridView.Location = New System.Drawing.Point(6, 8)
-        Me.quarantineGridView.MultiSelect = False
-        Me.quarantineGridView.Name = "quarantineGridView"
-        Me.quarantineGridView.ReadOnly = True
-        Me.quarantineGridView.RowHeadersVisible = False
-        Me.quarantineGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.quarantineGridView.Size = New System.Drawing.Size(563, 302)
-        Me.quarantineGridView.TabIndex = 66
-        Me.quarantineGridView.Visible = False
-        '
-        'Column1
-        '
-        Me.Column1.HeaderText = "Virus Location"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 250
-        '
-        'Column2
-        '
-        Me.Column2.HeaderText = "Virus Hash"
-        Me.Column2.Name = "Column2"
-        Me.Column2.ReadOnly = True
-        Me.Column2.Width = 200
-        '
-        'Column3
-        '
-        Me.Column3.HeaderText = "Size Of File"
-        Me.Column3.Name = "Column3"
-        Me.Column3.ReadOnly = True
-        Me.Column3.Width = 150
-        '
-        'restoreFileButton
-        '
-        Me.restoreFileButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.restoreFileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.restoreFileButton.ForeColor = System.Drawing.Color.White
-        Me.restoreFileButton.Location = New System.Drawing.Point(6, 313)
-        Me.restoreFileButton.Name = "restoreFileButton"
-        Me.restoreFileButton.Size = New System.Drawing.Size(115, 23)
-        Me.restoreFileButton.TabIndex = 65
-        Me.restoreFileButton.Text = "Restore File"
-        Me.restoreFileButton.UseVisualStyleBackColor = False
-        Me.restoreFileButton.Visible = False
-        '
-        'restoreAllButton
-        '
-        Me.restoreAllButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.restoreAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.restoreAllButton.ForeColor = System.Drawing.Color.White
-        Me.restoreAllButton.Location = New System.Drawing.Point(147, 314)
-        Me.restoreAllButton.Name = "restoreAllButton"
-        Me.restoreAllButton.Size = New System.Drawing.Size(115, 23)
-        Me.restoreAllButton.TabIndex = 64
-        Me.restoreAllButton.Text = "Restore All"
-        Me.restoreAllButton.UseVisualStyleBackColor = False
-        Me.restoreAllButton.Visible = False
-        '
-        'deletefileButton
-        '
-        Me.deletefileButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.deletefileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deletefileButton.ForeColor = System.Drawing.Color.White
-        Me.deletefileButton.Location = New System.Drawing.Point(298, 314)
-        Me.deletefileButton.Name = "deletefileButton"
-        Me.deletefileButton.Size = New System.Drawing.Size(115, 23)
-        Me.deletefileButton.TabIndex = 63
-        Me.deletefileButton.Text = "Delete File"
-        Me.deletefileButton.UseVisualStyleBackColor = False
-        Me.deletefileButton.Visible = False
-        '
-        'deleteAllButton
-        '
-        Me.deleteAllButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.deleteAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.deleteAllButton.ForeColor = System.Drawing.Color.White
-        Me.deleteAllButton.Location = New System.Drawing.Point(456, 314)
-        Me.deleteAllButton.Name = "deleteAllButton"
-        Me.deleteAllButton.Size = New System.Drawing.Size(115, 23)
-        Me.deleteAllButton.TabIndex = 62
-        Me.deleteAllButton.Text = "Delete All Files"
-        Me.deleteAllButton.UseVisualStyleBackColor = False
-        Me.deleteAllButton.Visible = False
         '
         'scanGroupBox
         '
@@ -378,7 +285,7 @@ Partial Class mainForm
         '
         Me.percentLabel.AutoSize = True
         Me.percentLabel.ForeColor = System.Drawing.Color.White
-        Me.percentLabel.Location = New System.Drawing.Point(527, 309)
+        Me.percentLabel.Location = New System.Drawing.Point(537, 310)
         Me.percentLabel.Name = "percentLabel"
         Me.percentLabel.Size = New System.Drawing.Size(21, 13)
         Me.percentLabel.TabIndex = 87
@@ -388,7 +295,7 @@ Partial Class mainForm
         '
         Me.scanProgressBar.Location = New System.Drawing.Point(113, 312)
         Me.scanProgressBar.Name = "scanProgressBar"
-        Me.scanProgressBar.Size = New System.Drawing.Size(407, 10)
+        Me.scanProgressBar.Size = New System.Drawing.Size(418, 10)
         Me.scanProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous
         Me.scanProgressBar.TabIndex = 78
         '
@@ -398,7 +305,7 @@ Partial Class mainForm
         Me.fileCountLabel.ForeColor = System.Drawing.Color.Snow
         Me.fileCountLabel.Location = New System.Drawing.Point(112, 243)
         Me.fileCountLabel.Name = "fileCountLabel"
-        Me.fileCountLabel.Size = New System.Drawing.Size(453, 16)
+        Me.fileCountLabel.Size = New System.Drawing.Size(460, 16)
         Me.fileCountLabel.TabIndex = 86
         Me.fileCountLabel.Text = "0 Out Of 0"
         '
@@ -419,7 +326,7 @@ Partial Class mainForm
         Me.numberInfectedFilesLabel.ForeColor = System.Drawing.Color.Snow
         Me.numberInfectedFilesLabel.Location = New System.Drawing.Point(112, 276)
         Me.numberInfectedFilesLabel.Name = "numberInfectedFilesLabel"
-        Me.numberInfectedFilesLabel.Size = New System.Drawing.Size(453, 15)
+        Me.numberInfectedFilesLabel.Size = New System.Drawing.Size(460, 15)
         Me.numberInfectedFilesLabel.TabIndex = 84
         Me.numberInfectedFilesLabel.Text = "0"
         '
@@ -440,7 +347,7 @@ Partial Class mainForm
         Me.elapsedTimeLabel.ForeColor = System.Drawing.Color.Snow
         Me.elapsedTimeLabel.Location = New System.Drawing.Point(112, 209)
         Me.elapsedTimeLabel.Name = "elapsedTimeLabel"
-        Me.elapsedTimeLabel.Size = New System.Drawing.Size(453, 19)
+        Me.elapsedTimeLabel.Size = New System.Drawing.Size(460, 19)
         Me.elapsedTimeLabel.TabIndex = 82
         Me.elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         '
@@ -461,7 +368,7 @@ Partial Class mainForm
         Me.currentFile.ForeColor = System.Drawing.Color.Snow
         Me.currentFile.Location = New System.Drawing.Point(112, 10)
         Me.currentFile.Name = "currentFile"
-        Me.currentFile.Size = New System.Drawing.Size(453, 149)
+        Me.currentFile.Size = New System.Drawing.Size(461, 149)
         Me.currentFile.TabIndex = 80
         '
         'scanningFileLabel
@@ -826,6 +733,99 @@ Partial Class mainForm
         Me.statusLabel.TabIndex = 77
         Me.statusLabel.Text = "Status Bar"
         '
+        'quarantineGridView
+        '
+        Me.quarantineGridView.AllowUserToAddRows = False
+        Me.quarantineGridView.AllowUserToDeleteRows = False
+        Me.quarantineGridView.AllowUserToResizeRows = False
+        Me.quarantineGridView.BackgroundColor = System.Drawing.SystemColors.Desktop
+        Me.quarantineGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.quarantineGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
+        Me.quarantineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.quarantineGridView.GridColor = System.Drawing.Color.White
+        Me.quarantineGridView.Location = New System.Drawing.Point(6, 8)
+        Me.quarantineGridView.MultiSelect = False
+        Me.quarantineGridView.Name = "quarantineGridView"
+        Me.quarantineGridView.ReadOnly = True
+        Me.quarantineGridView.RowHeadersVisible = False
+        Me.quarantineGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.quarantineGridView.Size = New System.Drawing.Size(563, 302)
+        Me.quarantineGridView.TabIndex = 66
+        Me.quarantineGridView.Visible = False
+        '
+        'Column1
+        '
+        Me.Column1.HeaderText = "Virus Location"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Width = 250
+        '
+        'Column2
+        '
+        Me.Column2.HeaderText = "Virus Hash"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Width = 200
+        '
+        'Column3
+        '
+        Me.Column3.HeaderText = "Size Of File"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Width = 150
+        '
+        'restoreFileButton
+        '
+        Me.restoreFileButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.restoreFileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.restoreFileButton.ForeColor = System.Drawing.Color.White
+        Me.restoreFileButton.Location = New System.Drawing.Point(6, 313)
+        Me.restoreFileButton.Name = "restoreFileButton"
+        Me.restoreFileButton.Size = New System.Drawing.Size(115, 23)
+        Me.restoreFileButton.TabIndex = 65
+        Me.restoreFileButton.Text = "Restore File"
+        Me.restoreFileButton.UseVisualStyleBackColor = False
+        Me.restoreFileButton.Visible = False
+        '
+        'restoreAllButton
+        '
+        Me.restoreAllButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.restoreAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.restoreAllButton.ForeColor = System.Drawing.Color.White
+        Me.restoreAllButton.Location = New System.Drawing.Point(147, 314)
+        Me.restoreAllButton.Name = "restoreAllButton"
+        Me.restoreAllButton.Size = New System.Drawing.Size(115, 23)
+        Me.restoreAllButton.TabIndex = 64
+        Me.restoreAllButton.Text = "Restore All"
+        Me.restoreAllButton.UseVisualStyleBackColor = False
+        Me.restoreAllButton.Visible = False
+        '
+        'deletefileButton
+        '
+        Me.deletefileButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.deletefileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deletefileButton.ForeColor = System.Drawing.Color.White
+        Me.deletefileButton.Location = New System.Drawing.Point(298, 314)
+        Me.deletefileButton.Name = "deletefileButton"
+        Me.deletefileButton.Size = New System.Drawing.Size(115, 23)
+        Me.deletefileButton.TabIndex = 63
+        Me.deletefileButton.Text = "Delete File"
+        Me.deletefileButton.UseVisualStyleBackColor = False
+        Me.deletefileButton.Visible = False
+        '
+        'deleteAllButton
+        '
+        Me.deleteAllButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.deleteAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.deleteAllButton.ForeColor = System.Drawing.Color.White
+        Me.deleteAllButton.Location = New System.Drawing.Point(454, 314)
+        Me.deleteAllButton.Name = "deleteAllButton"
+        Me.deleteAllButton.Size = New System.Drawing.Size(115, 23)
+        Me.deleteAllButton.TabIndex = 62
+        Me.deleteAllButton.Text = "Delete All Files"
+        Me.deleteAllButton.UseVisualStyleBackColor = False
+        Me.deleteAllButton.Visible = False
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -853,7 +853,6 @@ Partial Class mainForm
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.quarantineGroupBox.ResumeLayout(False)
-        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scanGroupBox.ResumeLayout(False)
         Me.scanGroupBox.PerformLayout()
         CType(Me.iconPicBox, System.ComponentModel.ISupportInitialize).EndInit()
@@ -862,6 +861,7 @@ Partial Class mainForm
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

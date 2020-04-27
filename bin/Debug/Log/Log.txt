@@ -1,0 +1,39 @@
+Quick Scan Started At: 4/27/2020 6:39:10 AM
+Full Scan Started At: 4/27/2020 6:42:09 AM
+0 Threats Were Detected.
+Quick Scan Started At: 4/27/2020 6:44:47 AM
+Quick Scan Started At: 4/27/2020 6:47:06 AM
+Quick Scan Started At: 4/27/2020 6:48:59 AM
+Quick Scan Started At: 4/27/2020 6:51:36 AM
+Quick Scan Started At: 4/27/2020 6:53:49 AM
+Quick Scan Started At: 4/27/2020 6:56:08 AM
+Quick Scan Started At: 4/27/2020 6:57:10 AM
+Quick Scan Started At: 4/27/2020 7:00:58 AM
+Quick Scan Started At: 4/27/2020 7:03:07 AM
+Quick Scan Started At: 4/27/2020 7:04:05 AM
+Quick Scan Started At: 4/27/2020 7:06:39 AM
+Quick Scan Started At: 4/27/2020 7:09:43 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:10:24 AM
+Quick Scan Started At: 4/27/2020 7:13:49 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:14:00 AM
+0 Threats Were Detected.
+Quick Scan Started At: 4/27/2020 7:18:57 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:19:17 AM
+0 Threats Were Detected.
+Quick Scan Started At: 4/27/2020 7:24:10 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:24:22 AM
+Folder Scan Started At: 4/27/2020 7:25:43 AM
+Folder Scan Started At: 4/27/2020 7:32:36 AM
+Folder Scan Started At: 4/27/2020 7:34:43 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:35:29 AM
+Folder Scan Started At: 4/27/2020 7:39:12 AM
+Folder Scan Started At: 4/27/2020 7:39:32 AM
+Folder Scan Started At: 4/27/2020 7:40:47 AM
+Folder Scan Started At: 4/27/2020 7:41:01 AM
+0 Threats Were Detected.
+Folder Scan Started At: 4/27/2020 7:41:11 AM

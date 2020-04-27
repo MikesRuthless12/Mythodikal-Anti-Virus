@@ -50,7 +50,7 @@ Public Class mainForm
     Dim cancelFolderScan As Boolean = False
     Dim cancelRealTimeScan As Boolean = False
 
-    Dim elapsedTimerSW, elapsedTimerSW1, elapsedTimerSW2, elapsedTimerSW3, elapsedTimerSW4, elapsedTimerSW5, elapsedTimerSW6 As New Stopwatch
+    Dim elapsedTimerSW As New Stopwatch
 
     Dim seconds1 As Integer = 0
     Dim minutes1 As Integer = 0
@@ -125,24 +125,23 @@ Public Class mainForm
         For Each proc As System.Diagnostics.Process In procs
 
             f = GetProcessFileName(proc)
-            If f.Length > 0 Then
-                currentFile.Text = f.ToString()
-                Dim sig As String = GetSha1(f.ToString)
-                statusLabel.Text = "SHA1 Hash: " & sig
-                statusLabel.Refresh()
+            '  If f.Length > 0 Then
+            currentFile.Text = f.ToString()
+            Dim sigProc As String = GetCRC32(f.ToString())
+            statusLabel.Text = "CRC32 " & sigProc
+            statusLabel.Refresh()
 
-                Dim intValue As Integer
-                intValue = Array.BinarySearch(signatures, sig)
-                If intValue > 0 Then
-                    Dim row As String() = New String() {f.ToString, sig, GetFileSize(f.ToString)}
-                    quarantineGridView.Rows.Add(row)
-                    numberInfected += 1
-                    numberInfectedFilesLabel.ForeColor = Color.Red
-                    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                    scanProgressBar.BackColor = Color.Red
-                Else
-                    'MsgBox("No value found", , "Error")
-                End If
+            Dim intValue As Integer
+            intValue = Array.BinarySearch(signatures, sigProc)
+            If intValue > 0 Then
+                Dim row As String() = New String() {f.ToString(), sigProc, GetFileSize(f.ToString())}
+                quarantineGridView.Rows.Add(row)
+                numberInfected += 1
+                numberInfectedFilesLabel.ForeColor = Color.Red
+                numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                scanProgressBar.BackColor = Color.Red
+            Else
+                'MsgBox("No value found", , "Error")
             End If
         Next
     End Sub
@@ -516,12 +515,13 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         If folderScanBGW.IsBusy = True Then
             Exit Sub
         Else
-            startFolderScan.Enabled = False
+            startFolderScan.Enabled = True
             statusLabel.Text = "Program May Become Unresponsive For A Moment While Loading Parts Of The Scan List."
             statusLabel.Refresh()
             WriteToLog("Folder Scan Started At: " & Date.Now.ToString() & "")
             folderScanBGW.RunWorkerAsync()
             folderScanBGW.WorkerSupportsCancellation = True
+            fileCountOn = 0
             CheckForIllegalCrossThreadCalls = False
             scanTimer.Start()
             elapsedTimerSW.Start()
@@ -595,7 +595,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         On Error Resume Next
         CheckForIllegalCrossThreadCalls = False
         folderScanBGW.WorkerSupportsCancellation = True
-        ListBox3.Items.Clear()
+
         scanSubfolders(currentDirectory, Me.ListBox3)
         '        'fileCount = 0
 
@@ -912,52 +912,52 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         minimizePicBox.Enabled = True
     End Sub
 
-    'Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles folderScanBGW.RunWorkerCompleted
-    '    'If cancelFolderScan = True Then
-    '    '    statusLabel.Text = ("Folder Scan Cancelled! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
-    '    '    statusLabel.Refresh()
-    '    '    currentFile.Text = ""
-    '    '    fileCountOn = 0
-    '    '    fileCountLabel.Text = "0 Out Of 0"
-    '    '    numberInfectedFilesLabel.Text = "0"
-    '    '    numberInfectedFilesLabel.ForeColor = Color.White
-    '    '    scanProgressBar.ForeColor = Color.Blue
-    '    '    percentLabel.Text = "0%"
-    '    '    scanProgressBar.Value = 0
-    '    '    elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
-    '    '    cancelFolderScan = False
-    '    '    elapsedTimerSW.Stop()
-    '    '    elapsedTimerSW.Reset()
-    '    '    If My.Settings.USBDriveScan = True Then
-    '    '        statusLabel.Text = ("USB Device Scan Cancelled! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
-    '    '        statusLabel.Refresh()
-    '    '        My.Settings.USBDriveScan = False
-    '    '        Timer1.Enabled = True
-    '    '    End If
-    '    'Else
-    '    '    statusLabel.Text = ("Folder Scan Conmpleted! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
-    '    '    statusLabel.Refresh()
-    '    '    currentFile.Text = ""
-    '    '    fileCountOn = 0
-    '    '    'fileCount = 0
-    '    '    fileCountLabel.Text = "0 Out Of 0"
-    '    '    numberInfectedFilesLabel.Text = "0"
-    '    '    numberInfectedFilesLabel.ForeColor = Color.White
-    '    '    scanProgressBar.ForeColor = Color.Blue
-    '    '    percentLabel.Text = "0%"
-    '    '    scanProgressBar.Value = 0
-    '    '    cancelFullScan = False
-    '    '    elapsedTimerSW.Stop()
-    '    '    elapsedTimerSW.Reset()
-    '    '    elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
-    '    '    If My.Settings.USBDriveScan = True Then
-    '    '        statusLabel.Text = ("USB Device Scan Completed! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
-    '    '        statusLabel.Refresh()
-    '    '        My.Settings.USBDriveScan = False
-    '    '        Timer1.Enabled = True
-    '    '    End If
-    '    'End If
-    'End Sub
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles folderScanBGW.RunWorkerCompleted
+        'If cancelFolderScan = True Then
+        '    statusLabel.Text = ("Folder Scan Cancelled! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
+        '    statusLabel.Refresh()
+        '    currentFile.Text = ""
+        '    fileCountOn = 0
+        '    fileCountLabel.Text = "0 Out Of 0"
+        '    numberInfectedFilesLabel.Text = "0"
+        '    numberInfectedFilesLabel.ForeColor = Color.White
+        '    scanProgressBar.ForeColor = Color.Blue
+        '    percentLabel.Text = "0%"
+        '    scanProgressBar.Value = 0
+        '    elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
+        '    cancelFolderScan = False
+        '    elapsedTimerSW.Stop()
+        '    elapsedTimerSW.Reset()
+        '    If My.Settings.USBDriveScan = True Then
+        '        statusLabel.Text = ("USB Device Scan Cancelled! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
+        '        statusLabel.Refresh()
+        '        My.Settings.USBDriveScan = False
+        '        Timer1.Enabled = True
+        '    End If
+        'Else
+        '    statusLabel.Text = ("Folder Scan Conmpleted! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
+        '    statusLabel.Refresh()
+        '    currentFile.Text = ""
+        '    fileCountOn = 0
+        '    'fileCount = 0
+        '    fileCountLabel.Text = "0 Out Of 0"
+        '    numberInfectedFilesLabel.Text = "0"
+        '    numberInfectedFilesLabel.ForeColor = Color.White
+        '    scanProgressBar.ForeColor = Color.Blue
+        '    percentLabel.Text = "0%"
+        '    scanProgressBar.Value = 0
+        '    cancelFullScan = False
+        '    elapsedTimerSW.Stop()
+        '    elapsedTimerSW.Reset()
+        '    elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
+        '    If My.Settings.USBDriveScan = True Then
+        '        statusLabel.Text = ("USB Device Scan Completed! - Scanned A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text)
+        '        statusLabel.Refresh()
+        '        My.Settings.USBDriveScan = False
+        '        Timer1.Enabled = True
+        '    End If
+        'End If
+    End Sub
 
 
     Public Function sha512hashOfFile(ByVal fileToHash As String) As String
@@ -1084,8 +1084,6 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         End If
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
-        startFolderScan.Enabled = True
-        iconPicBox.Image = Nothing
     End Sub
 
     Private Sub startQuickScan_Click(sender As Object, e As EventArgs) Handles startQuickScan.Click
@@ -1299,7 +1297,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         On Error Resume Next
         CheckForIllegalCrossThreadCalls = False
         quickScanBGW.WorkerSupportsCancellation = True
-        ListBox3.Items.Clear()
+
         scanSubfolders(mainDrive & "\Windows\System", Me.ListBox3)
         scanSubfolders(mainDrive & "\Windows\System32", Me.ListBox3)
 
@@ -1579,8 +1577,6 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         End If
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
-        startQuickScan.Enabled = True
-        iconPicBox.Image = Nothing
     End Sub
 
     Private Sub quickScanBGW_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles quickScanBGW.RunWorkerCompleted
@@ -1630,7 +1626,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     Private Sub fullScanBGW_DoWork(sender As Object, e As DoWorkEventArgs) Handles fullScanBGW.DoWork
         CheckForIllegalCrossThreadCalls = False
         fullScanBGW.WorkerSupportsCancellation = True
-        ListBox3.Items.Clear()
+
         scanSubfolders(mainDrive, Me.ListBox3)
 
 
@@ -2104,8 +2100,6 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         End If
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
-        startFullScan.Enabled = True
-        iconPicBox.Image = Nothing
     End Sub
 
     Private Sub copyHashButton_Click(sender As Object, e As EventArgs) Handles copyHashButton.Click
@@ -3079,8 +3073,8 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 numberInfectedFilesLabel.Text = Conversions.ToString(quarantineGridView.Rows.Count)
                 fileCountOn += 1
 
-                Dim sig As String = GetSHA1(ListBox3.SelectedItem)
-                statusLabel.Text = "SHA1 Hash: " & sig
+                Dim sig As String = GetCRC32(ListBox3.SelectedItem)
+                statusLabel.Text = "CRC32 Hash: " & sig
                 statusLabel.Refresh()
                 iconPicBox.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox3.SelectedItem).ToBitmap()
                 iconPicBox.Refresh()
@@ -3093,18 +3087,18 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 percentLabel.Refresh()
 
                 'This is my check against the database, but the database is too big of a file to upload to GitHub
-                Dim intValue As Integer
-                intValue = Array.BinarySearch(signatures, sig)
-                If intValue > 0 Then
-                    Dim row As String() = New String() {ListBox3.SelectedItem, sig, GetFileSize(ListBox3.SelectedItem)}
-                    quarantineGridView.Rows.Add(row)
-                    numberInfected += 1
-                    numberInfectedFilesLabel.ForeColor = Color.Red
-                    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                    scanProgressBar.BackColor = Color.Red
-                Else
-                    'MsgBox("No value found", , "Error")
-                End If
+                'Dim intValue As Integer
+                'intValue = Array.BinarySearch(signatures, sig)
+                'If intValue > 0 Then
+                '    Dim row As String() = New String() {ListBox3.SelectedItem, sig, GetFileSize(ListBox3.SelectedItem)}
+                '    quarantineGridView.Rows.Add(row)
+                '    numberInfected += 1
+                '    numberInfectedFilesLabel.ForeColor = Color.Red
+                '    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                '    scanProgressBar.BackColor = Color.Red
+                'Else
+                '    'MsgBox("No value found", , "Error")
+                'End If
 
 
                 'Dim idx As Integer = signatures.IndexOf(GenerateSHA512String(ListBox3.SelectedItem))
@@ -3157,6 +3151,7 @@ cancelScan:
                 elapsedTimerSW.Reset()
                 elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
                 scanProgressBar.Value = 0
+
                 quarantineButton_Click(sender, e)
             Else
                 statusLabel.Text = ("Finished Scanning A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text & " - No Threats Detected")
@@ -3183,13 +3178,11 @@ cancelScan:
                 scanProgressBar.Value = 0
             End If
         End If
-
     End Sub
 
     Private Sub getSignatures_DoWork(sender As Object, e As DoWorkEventArgs) Handles getSignatures.DoWork
         Try
-            ' (Application.StartupPath & "\" & "VirusSignatures.dat")
-            If IO.File.Exists(Application.StartupPath & "\" & "VirusSignatures.dat") Then
+            If IO.File.Exists((Application.StartupPath & "\" & "VirusSignatures.dat")) Then
                 signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
             Else
                 MessageBox.Show("You Must Have The (VirusSignatures.dat) File Inside Of The Main Program Directory!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -3265,26 +3258,26 @@ cancelScan:
 
                     currentFile.Text = "" & e.FullPath
                     currentFile.Refresh()
-                    Dim sig As String = GetSHA1(e.FullPath)
-                    statusLabel.Text = "SHA1 Hash: " & sig
+                    Dim sig As String = GetCRC32(e.FullPath)
+                    statusLabel.Text = "CRC32 Hash " & sig
                     statusLabel.Refresh()
                     fileCountOn += 1
 
                     fileCountLabel.Text = "" & fileCountOn & " Out Of " & ListBox3.Items.Count & ""
                     fileCountLabel.Refresh()
                     'This is my check against the database, but the database is too big of a file to upload to GitHub
-                    Dim intValue As Integer
-                    intValue = Array.BinarySearch(signatures, sig)
-                    If intValue > 0 Then
-                        Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
-                        quarantineGridView.Rows.Add(row)
-                        numberInfected += 1
-                        numberInfectedFilesLabel.ForeColor = Color.Red
-                        numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                        scanProgressBar.BackColor = Color.Red
-                    Else
-                        'MsgBox("No value found", , "Error")
-                    End If
+                    'Dim intValue As Integer
+                    'intValue = Array.BinarySearch(signatures, sig)
+                    'If intValue > 0 Then
+                    '    Dim row As String() = New String() {e.FullPath, GetCRC32(e.FullPath), GetFileSize(e.FullPath)}
+                    '    quarantineGridView.Rows.Add(row)
+                    '    numberInfected += 1
+                    '    numberInfectedFilesLabel.ForeColor = Color.Red
+                    '    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                    '    scanProgressBar.BackColor = Color.Red
+                    'Else
+                    '    'MsgBox("No value found", , "Error")
+                    'End If
                 Else
                 End If
 
@@ -3359,27 +3352,28 @@ done:
                     currentFile.Text = "" & e.FullPath
                     currentFile.Refresh()
 
-                    Dim sig As String = GetSHA1(e.FullPath)
-                    statusLabel.Text = "SHA1 Hash: " & sig
+                    Dim sig As String = GetCRC32(e.FullPath)
+                    statusLabel.Text = "CRC32 Hash " & sig
                     statusLabel.Refresh()
                     fileCountOn += 1
 
                     fileCountLabel.Text = "" & fileCountOn & " Out Of " & ListBox3.Items.Count & ""
                     fileCountLabel.Refresh()
 
-                    'This Is My check against the database, but the database Is too big of a file to upload to GitHub
-                    Dim intValue As Integer
-                    intValue = Array.BinarySearch(signatures, sig)
-                    If intValue > 0 Then
-                        Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
-                        quarantineGridView.Rows.Add(row)
-                        numberInfected += 1
-                        numberInfectedFilesLabel.ForeColor = Color.Red
-                        numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                        scanProgressBar.BackColor = Color.Red
-                    Else
-                        'MsgBox("No value found", , "Error")
-                    End If
+                    'This is my check against the database, but the database is too big of a file to upload to GitHub
+                    'Dim intValue As Integer
+                    'intValue = Array.BinarySearch(signatures, sig)
+                    'If intValue > 0 Then
+                    '    Dim row As String() = New String() {e.FullPath, GetCRC32(e.FullPath), GetFileSize(e.FullPath)}
+                    '    quarantineGridView.Rows.Add(row)
+                    '    numberInfected += 1
+                    '    numberInfectedFilesLabel.ForeColor = Color.Red
+                    '    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                    '    scanProgressBar.BackColor = Color.Red
+                    'Else
+                    '    'MsgBox("No value found", , "Error")
+                    'End If
+                    'End If
                 Else
                 End If
 
@@ -3450,8 +3444,8 @@ done:
 
                 currentFile.Text = "" & e.FullPath
                 currentFile.Refresh()
-                Dim sig As String = GetSHA1(e.FullPath)
-                statusLabel.Text = "SHA1 Hash: " & sig
+                Dim sig As String = GetCRC32(e.FullPath)
+                statusLabel.Text = "CRC32 Hash " & sig
                 statusLabel.Refresh()
                 fileCountOn += 1
 
@@ -3459,19 +3453,19 @@ done:
                 fileCountLabel.Refresh()
 
                 'This is my check against the database, but the database is too big of a file to upload to GitHub
-                Dim intValue As Integer
-                intValue = Array.BinarySearch(signatures, sig)
-                If intValue > 0 Then
-                    Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
-                    quarantineGridView.Rows.Add(row)
-                    numberInfected += 1
-                    numberInfectedFilesLabel.ForeColor = Color.Red
-                    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                    scanProgressBar.BackColor = Color.Red
-                Else
-                    'MsgBox("No value found", , "Error")
-                End If
-                'Dim idx As Integer = signatures.IndexOf(GetSHA1(e.FullPath))
+                'Dim intValue As Integer
+                'intValue = Array.BinarySearch(signatures, sig)
+                'If intValue > 0 Then
+                '    Dim row As String() = New String() {e.FullPath, GetCRC32(e.FullPath), GetFileSize(e.FullPath)}
+                '    quarantineGridView.Rows.Add(row)
+                '    numberInfected += 1
+                '    numberInfectedFilesLabel.ForeColor = Color.Red
+                '    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                '    scanProgressBar.BackColor = Color.Red
+                'Else
+                '    'MsgBox("No value found", , "Error")
+                'End If
+                'Dim idx As Integer = signatures.IndexOf(GenerateSHA512String(e.FullPath))
                 'If idx = -1 Then
 
                 'Else
@@ -3741,14 +3735,9 @@ done:
         fileCountOn = 0
     End Sub
 
-
-
-    'Private Sub BackgroundWorker1_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-    '    SaveArray("C:\Users\\Desktop\VIRUSHASHESFINAL.txt")
-    'End Sub
-
     Private Sub scanRunningProcessesFull_DoWork(sender As Object, e As DoWorkEventArgs) Handles scanRunningProcessesFull.DoWork
         scanProcesses()
+
     End Sub
 
     Private Sub scanRunningProcessesFull_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles scanRunningProcessesFull.RunWorkerCompleted
@@ -3759,117 +3748,14 @@ done:
         elapsedTimerSW.Start()
         fileCountOn = 0
     End Sub
-    Dim bytes As Integer
-    Public Function GetSha1(ByVal filePath As String) As String
-        On Error Resume Next
-        Dim filesinfo As New FileInfo(filePath)
-        If filesinfo.Length < 4096 Then
-            bytes = filesinfo.Length
-        Else
-            bytes = 4096
-        End If
 
-        Dim f As FileStream = New FileStream(filePath, FileMode.Open, System.IO.FileAccess.Read, FileShare.Read, bytes)
-        Dim sha As New System.Security.Cryptography.SHA1CryptoServiceProvider
-        Dim hash As Array
-        Dim shaHash As String
-        Dim sb As New System.Text.StringBuilder
-        If f IsNot Nothing Then
-            sha.ComputeHash(f)
-            hash = sha.Hash
-            For Each hashByte As Byte In hash
-                sb.Append(String.Format("{0:X1}", hashByte))
-            Next
-            shaHash = sb.ToString
-            f.Close()
-            Return shaHash
-        End If
-    End Function
-    Public Function GetSHA1Hash(ByVal inputString As String)
-        Dim sha1 As SHA1 = SHA1Managed.Create()
-        Dim bytes As Byte() = Encoding.UTF8.GetBytes(inputString)
-        Dim hash As Byte() = sha1.ComputeHash(bytes)
-        Return hash
-    End Function
+    Private Sub startQuickScan_ChangeUICues(sender As Object, e As UICuesEventArgs) Handles startQuickScan.ChangeUICues
 
-    Public Shared Function ComputeHash(ByVal input As String, ByVal hashType As eHashType) As String
-        Try
-            Dim hash As Byte() = GetHash(input, hashType)
-            Dim ret As StringBuilder = New StringBuilder()
+    End Sub
 
-            For i As Integer = 0 To hash.Length - 1
-                ret.Append(hash(i).ToString("x2"))
-            Next
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
 
-            Return ret.ToString()
-        Catch
-            Return String.Empty
-        End Try
-    End Function
-    Public Enum eHashType
-        HMAC
-        HMACMD5
-        HMACSHA1
-        HMACSHA256
-        HMACSHA384
-        HMACSHA512
-        MACTripleDES
-        MD5
-        RIPEMD160
-        SHA1
-        SHA256
-        SHA384
-        SHA512
-    End Enum
-    Private Shared Function GetHash(ByVal input As String, ByVal hash As eHashType) As Byte()
-        Dim inputBytes As Byte() = Encoding.ASCII.GetBytes(input)
-
-        Select Case hash
-            Case eHashType.MD5
-                Return MD5.Create().ComputeHash(inputBytes)
-        End Select
-    End Function
-
-
-    'Sub SaveArray(ByVal path As String) 'my array is ArrayGH
-
-
-    '    MessageBox.Show("Starting...")
-    '    System.Array.Sort(signatures)
-    '    MessageBox.Show("Done Sorting")
-    '    Dim Arrwriter As New StreamWriter(path, False) 'false = don't append to an existing file
-
-
-
-    '    For Each s In signatures
-
-    '        Arrwriter.WriteLine(s.Trim)
-
-    '    Next
-
-
-
-    '    Arrwriter.Close()
-    '    MessageBox.Show("Done!")
-    'End Sub
-
-    'Sub blah(ByVal path2 As String)
-
-    '    Dim file2 As New StreamWriter(path2, False)
-
-
-    '    For Each line As String In File.ReadLines("C:\Users\\Desktop\Virus Hashes\VirusShare.txt")
-    '        file2.WriteLine(line.Trim)
-
-    '    Next
-
-    '    file2.Close()
-    'End Sub
-
-
-    'Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
-    '    MessageBox.Show("DONE!")
-    'End Sub
+    End Sub
 End Class
 
 

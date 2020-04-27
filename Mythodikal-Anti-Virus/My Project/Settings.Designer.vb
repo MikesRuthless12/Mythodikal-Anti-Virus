@@ -123,42 +123,6 @@ Namespace My
                 Me("realTimeScan") = value
             End Set
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property scheduleDate() As String
-            Get
-                Return CType(Me("scheduleDate"),String)
-            End Get
-            Set
-                Me("scheduleDate") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property scheduleHour() As String
-            Get
-                Return CType(Me("scheduleHour"),String)
-            End Get
-            Set
-                Me("scheduleHour") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property scheduleMinute() As String
-            Get
-                Return CType(Me("scheduleMinute"),String)
-            End Get
-            Set
-                Me("scheduleMinute") = value
-            End Set
-        End Property
     End Class
 End Namespace
 
