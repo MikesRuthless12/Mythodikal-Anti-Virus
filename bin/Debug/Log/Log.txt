@@ -37,3 +37,4 @@ Folder Scan Started At: 4/27/2020 7:40:47 AM
 Folder Scan Started At: 4/27/2020 7:41:01 AM
 0 Threats Were Detected.
 Folder Scan Started At: 4/27/2020 7:41:11 AM
+Folder Scan Started At: 4/27/2020 7:48:02 AM
