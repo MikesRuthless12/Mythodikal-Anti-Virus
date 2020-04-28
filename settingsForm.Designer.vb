@@ -36,6 +36,7 @@ Partial Class settingsForm
         Me.scheduleScanButton = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.scheduleScanGroupBox = New System.Windows.Forms.GroupBox()
+        Me.aboutScheduledScansLabel = New System.Windows.Forms.Label()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.amPMLabel = New System.Windows.Forms.Label()
         Me.militaryLabel = New System.Windows.Forms.Label()
@@ -67,7 +68,6 @@ Partial Class settingsForm
         Me.scheduleScanLabel = New System.Windows.Forms.Label()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
         Me.creditTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.aboutScheduledScansLabel = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -236,6 +236,16 @@ Partial Class settingsForm
         Me.scheduleScanGroupBox.TabStop = False
         Me.scheduleScanGroupBox.Text = "Schedule Monthly Scan"
         '
+        'aboutScheduledScansLabel
+        '
+        Me.aboutScheduledScansLabel.ForeColor = System.Drawing.Color.White
+        Me.aboutScheduledScansLabel.Location = New System.Drawing.Point(9, 22)
+        Me.aboutScheduledScansLabel.Name = "aboutScheduledScansLabel"
+        Me.aboutScheduledScansLabel.Size = New System.Drawing.Size(545, 47)
+        Me.aboutScheduledScansLabel.TabIndex = 18
+        Me.aboutScheduledScansLabel.Text = resources.GetString("aboutScheduledScansLabel.Text")
+        Me.aboutScheduledScansLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.amPMLabel)
@@ -392,8 +402,6 @@ Partial Class settingsForm
         'realTimeCheckBox
         '
         Me.realTimeCheckBox.AutoSize = True
-        Me.realTimeCheckBox.Checked = True
-        Me.realTimeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.realTimeCheckBox.ForeColor = System.Drawing.Color.White
         Me.realTimeCheckBox.Location = New System.Drawing.Point(495, 247)
         Me.realTimeCheckBox.Name = "realTimeCheckBox"
@@ -579,16 +587,6 @@ Partial Class settingsForm
         '
         'creditTimer
         '
-        '
-        'aboutScheduledScansLabel
-        '
-        Me.aboutScheduledScansLabel.ForeColor = System.Drawing.Color.White
-        Me.aboutScheduledScansLabel.Location = New System.Drawing.Point(9, 22)
-        Me.aboutScheduledScansLabel.Name = "aboutScheduledScansLabel"
-        Me.aboutScheduledScansLabel.Size = New System.Drawing.Size(545, 47)
-        Me.aboutScheduledScansLabel.TabIndex = 18
-        Me.aboutScheduledScansLabel.Text = resources.GetString("aboutScheduledScansLabel.Text")
-        Me.aboutScheduledScansLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'settingsForm
         '

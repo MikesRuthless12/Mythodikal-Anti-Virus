@@ -1,19 +1,24 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.ComponentModel
 Imports System.IO
-Imports System.ComponentModel
-Imports System.Security.Cryptography
 Imports System.Management
-Imports System.Data.OleDb
-Imports System.Data.SqlClient
-Imports Microsoft.VisualBasic.CompilerServices
+Imports System.Runtime.InteropServices
+Imports System.Security.AccessControl
+Imports System.Security.Cryptography
 Imports System.Text
+Imports Microsoft.VisualBasic.CompilerServices
 
 Public Class mainForm
 
     'Dim sha512 As String = ""
 
+    Dim eta As TimeSpan
+    Dim starttime As Date
     Public signaturesCount As Integer = 0
     Dim signatures() As String = Nothing
+    Dim filesLoc As List(Of String) = New List(Of String)
+    Dim filesSigs As List(Of String) = New List(Of String)
+    Dim filesSize As List(Of String) = New List(Of String)
+
     Dim pathName As String = ""
     Private filePath As String
     Private fileStream As FileStream
@@ -28,7 +33,7 @@ Public Class mainForm
     'Dim dr As OleDbDataReader
 
     Private _loc As String = String.Empty
-    Private _enc As Encryption = New Encryption()
+    'Private _enc As Encryption = New Encryption()
     Private _password As String = "MythodikalAntiVirus!"
 
     Private USBDrivePluggedIn As String = ""
@@ -64,60 +69,160 @@ Public Class mainForm
     Public Shared Function ReleaseCapture() As Boolean
     End Function
 
-    Private ReadOnly _salt As Byte() = New Byte() {&H56, &H47, &H98, &H33, &H88, &H13, &H77, &H10}
-    Private Const _iterations As Integer = 1042
-    Class Encryption
-        Private ReadOnly _salt As Byte() = New Byte() {&H56, &H47, &H98, &H33, &H88, &H13, &H77, &H10}
-        Private Const _iterations As Integer = 1042
+    'Private ReadOnly _salt As Byte() = New Byte() {&H56, &H47, &H98, &H33, &H88, &H13, &H77, &H10}
+    'Private Const _iterations As Integer = 1042
+    'Class Encryption
+    '    Private ReadOnly _salt As Byte() = New Byte() {&H56, &H47, &H98, &H33, &H88, &H13, &H77, &H10}
+    '    Private Const _iterations As Integer = 1042
 
-        Public Sub DecryptFile(sourceFilename As String, destinationFilename As String, password As String)
-            Dim aes As AesManaged = New AesManaged()
-            aes.BlockSize = aes.LegalBlockSizes(0).MaxSize
-            aes.KeySize = aes.LegalKeySizes(0).MaxSize
-            ' NB: Rfc2898DeriveBytes initialization and subsequent calls to   GetBytes   must be eactly the same, including order, on both the encryption and decryption sides.
-            Dim key As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(password, _salt, _iterations)
-            aes.Key = key.GetBytes(aes.KeySize / 8)
-            aes.IV = key.GetBytes(aes.BlockSize / 8)
-            aes.Mode = CipherMode.CBC
-            Dim transform As ICryptoTransform = aes.CreateDecryptor(aes.Key, aes.IV)
-            Using destination As FileStream = New FileStream(destinationFilename, FileMode.CreateNew, FileAccess.Write, FileShare.None)
-                Using _cryptoStream As CryptoStream = New CryptoStream(destination, transform, CryptoStreamMode.Write)
-                    Try
+    '    Public Sub DecryptFile(sourceFilename As String, destinationFilename As String, password As String)
+    '        Dim aes As AesManaged = New AesManaged()
+    '        aes.BlockSize = aes.LegalBlockSizes(0).MaxSize
+    '        aes.KeySize = aes.LegalKeySizes(0).MaxSize
+    '        ' NB: Rfc2898DeriveBytes initialization and subsequent calls to   GetBytes   must be eactly the same, including order, on both the encryption and decryption sides.
+    '        Dim key As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(password, _salt, _iterations)
+    '        aes.Key = key.GetBytes(aes.KeySize / 8)
+    '        aes.IV = key.GetBytes(aes.BlockSize / 8)
+    '        aes.Mode = CipherMode.CBC
+    '        Dim transform As ICryptoTransform = aes.CreateDecryptor(aes.Key, aes.IV)
+    '        Using destination As FileStream = New FileStream(destinationFilename, FileMode.Create, FileAccess.Write, FileShare.None)
+    '            Using _cryptoStream As CryptoStream = New CryptoStream(destination, transform, CryptoStreamMode.Write)
+    '                Try
 
-                        Using source As FileStream = New FileStream(sourceFilename, FileMode.Open, FileAccess.Read, FileShare.Read)
-                            source.CopyTo(_cryptoStream)
-                        End Using
-                    Catch exception As CryptographicException
+    '                    Using source As FileStream = New FileStream(sourceFilename, FileMode.Open, FileAccess.Read, FileShare.Read)
+    '                        source.CopyTo(_cryptoStream)
+    '                    End Using
+    '                Catch exception As CryptographicException
 
-                        If exception.Message = "Padding is invalid and cannot be removed." Then
-                            Throw New ApplicationException("Universal Microsoft Cryptographic Exception (Not to be believed!)", exception)
-                        Else Throw
-                        End If
-                    End Try
-                End Using
+    '                    If exception.Message = "Padding is invalid and cannot be removed." Then
+    '                        Throw New ApplicationException("Universal Microsoft Cryptographic Exception (Not to be believed!)", exception)
+    '                    Else Throw
+    '                    End If
+    '                End Try
+    '            End Using
+    '        End Using
+    '    End Sub
+
+    '    Public Sub EncryptFile(sourceFilename As String, destinationFilename As String, password As String)
+    '        Dim aes As AesManaged = New AesManaged()
+    '        aes.BlockSize = aes.LegalBlockSizes(0).MaxSize
+    '        aes.KeySize = aes.LegalKeySizes(0).MaxSize
+    '        ' NB: Rfc2898DeriveBytes initialization and subsequent calls to   GetBytes   must be exactly the same, including order, on both the encryption and decryption sides.
+    '        Dim key As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(password, _salt, _iterations)
+    '        aes.Key = key.GetBytes(aes.KeySize / 8)
+    '        aes.IV = key.GetBytes(aes.BlockSize / 8)
+    '        aes.Mode = CipherMode.CBC
+    '        Dim transform As ICryptoTransform = aes.CreateEncryptor(aes.Key, aes.IV)
+    '        Using destination As FileStream = New FileStream(destinationFilename, FileMode.Create, FileAccess.Write, FileShare.None)
+    '            Using _cryptoStream As CryptoStream = New CryptoStream(destination, transform, CryptoStreamMode.Write)
+    '                Using source As FileStream = New FileStream(sourceFilename, FileMode.Open, FileAccess.Read, FileShare.Read)
+    '                    source.CopyTo(_cryptoStream)
+    '                End Using
+    '            End Using
+    '        End Using
+    '    End Sub
+    'End Class
+
+    Public Sub EncryptFile(ByVal password As String, ByVal _
+    in_file As String, ByVal out_file As String)
+        CryptFile(password, in_file, out_file, True)
+    End Sub
+    Public Sub DecryptFile(ByVal password As String, ByVal _
+    in_file As String, ByVal out_file As String)
+        CryptFile(password, in_file, out_file, False)
+    End Sub
+    Public Sub CryptFile(ByVal password As String, ByVal _
+    in_file As String, ByVal out_file As String, ByVal _
+    encrypt As Boolean)
+        ' Create input and output file streams.
+        Using in_stream As New FileStream(in_file,
+        FileMode.Open, FileAccess.Read)
+            Using out_stream As New FileStream(out_file,
+            FileMode.Create, FileAccess.Write)
+                ' Encrypt/decrypt the input stream into the
+                ' output stream.
+                CryptStream(password, in_stream, out_stream,
+                encrypt)
             End Using
-        End Sub
+        End Using
+    End Sub
 
-        Public Sub EncryptFile(sourceFilename As String, destinationFilename As String, password As String)
-            Dim aes As AesManaged = New AesManaged()
-            aes.BlockSize = aes.LegalBlockSizes(0).MaxSize
-            aes.KeySize = aes.LegalKeySizes(0).MaxSize
-            ' NB: Rfc2898DeriveBytes initialization and subsequent calls to   GetBytes   must be exactly the same, including order, on both the encryption and decryption sides.
-            Dim key As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(password, _salt, _iterations)
-            aes.Key = key.GetBytes(aes.KeySize / 8)
-            aes.IV = key.GetBytes(aes.BlockSize / 8)
-            aes.Mode = CipherMode.CBC
-            Dim transform As ICryptoTransform = aes.CreateEncryptor(aes.Key, aes.IV)
-            Using destination As FileStream = New FileStream(destinationFilename, FileMode.CreateNew, FileAccess.Write, FileShare.None)
-                Using _cryptoStream As CryptoStream = New CryptoStream(destination, transform, CryptoStreamMode.Write)
-                    Using source As FileStream = New FileStream(sourceFilename, FileMode.Open, FileAccess.Read, FileShare.Read)
-                        source.CopyTo(_cryptoStream)
-                    End Using
-                End Using
+
+    Public Sub CryptStream(ByVal password As String, ByVal _
+    in_stream As Stream, ByVal out_stream As Stream, ByVal _
+    encrypt As Boolean)
+        ' Make an AES service provider.
+        Dim aes_provider As New AesCryptoServiceProvider()
+
+        ' Find a valid key size for this provider.
+        Dim key_size_bits As Integer = 0
+        For i As Integer = 1024 To 1 Step -1
+            If (aes_provider.ValidKeySize(i)) Then
+                key_size_bits = i
+                Exit For
+            End If
+        Next i
+        Debug.Assert(key_size_bits > 0)
+        Console.WriteLine("Key size: " & key_size_bits)
+
+        ' Get the block size for this provider.
+        Dim block_size_bits As Integer = aes_provider.BlockSize
+
+        ' Generate the key and initialization vector.
+        Dim key() As Byte = Nothing
+        Dim iv() As Byte = Nothing
+        Dim salt() As Byte = {&H0, &H0, &H1, &H2, &H3, &H4,
+        &H5, &H6, &HF1, &HF0, &HEE, &H21, &H22, &H45}
+        MakeKeyAndIV(password, salt, key_size_bits,
+        block_size_bits, key, iv)
+
+        ' Make the encryptor or decryptor.
+        Dim crypto_transform As ICryptoTransform
+        If (encrypt) Then
+            crypto_transform =
+            aes_provider.CreateEncryptor(key, iv)
+        Else
+            crypto_transform =
+            aes_provider.CreateDecryptor(key, iv)
+        End If
+
+        ' Attach a crypto stream to the output stream.
+        ' Closing crypto_stream sometimes throws an
+        ' exception if the decryption didn't work
+        ' (e.g. if we use the wrong password).
+        Try
+            Using crypto_stream As New CryptoStream(out_stream,
+            crypto_transform, CryptoStreamMode.Write)
+                ' Encrypt or decrypt the file.
+                Const block_size As Integer = 1024
+                Dim buffer(block_size) As Byte
+                Dim bytes_read As Integer
+                Do
+                    ' Read some bytes.
+                    bytes_read = in_stream.Read(buffer, 0,
+                    block_size)
+                    If (bytes_read = 0) Then Exit Do
+
+                    ' Write the bytes into the CryptoStream.
+                    crypto_stream.Write(buffer, 0, bytes_read)
+                Loop
             End Using
-        End Sub
-    End Class
+        Catch
+        End Try
 
+        crypto_transform.Dispose()
+    End Sub
+
+    Private Sub MakeKeyAndIV(ByVal password As String, ByVal _
+    salt() As Byte, ByVal key_size_bits As Integer, ByVal _
+    block_size_bits As Integer, ByRef key() As Byte, ByRef _
+    iv() As Byte)
+        Dim derive_bytes As New Rfc2898DeriveBytes(password,
+        salt, 1000)
+
+        key = derive_bytes.GetBytes(key_size_bits / 8)
+        iv = derive_bytes.GetBytes(block_size_bits / 8)
+    End Sub
     Sub scanProcesses()
         statusLabel.Text = "Scanning Running Processes..."
         Dim procs() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcesses
@@ -500,6 +605,23 @@ Public Class mainForm
 MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             e.Cancel = True
         Else
+            If quarantineGridView.Rows.Count > 0 Then
+                quarantineButton_Click(sender, e)
+                For i = 0 To quarantineGridView.Rows.Count - 1
+                    quarantineGridView.Rows(i).Selected = True
+                    Dim fileItsOn As String = (quarantineGridView.CurrentRow.Cells(0).Value)
+                    Dim sigItsOn As String = (quarantineGridView.CurrentRow.Cells(1).Value)
+                    Dim sizeItsOn As String = (quarantineGridView.CurrentRow.Cells(2).Value)
+                    If My.Settings.quarantinedFiles.Contains(fileItsOn) Then
+                        GoTo nextone
+                    End If
+                    My.Settings.quarantinedFiles.Add(fileItsOn)
+                    My.Settings.quarantinedSig.Add(sigItsOn)
+                    My.Settings.quarantinedSize.Add(sizeItsOn)
+nextone:
+                Next
+            End If
+            My.Settings.Save()
             MediaConnectWatcher.Stop()
         End If
     End Sub
@@ -522,10 +644,22 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             WriteToLog("Folder Scan Started At: " & Date.Now.ToString() & "")
             folderScanBGW.RunWorkerAsync()
             folderScanBGW.WorkerSupportsCancellation = True
+            fullScanButton.Enabled = False
+            quickScanButton.Enabled = False
+            folderScanButton.Enabled = False
+            quarantineButton.Enabled = False
+            startFolderScan.Enabled = False
+            stopFolderScan.Enabled = True
+            startQuickScan.Enabled = False
+            stopQuickScan.Enabled = True
+            startFullScan.Enabled = False
+            stopFullScanButton.Enabled = True
             CheckForIllegalCrossThreadCalls = False
             scanTimer.Start()
             elapsedTimerSW.Start()
+            etaTimer.Start()
             fileCountOn = 0
+            starttime = Date.Now
         End If
     End Sub
 
@@ -897,6 +1031,10 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     End Sub
 
     Private Sub mainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'My.Settings.quarantinedFiles = Nothing
+        'My.Settings.quarantinedSig = Nothing
+        'My.Settings.quarantinedSize = Nothing
+        'quarantineGridView.Rows.Clear()
         Dim ctrl As Control
         For Each ctrl In Me.Controls
             ctrl.Enabled = False
@@ -910,6 +1048,16 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         statusLabel.Refresh()
         getSignatures.RunWorkerAsync()
         minimizePicBox.Enabled = True
+
+        If My.Settings.quarantinedFiles Is Nothing Then
+            My.Settings.quarantinedFiles = New System.Collections.Specialized.StringCollection
+        End If
+        If My.Settings.quarantinedSig Is Nothing Then
+            My.Settings.quarantinedSig = New System.Collections.Specialized.StringCollection
+        End If
+        If My.Settings.quarantinedSize Is Nothing Then
+            My.Settings.quarantinedSize = New System.Collections.Specialized.StringCollection
+        End If
     End Sub
 
     'Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles folderScanBGW.RunWorkerCompleted
@@ -921,7 +1069,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     '    '    fileCountLabel.Text = "0 Out Of 0"
     '    '    numberInfectedFilesLabel.Text = "0"
     '    '    numberInfectedFilesLabel.ForeColor = Color.White
-    '    '    scanProgressBar.ForeColor = Color.Blue
+    '    '    scanProgressBar.ForeColor = Color.DodgerBlue
     '    '    percentLabel.Text = "0%"
     '    '    scanProgressBar.Value = 0
     '    '    elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
@@ -943,7 +1091,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     '    '    fileCountLabel.Text = "0 Out Of 0"
     '    '    numberInfectedFilesLabel.Text = "0"
     '    '    numberInfectedFilesLabel.ForeColor = Color.White
-    '    '    scanProgressBar.ForeColor = Color.Blue
+    '    '    scanProgressBar.ForeColor = Color.DodgerBlue
     '    '    percentLabel.Text = "0%"
     '    '    scanProgressBar.Value = 0
     '    '    cancelFullScan = False
@@ -1036,7 +1184,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
@@ -1066,7 +1214,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             cancelFullScan = False
@@ -1082,10 +1230,32 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 USBDriveScanTimer.Enabled = True
             End If
         End If
+        etaTimer.Stop()
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
+        timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
+        numberInfected = 0
+        numberInfectedFilesLabel.ForeColor = Color.White
+        numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+        scanProgressBar.ForeColor = Color.DodgerBlue
         startFolderScan.Enabled = True
         iconPicBox.Image = Nothing
+        fullScanButton.Enabled = True
+        quickScanButton.Enabled = True
+        folderScanButton.Enabled = True
+        quarantineButton.Enabled = True
+        startFolderScan.Enabled = True
+        stopFolderScan.Enabled = False
+        startQuickScan.Enabled = True
+        stopQuickScan.Enabled = False
+        startFullScan.Enabled = True
+        stopFullScanButton.Enabled = False
+        startFolderScan.Enabled = True
+        stopFolderScan.Enabled = False
+        startQuickScan.Enabled = True
+        stopQuickScan.Enabled = False
+        startFullScan.Enabled = True
+        stopFullScanButton.Enabled = False
     End Sub
 
     Private Sub startQuickScan_Click(sender As Object, e As EventArgs) Handles startQuickScan.Click
@@ -1098,8 +1268,17 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             statusLabel.Refresh()
             WriteToLog("Quick Scan Started At: " & Date.Now.ToString() & "")
             scanRunningProcessesQuick.RunWorkerAsync()
-
-
+            fullScanButton.Enabled = False
+            quickScanButton.Enabled = False
+            folderScanButton.Enabled = False
+            quarantineButton.Enabled = False
+            startFolderScan.Enabled = False
+            stopFolderScan.Enabled = True
+            startQuickScan.Enabled = False
+            stopQuickScan.Enabled = True
+            startFullScan.Enabled = False
+            stopFullScanButton.Enabled = True
+            etaTimer.Start()
         End If
     End Sub
 
@@ -1178,7 +1357,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     '                        fileCountLabel.Text = "0 Out Of 0"
     '                        numberInfectedFilesLabel.Text = "0"
     '                        numberInfectedFilesLabel.ForeColor = Color.White
-    '                        scanProgressBar.ForeColor = Color.Blue
+    '                        scanProgressBar.ForeColor = Color.DodgerBlue
     '                        percentLabel.Text = "0%"
     '                        scanProgressBar.Value = 0
     '                        scanningFileLabel.Text = "File Being Scanned"
@@ -1541,7 +1720,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
@@ -1569,7 +1748,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             cancelFullScan = False
@@ -1577,10 +1756,26 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             elapsedTimerSW.Reset()
             elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         End If
+        etaTimer.Stop()
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
+        numberInfected = 0
+        numberInfectedFilesLabel.ForeColor = Color.White
+        numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+        scanProgressBar.ForeColor = Color.DodgerBlue
+        timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
         startQuickScan.Enabled = True
         iconPicBox.Image = Nothing
+        fullScanButton.Enabled = True
+        quickScanButton.Enabled = True
+        folderScanButton.Enabled = True
+        quarantineButton.Enabled = True
+        startFolderScan.Enabled = True
+        stopFolderScan.Enabled = False
+        startQuickScan.Enabled = True
+        stopQuickScan.Enabled = False
+        startFullScan.Enabled = True
+        stopFullScanButton.Enabled = False
     End Sub
 
     Private Sub quickScanBGW_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles quickScanBGW.RunWorkerCompleted
@@ -1593,7 +1788,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         '    fileCountLabel.Text = "0 Out Of 0"
         '    numberInfectedFilesLabel.Text = "0"
         '    numberInfectedFilesLabel.ForeColor = Color.White
-        '    scanProgressBar.ForeColor = Color.Blue
+        '    scanProgressBar.ForeColor = Color.DodgerBlue
         '    percentLabel.Text = "0%"
         '    scanProgressBar.Value = 0
         '    cancelQuickScan = False
@@ -1609,7 +1804,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         '    fileCountLabel.Text = "0 Out Of 0"
         '    numberInfectedFilesLabel.Text = "0"
         '    numberInfectedFilesLabel.ForeColor = Color.White
-        '    scanProgressBar.ForeColor = Color.Blue
+        '    scanProgressBar.ForeColor = Color.DodgerBlue
         '    percentLabel.Text = "0%"
         '    scanProgressBar.Value = 0
         '    cancelFullScan = False
@@ -1869,7 +2064,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     '                        fileCountLabel.Text = "0 Out Of 0"
     '                        numberInfectedFilesLabel.Text = "0"
     '                        numberInfectedFilesLabel.ForeColor = Color.White
-    '                        scanProgressBar.ForeColor = Color.Blue
+    '                        scanProgressBar.ForeColor = Color.DodgerBlue
     '                        percentLabel.Text = "0%"
     '                        scanProgressBar.Value = 0
     '                        scanningFileLabel.Text = "File Being Scanned"
@@ -1989,7 +2184,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         '    fileCountLabel.Text = "0 Out Of 0"
         '    numberInfectedFilesLabel.Text = "0"
         '    numberInfectedFilesLabel.ForeColor = Color.White
-        '    scanProgressBar.ForeColor = Color.Blue
+        '    scanProgressBar.ForeColor = Color.DodgerBlue
         '    percentLabel.Text = "0%"
         '    scanProgressBar.Value = 0
         '    cancelFullScan = False
@@ -2006,7 +2201,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         '    fileCountLabel.Text = "0 Out Of 0"
         '    numberInfectedFilesLabel.Text = "0"
         '    numberInfectedFilesLabel.ForeColor = Color.White
-        '    scanProgressBar.ForeColor = Color.Blue
+        '    scanProgressBar.ForeColor = Color.DodgerBlue
         '    percentLabel.Text = "0%"
         '    scanProgressBar.Value = 0
         '    cancelFullScan = False
@@ -2036,6 +2231,17 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             statusLabel.Refresh()
             WriteToLog("Full Scan Started At: " & Date.Now.ToString() & "")
             scanRunningProcessesFull.RunWorkerAsync()
+            fullScanButton.Enabled = False
+            quickScanButton.Enabled = False
+            folderScanButton.Enabled = False
+            quarantineButton.Enabled = False
+            startFolderScan.Enabled = False
+            stopFolderScan.Enabled = True
+            startQuickScan.Enabled = False
+            stopQuickScan.Enabled = True
+            startFullScan.Enabled = False
+            stopFullScanButton.Enabled = True
+            etaTimer.Start()
         End If
     End Sub
 
@@ -2071,7 +2277,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
@@ -2094,7 +2300,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             fileCountLabel.Text = "0 Out Of 0"
             numberInfectedFilesLabel.Text = "0"
             numberInfectedFilesLabel.ForeColor = Color.White
-            scanProgressBar.ForeColor = Color.Blue
+            scanProgressBar.ForeColor = Color.DodgerBlue
             percentLabel.Text = "0%"
             scanProgressBar.Value = 0
             cancelFullScan = False
@@ -2102,10 +2308,26 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             elapsedTimerSW.Reset()
             elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         End If
+        etaTimer.Stop()
         elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
         elapsedTimeLabel.Refresh()
+        numberInfected = 0
+        numberInfectedFilesLabel.ForeColor = Color.White
+        numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+        scanProgressBar.ForeColor = Color.DodgerBlue
+        timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
         startFullScan.Enabled = True
         iconPicBox.Image = Nothing
+        fullScanButton.Enabled = True
+        quickScanButton.Enabled = True
+        folderScanButton.Enabled = True
+        quarantineButton.Enabled = True
+        startFolderScan.Enabled = True
+        stopFolderScan.Enabled = False
+        startQuickScan.Enabled = True
+        stopQuickScan.Enabled = False
+        startFullScan.Enabled = True
+        stopFullScanButton.Enabled = False
     End Sub
 
     Private Sub copyHashButton_Click(sender As Object, e As EventArgs) Handles copyHashButton.Click
@@ -2146,20 +2368,20 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
 
     Private Sub filesPropertiesButton_Click(sender As Object, e As EventArgs) Handles filesPropertiesButton.Click
         If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
-            Dim sei As New SHELLEXECUTEINFO
-            sei.cbSize = Marshal.SizeOf(sei)
-            sei.lpVerb = "properties"
-            sei.lpFile = (quarantineGridView.CurrentRow.Cells(0).Value)
-            sei.nShow = SW_SHOW
-            sei.fMask = SEE_MASK_INVOKEIDLIST
-            If Not ShellExecuteEx(sei) Then
-                Dim ex As New System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error())
-                MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Dim des As String = _loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value)
+            If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
+                Dim sei As New SHELLEXECUTEINFO
+                sei.cbSize = Marshal.SizeOf(sei)
+                sei.lpVerb = "properties"
+                sei.lpFile = (des)
+                sei.nShow = SW_SHOW
+                sei.fMask = SEE_MASK_INVOKEIDLIST
+                If Not ShellExecuteEx(sei) Then
+                    Dim ex As New System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error())
+                    MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                End If
             End If
         End If
-
-
-
     End Sub
 
     Private Sub QuickScanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles QuickScanToolStripMenuItem.Click
@@ -2414,7 +2636,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     '                        fileCountLabel.Text = "0 Out Of 0"
     '                        numberInfectedFilesLabel.Text = "0"
     '                        numberInfectedFilesLabel.ForeColor = Color.White
-    '                        scanProgressBar.ForeColor = Color.Blue
+    '                        scanProgressBar.ForeColor = Color.DodgerBlue
     '                        percentLabel.Text = "0%"
     '                        scanProgressBar.Value = 0
     '                        scanningFileLabel.Text = "File Being Scanned"
@@ -2541,25 +2763,29 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
 
     Public Function AddFileToQuarantine(file As String) As String
         Dim file_name3 As String = Path.GetFileName(file)
-        _enc.EncryptFile(file, _loc & file_name3, _password)
-        Dim row As String() = New String() {file.ToString(), GenerateSHA512String(file_name3.ToString()), GetFileSize(file_name3.ToString())}
-        quarantineGridView.Rows.Add(row)
+
+
         If System.IO.File.Exists(file) Then
             System.IO.File.Move(file, _loc)
+            EncryptFile(_password, _loc & file_name3, _loc & file_name3)
         End If
         Return _loc & file_name3
     End Function
 
     Public Sub DeleteFileFromQuarantine()
-        Dim des As String = _loc & "\" & Path.GetFileName((quarantineGridView.CurrentRow.Cells(0).Value))
-        _enc.DecryptFile((quarantineGridView.CurrentRow.Cells(0).Value), des, _password)
+        Dim des As String = _loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value)
         Try
             If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
-                Dim FileToDelete As String
-                FileToDelete = (quarantineGridView.CurrentRow.Cells(0).Value)
                 If System.IO.File.Exists(des) = True Then
+                    Dim FSS As FileSystemSecurity = File.GetAccessControl(des)
+                    FSS.RemoveAccessRule(New FileSystemAccessRule(Environment.UserName, FileSystemRights.FullControl, AccessControlType.Deny))
+                    File.SetAccessControl(des, FSS)
                     System.IO.File.Delete(des)
                     MessageBox.Show("" & quarantineGridView.CurrentRow.Cells(0).Value & " Has Been Deleted!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    My.Settings.quarantinedFiles.Remove(quarantineGridView.CurrentRow.Cells(0).Value)
+                    My.Settings.quarantinedSig.Remove(quarantineGridView.CurrentRow.Cells(1).Value)
+                    My.Settings.quarantinedSize.Remove(quarantineGridView.CurrentRow.Cells(2).Value)
+                    My.Settings.Save()
                     quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
                 End If
             End If
@@ -2568,22 +2794,32 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
     End Sub
     Public Sub RestoreFileFromQuarantine()
         Dim des As String = _loc & "\" & Path.GetFileName((quarantineGridView.CurrentRow.Cells(0).Value))
-        _enc.DecryptFile((quarantineGridView.CurrentRow.Cells(0).Value), des, _password)
+
         Try
             If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
                 Dim FileToRestore As String
                 FileToRestore = (quarantineGridView.CurrentRow.Cells(0).Value)
+                Dim FSS As FileSystemSecurity = File.GetAccessControl(_loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value))
+                FSS.RemoveAccessRule(New FileSystemAccessRule(Environment.UserName, FileSystemRights.FullControl, AccessControlType.Deny))
+                File.SetAccessControl(_loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value), FSS)
+                DecryptFile(_password, des, quarantineGridView.CurrentRow.Cells(0).Value)
                 If System.IO.File.Exists(des) = True Then
-                    System.IO.File.Move(des, (quarantineGridView.CurrentRow.Cells(0).Value))
-                    MessageBox.Show("" & quarantineGridView.CurrentRow.Cells(0).Value & " Has Been Restored", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
+                    System.IO.File.Delete(des)
                 End If
+                MessageBox.Show("" & quarantineGridView.CurrentRow.Cells(0).Value & " Has Been Restored", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                My.Settings.quarantinedFiles.Remove(quarantineGridView.CurrentRow.Cells(0).Value)
+                My.Settings.quarantinedSig.Remove(quarantineGridView.CurrentRow.Cells(1).Value)
+                My.Settings.quarantinedSize.Remove(quarantineGridView.CurrentRow.Cells(2).Value)
+                My.Settings.Save()
+                quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
+                'End If
             End If
         Catch ex As Exception
         End Try
     End Sub
 
     Public Sub RestoreAllFilesFromQuarantine()
+
         Dim d As DirectoryInfo = New DirectoryInfo(_loc)
         For Each file2 As System.IO.FileInfo In d.GetFiles("*.*")
             Try
@@ -2592,18 +2828,26 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 If quarantineGridView.Rows.Count > 0 Then
                     For i = 0 To quarantineGridView.Rows.Count - 1
                         quarantineGridView.Rows(0).Selected = True
+                        Dim FileToRestore As String = (quarantineGridView.CurrentRow.Cells(0).Value)
+                        Dim FSS As FileSystemSecurity = File.GetAccessControl(_loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value))
+                        FSS.RemoveAccessRule(New FileSystemAccessRule(Environment.UserName, FileSystemRights.FullControl, AccessControlType.Deny))
+                        File.SetAccessControl(_loc & "\" & Path.GetFileName(quarantineGridView.CurrentRow.Cells(0).Value), FSS)
+                        DecryptFile(_password, file2.FullName, quarantineGridView.CurrentRow.Cells(0).Value)
                         If System.IO.File.Exists(file2.FullName) = True Then
-                            System.IO.File.Move(file2.FullName, (quarantineGridView.CurrentRow.Cells(0).Value))
-                            MessageBox.Show(file2.FullName & " Has Been Restored", "Mythodikal Anti-Virus",
-                             MessageBoxButtons.OK, MessageBoxIcon.Information)
-                            quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
+                            System.IO.File.Delete(file2.FullName)
                         End If
+                        My.Settings.quarantinedFiles.Remove(quarantineGridView.CurrentRow.Cells(0).Value)
+                        My.Settings.quarantinedSig.Remove(quarantineGridView.CurrentRow.Cells(1).Value)
+                        My.Settings.quarantinedSize.Remove(quarantineGridView.CurrentRow.Cells(2).Value)
+                        My.Settings.Save()
+                        quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
                     Next
-
                 End If
             Catch ex As Exception
             End Try
         Next
+        MessageBox.Show("All Qurantined Files Have Been Restored.", "Mythodikal Anti-Virus",
+MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
 
@@ -2614,10 +2858,13 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 quarantineGridView.Rows(0).Selected = True
                 If quarantineGridView.Rows.Count > 0 Then
                     For i = 0 To quarantineGridView.Rows.Count - 1
-                        quarantineGridView.Rows(0).Selected = True
+                        quarantineGridView.Rows(i).Selected = True
                         If System.IO.File.Exists(file.FullName) = True Then
                             System.IO.File.Delete(file.FullName)
-
+                            My.Settings.quarantinedFiles.Remove(quarantineGridView.CurrentRow.Cells(0).Value)
+                            My.Settings.quarantinedSig.Remove(quarantineGridView.CurrentRow.Cells(1).Value)
+                            My.Settings.quarantinedSize.Remove(quarantineGridView.CurrentRow.Cells(2).Value)
+                            My.Settings.Save()
                             quarantineGridView.Rows.Remove(quarantineGridView.CurrentRow)
                         End If
                     Next
@@ -2629,21 +2876,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
         MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
-    Private Sub restoreFileButton_Click(sender As Object, e As EventArgs)
-        RestoreFileFromQuarantine()
-    End Sub
 
-    Private Sub restoreAllButton_Click(sender As Object, e As EventArgs)
-        RestoreAllFilesFromQuarantine()
-    End Sub
-
-    Private Sub deleteAllButton_Click(sender As Object, e As EventArgs)
-        DeleteAllFilesInQuarantine()
-    End Sub
-
-    Private Sub deletefileButton_Click(sender As Object, e As EventArgs)
-        DeleteFileFromQuarantine()
-    End Sub
 
     Private Sub USBDriveScanTimer_Tick(sender As Object, e As EventArgs) Handles USBDriveScanTimer.Tick
         If My.Settings.USBDriveScan = True Then
@@ -2757,8 +2990,8 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             settingsForm.realTimeCheckBox.Text = "On"
             My.Settings.realTimeScan = True
             realTimeLabel.Visible = True
-            realTimeOffButton.Visible = True
-            realTimeOnButton.Visible = True
+            realTimeOffButton.Enabled = False
+            realTimeOnButton.Enabled = True
             copyHashButton.Visible = False
             filesPropertiesButton.Visible = False
             startQuickScan.Visible = False
@@ -2767,7 +3000,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             startFolderScan.Visible = False
             stopFolderScan.Visible = False
             stopQuickScan.Visible = False
-            quickScanLabel.Visible = True
+            quickScanLabel.Visible = False
             fullScanLabel.Visible = False
             quarantineLabel.Visible = False
             folderScanLabel.Visible = False
@@ -2787,6 +3020,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             currentFile.Visible = True
             elapsedTimeLabel.Visible = True
             FileSystemWatcher1.EnableRaisingEvents = True
+            FileSystemWatcher1.Path = mainDrive
             WriteToLog("Real Time Scan Started At: " & Date.Now & "")
         End If
 
@@ -2800,8 +3034,8 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 settingsForm.realTimeCheckBox.Text = "On"
                 My.Settings.realTimeScan = True
                 realTimeLabel.Visible = True
-                realTimeOffButton.Visible = True
-                realTimeOnButton.Visible = True
+                realTimeOffButton.Enabled = False
+                realTimeOnButton.Enabled = True
                 copyHashButton.Visible = False
                 filesPropertiesButton.Visible = False
                 startQuickScan.Visible = False
@@ -2810,7 +3044,7 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 startFolderScan.Visible = False
                 stopFolderScan.Visible = False
                 stopQuickScan.Visible = False
-                quickScanLabel.Visible = True
+                quickScanLabel.Visible = False
                 fullScanLabel.Visible = False
                 quarantineLabel.Visible = False
                 folderScanLabel.Visible = False
@@ -2830,8 +3064,46 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 currentFile.Visible = True
                 elapsedTimeLabel.Visible = True
                 FileSystemWatcher1.EnableRaisingEvents = True
+                FileSystemWatcher1.Path = mainDrive
                 WriteToLog("Real Time Scan Started At: " & Date.Now & "")
             Else
+                writer.WriteLine("realCheck = False")
+                settingsForm.realTimeCheckBox.Checked = False
+                settingsForm.realTimeCheckBox.Text = "Off"
+                My.Settings.realTimeScan = False
+                realTimeLabel.Visible = True
+                realTimeOffButton.Enabled = True
+                realTimeOnButton.Enabled = False
+                copyHashButton.Visible = False
+                filesPropertiesButton.Visible = False
+                startQuickScan.Visible = False
+                startFullScan.Visible = False
+                stopFullScanButton.Visible = False
+                startFolderScan.Visible = False
+                stopFolderScan.Visible = False
+                stopQuickScan.Visible = False
+                quickScanLabel.Visible = False
+                fullScanLabel.Visible = False
+                quarantineLabel.Visible = False
+                folderScanLabel.Visible = False
+                quarantineGridView.Visible = False
+                restoreAllButton.Visible = False
+                restoreFileButton.Visible = False
+                deleteAllButton.Visible = False
+                deletefileButton.Visible = False
+                infectedLabel.Visible = True
+                onFileLabel.Visible = True
+                elapsedLabel.Visible = True
+                scanningFileLabel.Visible = True
+                numberInfectedFilesLabel.Visible = True
+                scanProgressBar.Visible = True
+                percentLabel.Visible = True
+                fileCountLabel.Visible = True
+                currentFile.Visible = True
+                elapsedTimeLabel.Visible = True
+                FileSystemWatcher1.EnableRaisingEvents = True
+                FileSystemWatcher1.Path = mainDrive
+                WriteToLog("Real Time Scan Started At: " & Date.Now & "")
             End If
         End Using
         statusLabel.Text = "Starting Real-Time Scan..."
@@ -3054,7 +3326,6 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
 
 
             Try
-
                 Dim secondsTotal As Integer = elapsedTimerSW.Elapsed.TotalSeconds
 
                 seconds1 = secondsTotal
@@ -3068,9 +3339,6 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                         minutes1 = 0
                     End If
                 End If
-
-
-
                 elapsedTimeLabel.Text = "" & hours1.ToString() & " Hour(s) - " & minutes1.ToString() & " Minute(s) - " & seconds1.ToString() & " Second(s)"
                 elapsedTimeLabel.Refresh()
                 scanProgressBar.Increment(1)
@@ -3079,9 +3347,33 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 numberInfectedFilesLabel.Text = Conversions.ToString(quarantineGridView.Rows.Count)
                 fileCountOn += 1
 
-                Dim sig As String = GetSHA1(ListBox3.SelectedItem)
+                Dim sig As String = GetSha1(ListBox3.SelectedItem)
                 statusLabel.Text = "SHA1 Hash: " & sig
+                'TextBox1.Text = sig   -from here down to next end if is just a test
+                'If sig = "5CCC1317A851529DE2935AA1BBB65BF2209789B4" Then
+                '    ListBox1.Items.Add(ListBox3.SelectedItem)
+
+                '    Dim row As String() = New String() {ListBox3.SelectedItem, sig, GetFileSize(ListBox3.SelectedItem)}
+                '    quarantineGridView.Rows.Add(row)
+                '    numberInfected += 1
+                '    numberInfectedFilesLabel.ForeColor = Color.Red
+                '    numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                '    scanProgressBar.BackColor = Color.Red
+                '    Dim file_name3 As String = Path.GetFileName(ListBox3.SelectedItem)
+
+                '    EncryptFile(_password, ListBox3.SelectedItem, _loc & "\" & file_name3)
+                '    Dim FSS As FileSystemSecurity = File.GetAccessControl(_loc & "\" & file_name3)
+                '    FSS.AddAccessRule(New FileSystemAccessRule(Environment.UserName, FileSystemRights.FullControl, AccessControlType.Deny))
+                '    File.SetAccessControl(_loc & "\" & file_name3, FSS)
+                '    'If System.IO.File.Exists(ListBox3.SelectedItem) Then
+                '    '    ' My.Computer.FileSystem.MoveFile(ListBox3.SelectedItem, _loc & "\" & file_name3)
+
+                '    '    System.IO.File.Delete(ListBox3.SelectedItem)
+                '    'End If
+
+                'End If
                 statusLabel.Refresh()
+                ' TextBox1.Text = sig
                 iconPicBox.Image = Drawing.Icon.ExtractAssociatedIcon(ListBox3.SelectedItem).ToBitmap()
                 iconPicBox.Refresh()
                 fileCountLabel.Text = fileCountOn & " Out Of " & ListBox3.Items.Count
@@ -3096,12 +3388,20 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
                 Dim intValue As Integer
                 intValue = Array.BinarySearch(signatures, sig)
                 If intValue > 0 Then
+                    ListBox1.Items.Add(ListBox3.SelectedItem)
+
                     Dim row As String() = New String() {ListBox3.SelectedItem, sig, GetFileSize(ListBox3.SelectedItem)}
                     quarantineGridView.Rows.Add(row)
                     numberInfected += 1
                     numberInfectedFilesLabel.ForeColor = Color.Red
                     numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
-                    scanProgressBar.BackColor = Color.Red
+                    scanProgressBar.ForeColor = Color.Red
+                    Dim file_name3 As String = Path.GetFileName(ListBox3.SelectedItem)
+
+                    EncryptFile(_password, ListBox3.SelectedItem, _loc & "\" & file_name3)
+                    Dim FSS As FileSystemSecurity = File.GetAccessControl(_loc & "\" & file_name3)
+                    FSS.AddAccessRule(New FileSystemAccessRule(Environment.UserName, FileSystemRights.FullControl, AccessControlType.Deny))
+                    File.SetAccessControl(_loc & "\" & file_name3, FSS)
                 Else
                     'MsgBox("No value found", , "Error")
                 End If
@@ -3135,6 +3435,7 @@ cancelScan:
             If quarantineGridView.Rows.Count > 0 Then
                 statusLabel.Text = ("Finished Scanning A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text & " - " & ListBox1.Items.Count & " Threats Detected")
                 statusLabel.Refresh()
+                etaTimer.Stop()
                 copyHashButton.Enabled = True
                 filesPropertiesButton.Enabled = True
                 restoreFileButton.Enabled = True
@@ -3149,18 +3450,32 @@ cancelScan:
                 currentFile.Text = ""
                 fileCountOn = 0
                 fileCountLabel.Text = "0 Out O"
-                numberInfectedFilesLabel.Text = "0"
-                numberInfectedFilesLabel.ForeColor = Color.White
-                scanProgressBar.ForeColor = Color.Blue
                 percentLabel.Text = "0%"
                 elapsedTimerSW.Stop()
                 elapsedTimerSW.Reset()
                 elapsedTimeLabel.Text = "0 Hours - 0 Minutes - 0 Seconds"
+                numberInfected = 0
+                numberInfectedFilesLabel.ForeColor = Color.White
+                numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                scanProgressBar.ForeColor = Color.DodgerBlue
+                timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
                 scanProgressBar.Value = 0
+                fullScanButton.Enabled = True
+                quickScanButton.Enabled = True
+                folderScanButton.Enabled = True
+                startFolderScan.Enabled = True
+                stopFolderScan.Enabled = False
+                startQuickScan.Enabled = True
+                stopQuickScan.Enabled = False
+                startFullScan.Enabled = True
+                stopFullScanButton.Enabled = False
+                quarantineButton.Enabled = True
+                numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
                 quarantineButton_Click(sender, e)
             Else
                 statusLabel.Text = ("Finished Scanning A Total Of " & fileCountOn & " Files In " & elapsedTimeLabel.Text & " - No Threats Detected")
                 statusLabel.Refresh()
+                etaTimer.Stop()
                 restoreFileButton.Enabled = True
                 restoreAllButton.Enabled = True
                 deletefileButton.Enabled = True
@@ -3169,13 +3484,25 @@ cancelScan:
                 startQuickScan.Enabled = True
                 startFolderScan.Enabled = True
                 realTimeOnButton.Enabled = True
+                fullScanButton.Enabled = True
+                quickScanButton.Enabled = True
+                folderScanButton.Enabled = True
+                startFolderScan.Enabled = True
+                stopFolderScan.Enabled = False
+                startQuickScan.Enabled = True
+                stopQuickScan.Enabled = False
+                startFullScan.Enabled = True
+                stopFullScanButton.Enabled = False
+                quarantineButton.Enabled = True
                 iconPicBox.Image = Nothing
                 currentFile.Text = ""
                 fileCountOn = 0
-                fileCountLabel.Text = "0 Out O"
-                numberInfectedFilesLabel.Text = "0"
+                numberInfected = 0
                 numberInfectedFilesLabel.ForeColor = Color.White
-                scanProgressBar.ForeColor = Color.Blue
+                numberInfectedFilesLabel.Text = numberInfected.ToString("N0")
+                scanProgressBar.ForeColor = Color.DodgerBlue
+                timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
+                fileCountLabel.Text = "0 Out O"
                 percentLabel.Text = "0%"
                 elapsedTimerSW.Stop()
                 elapsedTimerSW.Reset()
@@ -3190,8 +3517,8 @@ cancelScan:
         Try
             ' (Application.StartupPath & "\" & "VirusSignatures.dat")
             If IO.File.Exists(Application.StartupPath & "\" & "VirusSignatures.dat") Then
-                signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
-                signaturesCount = signatures.Count
+                ' signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
+                ' signaturesCount = signatures.Count
             Else
                 MessageBox.Show("You Must Have The (VirusSignatures.dat) File Inside Of The Main Program Directory!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
@@ -3221,7 +3548,7 @@ cancelScan:
                     fileCountLabel.Text = "0 Out Of 0"
                     numberInfectedFilesLabel.Text = "0"
                     numberInfectedFilesLabel.ForeColor = Color.White
-                    scanProgressBar.ForeColor = Color.Blue
+                    scanProgressBar.ForeColor = Color.DodgerBlue
                     percentLabel.Text = "0%"
                     scanProgressBar.Value = 0
                     scanningFileLabel.Text = "File Being Scanned: "
@@ -3247,7 +3574,7 @@ cancelScan:
                     fileCountLabel.Text = "0 Out Of 0"
                     numberInfectedFilesLabel.Text = "0"
                     numberInfectedFilesLabel.ForeColor = Color.White
-                    scanProgressBar.ForeColor = Color.Blue
+                    scanProgressBar.ForeColor = Color.DodgerBlue
                     percentLabel.Text = "0%"
                     scanProgressBar.Value = 0
                     scanningFileLabel.Text = "File Being Scanned: "
@@ -3265,7 +3592,7 @@ cancelScan:
 
                     currentFile.Text = "" & e.FullPath
                     currentFile.Refresh()
-                    Dim sig As String = GetSHA1(e.FullPath)
+                    Dim sig As String = GetSha1(e.FullPath)
                     statusLabel.Text = "SHA1 Hash: " & sig
                     statusLabel.Refresh()
                     fileCountOn += 1
@@ -3276,7 +3603,7 @@ cancelScan:
                     Dim intValue As Integer
                     intValue = Array.BinarySearch(signatures, sig)
                     If intValue > 0 Then
-                        Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
+                        Dim row As String() = New String() {e.FullPath, GetSha1(e.FullPath), GetFileSize(e.FullPath)}
                         quarantineGridView.Rows.Add(row)
                         numberInfected += 1
                         numberInfectedFilesLabel.ForeColor = Color.Red
@@ -3314,7 +3641,7 @@ done:
                     fileCountLabel.Text = "0 Out Of 0"
                     numberInfectedFilesLabel.Text = "0"
                     numberInfectedFilesLabel.ForeColor = Color.White
-                    scanProgressBar.ForeColor = Color.Blue
+                    scanProgressBar.ForeColor = Color.DodgerBlue
                     percentLabel.Text = "0%"
                     scanProgressBar.Value = 0
                     scanningFileLabel.Text = "File Being Scanned: "
@@ -3340,7 +3667,7 @@ done:
                     fileCountLabel.Text = "0 Out Of 0"
                     numberInfectedFilesLabel.Text = "0"
                     numberInfectedFilesLabel.ForeColor = Color.White
-                    scanProgressBar.ForeColor = Color.Blue
+                    scanProgressBar.ForeColor = Color.DodgerBlue
                     percentLabel.Text = "0%"
                     scanProgressBar.Value = 0
                     scanningFileLabel.Text = "File Being Scanned: "
@@ -3359,7 +3686,7 @@ done:
                     currentFile.Text = "" & e.FullPath
                     currentFile.Refresh()
 
-                    Dim sig As String = GetSHA1(e.FullPath)
+                    Dim sig As String = GetSha1(e.FullPath)
                     statusLabel.Text = "SHA1 Hash: " & sig
                     statusLabel.Refresh()
                     fileCountOn += 1
@@ -3371,7 +3698,7 @@ done:
                     Dim intValue As Integer
                     intValue = Array.BinarySearch(signatures, sig)
                     If intValue > 0 Then
-                        Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
+                        Dim row As String() = New String() {e.FullPath, GetSha1(e.FullPath), GetFileSize(e.FullPath)}
                         quarantineGridView.Rows.Add(row)
                         numberInfected += 1
                         numberInfectedFilesLabel.ForeColor = Color.Red
@@ -3406,7 +3733,7 @@ done:
                 fileCountLabel.Text = "0 Out Of 0"
                 numberInfectedFilesLabel.Text = "0"
                 numberInfectedFilesLabel.ForeColor = Color.White
-                scanProgressBar.ForeColor = Color.Blue
+                scanProgressBar.ForeColor = Color.DodgerBlue
                 percentLabel.Text = "0%"
                 scanProgressBar.Value = 0
                 scanningFileLabel.Text = "File Being Scanned: "
@@ -3432,7 +3759,7 @@ done:
                 fileCountLabel.Text = "0 Out Of 0"
                 numberInfectedFilesLabel.Text = "0"
                 numberInfectedFilesLabel.ForeColor = Color.White
-                scanProgressBar.ForeColor = Color.Blue
+                scanProgressBar.ForeColor = Color.DodgerBlue
                 percentLabel.Text = "0%"
                 scanProgressBar.Value = 0
                 scanningFileLabel.Text = "File Being Scanned: "
@@ -3450,7 +3777,7 @@ done:
 
                 currentFile.Text = "" & e.FullPath
                 currentFile.Refresh()
-                Dim sig As String = GetSHA1(e.FullPath)
+                Dim sig As String = GetSha1(e.FullPath)
                 statusLabel.Text = "SHA1 Hash: " & sig
                 statusLabel.Refresh()
                 fileCountOn += 1
@@ -3462,7 +3789,7 @@ done:
                 Dim intValue As Integer
                 intValue = Array.BinarySearch(signatures, sig)
                 If intValue > 0 Then
-                    Dim row As String() = New String() {e.FullPath, GetSHA1(e.FullPath), GetFileSize(e.FullPath)}
+                    Dim row As String() = New String() {e.FullPath, GetSha1(e.FullPath), GetFileSize(e.FullPath)}
                     quarantineGridView.Rows.Add(row)
                     numberInfected += 1
                     numberInfectedFilesLabel.ForeColor = Color.Red
@@ -3557,7 +3884,31 @@ done:
 
     End Sub
 
-    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles loadMythodikalTimer.Tick
+    Private Sub loadMythodikalTimer_Tick(sender As Object, e As EventArgs) Handles loadMythodikalTimer.Tick
+        realTimeLabel.Visible = True
+        realTimeOffButton.Visible = True
+        realTimeOnButton.Visible = True
+        copyHashButton.Visible = False
+        filesPropertiesButton.Visible = False
+        startFolderScan.Visible = False
+        stopFolderScan.Visible = False
+        stopFullScanButton.Visible = False
+        startQuickScan.Visible = False
+        startFullScan.Visible = False
+        stopQuickScan.Visible = False
+        quickScanLabel.Visible = False
+        fullScanLabel.Visible = False
+        quarantineLabel.Visible = False
+        folderScanLabel.Visible = False
+        quarantineGridView.Visible = False
+        restoreAllButton.Visible = False
+        restoreFileButton.Visible = False
+        deleteAllButton.Visible = False
+        deletefileButton.Visible = False
+        quarantineGroupBox.Visible = False
+        scanGroupBox.Visible = True
+        loadMythodikalTimer.Enabled = False
+        exitPicBox.Enabled = True
         Dim ctrl As Control
         For Each ctrl In Me.Controls
             ctrl.Enabled = True
@@ -3576,7 +3927,7 @@ done:
         StartDetection()
         _loc = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
         _loc = "" & _loc & "\MythodikalAntiVirus\Quarantine\"
-
+        'MessageBox.Show(_loc)
         If Not Directory.Exists(_loc) Then
             Directory.CreateDirectory(_loc)
         End If
@@ -3701,31 +4052,27 @@ done:
         End If
         My.Settings.Save()
         ListBox2.Items.AddRange(settingsForm.allowProgramsListBox.Items)
-
-        realTimeLabel.Visible = True
-        realTimeOffButton.Visible = True
-        realTimeOnButton.Visible = True
-        copyHashButton.Visible = False
-        filesPropertiesButton.Visible = False
-        startFolderScan.Visible = False
-        stopFolderScan.Visible = False
-        stopFullScanButton.Visible = False
-        startQuickScan.Visible = False
-        startFullScan.Visible = False
-        stopQuickScan.Visible = False
-        quickScanLabel.Visible = False
-        fullScanLabel.Visible = False
-        quarantineLabel.Visible = False
-        folderScanLabel.Visible = False
-        quarantineGridView.Visible = False
-        restoreAllButton.Visible = False
-        restoreFileButton.Visible = False
-        deleteAllButton.Visible = False
-        deletefileButton.Visible = False
-        quarantineGroupBox.Visible = False
-        scanGroupBox.Visible = True
+        filesLoc.Clear()
+        filesSigs.Clear()
+        filesSize.Clear()
+        If My.Settings.quarantinedFiles IsNot Nothing Then
+            For Each fileNow As String In My.Settings.quarantinedFiles
+                filesLoc.Add(fileNow)
+            Next
+            For Each fileSig As String In My.Settings.quarantinedSig
+                filesSigs.Add(fileSig)
+            Next
+            For Each fileSize As String In My.Settings.quarantinedSize
+                filesSize.Add(fileSize)
+            Next
+            If filesLoc IsNot Nothing Then
+                For i = 0 To My.Settings.quarantinedFiles.Count - 1
+                    Dim row As String() = New String() {filesLoc(i).ToString(), filesSigs(i).ToString(), filesSize(i).ToString()}
+                    quarantineGridView.Rows.Add(row)
+                Next
+            End If
+        End If
         loadMythodikalTimer.Enabled = False
-        exitPicBox.Enabled = True
     End Sub
 
     Private Sub scanRunningProcessesQuick_DoWork(sender As Object, e As DoWorkEventArgs) Handles scanRunningProcessesQuick.DoWork
@@ -3759,6 +4106,74 @@ done:
         elapsedTimerSW.Start()
         fileCountOn = 0
     End Sub
+
+    Private Sub restoreFileButton_Click(sender As Object, e As EventArgs) Handles restoreFileButton.Click
+        If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
+            If MessageBox.Show("Are You Sure That You Want To Restore The File (" & quarantineGridView.CurrentRow.Cells(0).Value & ")?", "Restore File?", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
+            Else
+                RestoreFileFromQuarantine()
+            End If
+        End If
+    End Sub
+
+    Private Sub restoreAllButton_Click(sender As Object, e As EventArgs) Handles restoreAllButton.Click
+        If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
+            If MessageBox.Show("Are You Sure That You Want To Restore All Of The Files In Quarantine??", "Restore All Files In Quarantine?", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
+            Else
+                RestoreAllFilesFromQuarantine()
+            End If
+        End If
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles etaTimer.Tick
+
+        If scanProgressBar.Value = 0 Then
+            timeLeftLabel.Text = "Time Left:       Estimating..."
+        Else
+            'Dim secondsRemaining As String = (100 - scanProgressBar.Value) * elapsedTimerSW.Elapsed.TotalSeconds / scanProgressBar.Value
+            Dim FormulaH As Single = ((scanProgressBar.Maximum - scanProgressBar.Value) * elapsedTimerSW.Elapsed.TotalSeconds / scanProgressBar.Value) / 3600
+            Dim FormulaM As Single = ((scanProgressBar.Maximum - scanProgressBar.Value) * elapsedTimerSW.Elapsed.TotalSeconds / scanProgressBar.Value) / 60
+            Dim FormulaS As Single = ((scanProgressBar.Maximum - scanProgressBar.Value) * elapsedTimerSW.Elapsed.TotalSeconds / scanProgressBar.Value)
+            Dim FormulaD As Single = ((scanProgressBar.Maximum - scanProgressBar.Value) * elapsedTimerSW.Elapsed.TotalSeconds / scanProgressBar.Value) / 86400
+            Dim hours As Single = Mid(FormulaH, 1, 2)
+            Dim minutes As Single = Mid(FormulaM, 1, 2)
+            Dim seconds As Single = Mid(FormulaS, 1, 2)
+            Dim days As Single = Mid(FormulaD, 1, 2)
+            If FormulaS < 60 Then
+                timeLeftLabel.Text = String.Format("Time Left:       {0} secs.", seconds)
+            ElseIf FormulaS < 3600 Then
+                timeLeftLabel.Text = String.Format("Time Left:       {0} mins.", minutes, seconds)
+            ElseIf formulaS < 86400 Then
+                timeLeftLabel.Text = String.Format("Time Left:       {0} hrs.", hours)
+            Else
+                timeLeftLabel.Text = String.Format("Time Left:       {0} days", days)
+            End If
+        End If
+    End Sub
+
+    Private Sub deletefileButton_Click(sender As Object, e As EventArgs) Handles deletefileButton.Click
+        If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
+            If MessageBox.Show("Are You Sure That You Want To Delete The File (" & quarantineGridView.CurrentRow.Cells(0).Value & ")?", "Delete File?", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
+            Else
+                DeleteFileFromQuarantine()
+            End If
+        End If
+
+    End Sub
+
+    Private Sub deleteAllButton_Click(sender As Object, e As EventArgs) Handles deleteAllButton.Click
+        If quarantineGridView.Rows.Count > 0 And quarantineGridView.SelectedRows.Count > 0 Then
+            If MessageBox.Show("Are You Sure That You Want To Delete All Of The Files In Quarantine??", "Delete All Files In Quarantine?", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
+            Else
+                DeleteAllFilesInQuarantine()
+            End If
+        End If
+    End Sub
+
     Dim bytes As Integer
     Public Function GetSha1(ByVal filePath As String) As String
         On Error Resume Next
@@ -3792,20 +4207,20 @@ done:
         Return hash
     End Function
 
-    Public Shared Function ComputeHash(ByVal input As String, ByVal hashType As eHashType) As String
-        Try
-            Dim hash As Byte() = GetHash(input, hashType)
-            Dim ret As StringBuilder = New StringBuilder()
+    'Public Shared Function ComputeHash(ByVal input As String, ByVal hashType As eHashType) As String
+    '    Try
+    '        Dim hash As Byte() = GetHash(input, hashType)
+    '        Dim ret As StringBuilder = New StringBuilder()
 
-            For i As Integer = 0 To hash.Length - 1
-                ret.Append(hash(i).ToString("x2"))
-            Next
+    '        For i As Integer = 0 To hash.Length - 1
+    '            ret.Append(hash(i).ToString("x2"))
+    '        Next
 
-            Return ret.ToString()
-        Catch
-            Return String.Empty
-        End Try
-    End Function
+    '        Return ret.ToString()
+    '    Catch
+    '        Return String.Empty
+    '    End Try
+    'End Function
     Public Enum eHashType
         HMAC
         HMACMD5
@@ -3821,14 +4236,14 @@ done:
         SHA384
         SHA512
     End Enum
-    Private Shared Function GetHash(ByVal input As String, ByVal hash As eHashType) As Byte()
-        Dim inputBytes As Byte() = Encoding.ASCII.GetBytes(input)
+    'Private Shared Function GetHash(ByVal input As String, ByVal hash As eHashType) As Byte()
+    '    Dim inputBytes As Byte() = Encoding.ASCII.GetBytes(input)
 
-        Select Case hash
-            Case eHashType.MD5
-                Return MD5.Create().ComputeHash(inputBytes)
-        End Select
-    End Function
+    '    Select Case hash
+    '        Case eHashType.MD5
+    '            Return MD5.Create().ComputeHash(inputBytes)
+    '    End Select
+    'End Function
 
 
     'Sub SaveArray(ByVal path As String) 'my array is ArrayGH

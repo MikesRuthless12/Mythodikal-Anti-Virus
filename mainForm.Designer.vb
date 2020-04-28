@@ -56,11 +56,11 @@ Partial Class mainForm
         Me.currentFile = New System.Windows.Forms.Label()
         Me.scanningFileLabel = New System.Windows.Forms.Label()
         Me.realTimeLabel = New System.Windows.Forms.Label()
-        Me.realTimeOffButton = New System.Windows.Forms.Button()
-        Me.realTimeOnButton = New System.Windows.Forms.Button()
-        Me.filesPropertiesButton = New System.Windows.Forms.Button()
         Me.copyHashButton = New System.Windows.Forms.Button()
         Me.stopFullScanButton = New System.Windows.Forms.Button()
+        Me.filesPropertiesButton = New System.Windows.Forms.Button()
+        Me.realTimeOffButton = New System.Windows.Forms.Button()
+        Me.realTimeOnButton = New System.Windows.Forms.Button()
         Me.startFolderScan = New System.Windows.Forms.Button()
         Me.folderScanLabel = New System.Windows.Forms.Label()
         Me.stopFolderScan = New System.Windows.Forms.Button()
@@ -98,6 +98,9 @@ Partial Class mainForm
         Me.loadMythodikalTimer = New System.Windows.Forms.Timer(Me.components)
         Me.scanRunningProcessesFull = New System.ComponentModel.BackgroundWorker()
         Me.statusLabel = New System.Windows.Forms.Label()
+        Me.notifyQuarantineFile = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.timeLeftLabel = New System.Windows.Forms.Label()
+        Me.etaTimer = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -136,6 +139,7 @@ Partial Class mainForm
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.SystemColors.InactiveCaptionText
+        Me.Panel2.Controls.Add(Me.quarantineGroupBox)
         Me.Panel2.Controls.Add(Me.folderScanButton)
         Me.Panel2.Controls.Add(Me.quarantineButton)
         Me.Panel2.Controls.Add(Me.quickScanButton)
@@ -196,14 +200,13 @@ Partial Class mainForm
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.SystemColors.InfoText
-        Me.Panel3.Controls.Add(Me.quarantineGroupBox)
         Me.Panel3.Controls.Add(Me.scanGroupBox)
         Me.Panel3.Controls.Add(Me.realTimeLabel)
-        Me.Panel3.Controls.Add(Me.realTimeOffButton)
-        Me.Panel3.Controls.Add(Me.realTimeOnButton)
-        Me.Panel3.Controls.Add(Me.filesPropertiesButton)
         Me.Panel3.Controls.Add(Me.copyHashButton)
         Me.Panel3.Controls.Add(Me.stopFullScanButton)
+        Me.Panel3.Controls.Add(Me.filesPropertiesButton)
+        Me.Panel3.Controls.Add(Me.realTimeOffButton)
+        Me.Panel3.Controls.Add(Me.realTimeOnButton)
         Me.Panel3.Controls.Add(Me.startFolderScan)
         Me.Panel3.Controls.Add(Me.folderScanLabel)
         Me.Panel3.Controls.Add(Me.stopFolderScan)
@@ -225,9 +228,9 @@ Partial Class mainForm
         Me.quarantineGroupBox.Controls.Add(Me.restoreAllButton)
         Me.quarantineGroupBox.Controls.Add(Me.deletefileButton)
         Me.quarantineGroupBox.Controls.Add(Me.deleteAllButton)
-        Me.quarantineGroupBox.Location = New System.Drawing.Point(7, 56)
+        Me.quarantineGroupBox.Location = New System.Drawing.Point(45, 399)
         Me.quarantineGroupBox.Name = "quarantineGroupBox"
-        Me.quarantineGroupBox.Size = New System.Drawing.Size(571, 342)
+        Me.quarantineGroupBox.Size = New System.Drawing.Size(573, 343)
         Me.quarantineGroupBox.TabIndex = 74
         Me.quarantineGroupBox.TabStop = False
         '
@@ -235,19 +238,19 @@ Partial Class mainForm
         '
         Me.quarantineGridView.AllowUserToAddRows = False
         Me.quarantineGridView.AllowUserToDeleteRows = False
-        Me.quarantineGridView.AllowUserToResizeRows = False
+        Me.quarantineGridView.AllowUserToOrderColumns = True
         Me.quarantineGridView.BackgroundColor = System.Drawing.SystemColors.Desktop
         Me.quarantineGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.quarantineGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3})
         Me.quarantineGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.quarantineGridView.GridColor = System.Drawing.Color.White
-        Me.quarantineGridView.Location = New System.Drawing.Point(6, 8)
+        Me.quarantineGridView.Location = New System.Drawing.Point(8, 16)
         Me.quarantineGridView.MultiSelect = False
         Me.quarantineGridView.Name = "quarantineGridView"
         Me.quarantineGridView.ReadOnly = True
         Me.quarantineGridView.RowHeadersVisible = False
         Me.quarantineGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.quarantineGridView.Size = New System.Drawing.Size(563, 302)
+        Me.quarantineGridView.Size = New System.Drawing.Size(556, 289)
         Me.quarantineGridView.TabIndex = 66
         Me.quarantineGridView.Visible = False
         '
@@ -277,7 +280,7 @@ Partial Class mainForm
         Me.restoreFileButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.restoreFileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.restoreFileButton.ForeColor = System.Drawing.Color.White
-        Me.restoreFileButton.Location = New System.Drawing.Point(6, 313)
+        Me.restoreFileButton.Location = New System.Drawing.Point(8, 311)
         Me.restoreFileButton.Name = "restoreFileButton"
         Me.restoreFileButton.Size = New System.Drawing.Size(115, 23)
         Me.restoreFileButton.TabIndex = 65
@@ -290,7 +293,7 @@ Partial Class mainForm
         Me.restoreAllButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.restoreAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.restoreAllButton.ForeColor = System.Drawing.Color.White
-        Me.restoreAllButton.Location = New System.Drawing.Point(147, 314)
+        Me.restoreAllButton.Location = New System.Drawing.Point(149, 311)
         Me.restoreAllButton.Name = "restoreAllButton"
         Me.restoreAllButton.Size = New System.Drawing.Size(115, 23)
         Me.restoreAllButton.TabIndex = 64
@@ -303,7 +306,7 @@ Partial Class mainForm
         Me.deletefileButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.deletefileButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deletefileButton.ForeColor = System.Drawing.Color.White
-        Me.deletefileButton.Location = New System.Drawing.Point(298, 314)
+        Me.deletefileButton.Location = New System.Drawing.Point(300, 311)
         Me.deletefileButton.Name = "deletefileButton"
         Me.deletefileButton.Size = New System.Drawing.Size(115, 23)
         Me.deletefileButton.TabIndex = 63
@@ -316,9 +319,9 @@ Partial Class mainForm
         Me.deleteAllButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.deleteAllButton.Font = New System.Drawing.Font("Snap ITC", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.deleteAllButton.ForeColor = System.Drawing.Color.White
-        Me.deleteAllButton.Location = New System.Drawing.Point(456, 314)
+        Me.deleteAllButton.Location = New System.Drawing.Point(449, 311)
         Me.deleteAllButton.Name = "deleteAllButton"
-        Me.deleteAllButton.Size = New System.Drawing.Size(115, 23)
+        Me.deleteAllButton.Size = New System.Drawing.Size(115, 25)
         Me.deleteAllButton.TabIndex = 62
         Me.deleteAllButton.Text = "Delete All Files"
         Me.deleteAllButton.UseVisualStyleBackColor = False
@@ -326,6 +329,7 @@ Partial Class mainForm
         '
         'scanGroupBox
         '
+        Me.scanGroupBox.Controls.Add(Me.timeLeftLabel)
         Me.scanGroupBox.Controls.Add(Me.iconPicBox)
         Me.scanGroupBox.Controls.Add(Me.filesIconLabel)
         Me.scanGroupBox.Controls.Add(Me.totalProgressLabel)
@@ -386,6 +390,7 @@ Partial Class mainForm
         '
         'scanProgressBar
         '
+        Me.scanProgressBar.ForeColor = System.Drawing.Color.DodgerBlue
         Me.scanProgressBar.Location = New System.Drawing.Point(113, 312)
         Me.scanProgressBar.Name = "scanProgressBar"
         Me.scanProgressBar.Size = New System.Drawing.Size(407, 10)
@@ -396,7 +401,7 @@ Partial Class mainForm
         '
         Me.fileCountLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.fileCountLabel.ForeColor = System.Drawing.Color.Snow
-        Me.fileCountLabel.Location = New System.Drawing.Point(112, 243)
+        Me.fileCountLabel.Location = New System.Drawing.Point(112, 231)
         Me.fileCountLabel.Name = "fileCountLabel"
         Me.fileCountLabel.Size = New System.Drawing.Size(453, 16)
         Me.fileCountLabel.TabIndex = 86
@@ -407,7 +412,7 @@ Partial Class mainForm
         Me.onFileLabel.AutoSize = True
         Me.onFileLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.onFileLabel.ForeColor = System.Drawing.Color.Snow
-        Me.onFileLabel.Location = New System.Drawing.Point(6, 242)
+        Me.onFileLabel.Location = New System.Drawing.Point(6, 231)
         Me.onFileLabel.Name = "onFileLabel"
         Me.onFileLabel.Size = New System.Drawing.Size(92, 16)
         Me.onFileLabel.TabIndex = 85
@@ -428,7 +433,7 @@ Partial Class mainForm
         Me.infectedLabel.AutoSize = True
         Me.infectedLabel.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.infectedLabel.ForeColor = System.Drawing.Color.Snow
-        Me.infectedLabel.Location = New System.Drawing.Point(3, 276)
+        Me.infectedLabel.Location = New System.Drawing.Point(3, 274)
         Me.infectedLabel.Name = "infectedLabel"
         Me.infectedLabel.Size = New System.Drawing.Size(95, 16)
         Me.infectedLabel.TabIndex = 83
@@ -486,29 +491,32 @@ Partial Class mainForm
         Me.realTimeLabel.TabIndex = 72
         Me.realTimeLabel.Text = "Real-Time"
         '
-        'realTimeOffButton
+        'copyHashButton
         '
-        Me.realTimeOffButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.realTimeOffButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.realTimeOffButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.realTimeOffButton.Location = New System.Drawing.Point(372, 12)
-        Me.realTimeOffButton.Name = "realTimeOffButton"
-        Me.realTimeOffButton.Size = New System.Drawing.Size(206, 39)
-        Me.realTimeOffButton.TabIndex = 71
-        Me.realTimeOffButton.Text = "Real-Time Scan Off"
-        Me.realTimeOffButton.UseVisualStyleBackColor = False
+        Me.copyHashButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.copyHashButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.copyHashButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.copyHashButton.Location = New System.Drawing.Point(7, 12)
+        Me.copyHashButton.Name = "copyHashButton"
+        Me.copyHashButton.Size = New System.Drawing.Size(206, 39)
+        Me.copyHashButton.TabIndex = 68
+        Me.copyHashButton.Text = "Copy Hash"
+        Me.copyHashButton.UseVisualStyleBackColor = False
+        Me.copyHashButton.Visible = False
         '
-        'realTimeOnButton
+        'stopFullScanButton
         '
-        Me.realTimeOnButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.realTimeOnButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.realTimeOnButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.realTimeOnButton.Location = New System.Drawing.Point(7, 10)
-        Me.realTimeOnButton.Name = "realTimeOnButton"
-        Me.realTimeOnButton.Size = New System.Drawing.Size(206, 39)
-        Me.realTimeOnButton.TabIndex = 70
-        Me.realTimeOnButton.Text = "Real-Time Scan On"
-        Me.realTimeOnButton.UseVisualStyleBackColor = False
+        Me.stopFullScanButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.stopFullScanButton.Enabled = False
+        Me.stopFullScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.stopFullScanButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.stopFullScanButton.Location = New System.Drawing.Point(372, 11)
+        Me.stopFullScanButton.Name = "stopFullScanButton"
+        Me.stopFullScanButton.Size = New System.Drawing.Size(206, 39)
+        Me.stopFullScanButton.TabIndex = 67
+        Me.stopFullScanButton.Text = "Stop Full Scan"
+        Me.stopFullScanButton.UseVisualStyleBackColor = False
+        Me.stopFullScanButton.Visible = False
         '
         'filesPropertiesButton
         '
@@ -523,31 +531,29 @@ Partial Class mainForm
         Me.filesPropertiesButton.UseVisualStyleBackColor = False
         Me.filesPropertiesButton.Visible = False
         '
-        'copyHashButton
+        'realTimeOffButton
         '
-        Me.copyHashButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.copyHashButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.copyHashButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.copyHashButton.Location = New System.Drawing.Point(7, 10)
-        Me.copyHashButton.Name = "copyHashButton"
-        Me.copyHashButton.Size = New System.Drawing.Size(206, 39)
-        Me.copyHashButton.TabIndex = 68
-        Me.copyHashButton.Text = "Copy Hash"
-        Me.copyHashButton.UseVisualStyleBackColor = False
-        Me.copyHashButton.Visible = False
+        Me.realTimeOffButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.realTimeOffButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.realTimeOffButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.realTimeOffButton.Location = New System.Drawing.Point(372, 11)
+        Me.realTimeOffButton.Name = "realTimeOffButton"
+        Me.realTimeOffButton.Size = New System.Drawing.Size(206, 39)
+        Me.realTimeOffButton.TabIndex = 71
+        Me.realTimeOffButton.Text = "Real-Time Scan Off"
+        Me.realTimeOffButton.UseVisualStyleBackColor = False
         '
-        'stopFullScanButton
+        'realTimeOnButton
         '
-        Me.stopFullScanButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.stopFullScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.stopFullScanButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.stopFullScanButton.Location = New System.Drawing.Point(372, 12)
-        Me.stopFullScanButton.Name = "stopFullScanButton"
-        Me.stopFullScanButton.Size = New System.Drawing.Size(206, 39)
-        Me.stopFullScanButton.TabIndex = 67
-        Me.stopFullScanButton.Text = "Stop Full Scan"
-        Me.stopFullScanButton.UseVisualStyleBackColor = False
-        Me.stopFullScanButton.Visible = False
+        Me.realTimeOnButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.realTimeOnButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.realTimeOnButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.realTimeOnButton.Location = New System.Drawing.Point(7, 11)
+        Me.realTimeOnButton.Name = "realTimeOnButton"
+        Me.realTimeOnButton.Size = New System.Drawing.Size(206, 39)
+        Me.realTimeOnButton.TabIndex = 70
+        Me.realTimeOnButton.Text = "Real-Time Scan On"
+        Me.realTimeOnButton.UseVisualStyleBackColor = False
         '
         'startFolderScan
         '
@@ -576,6 +582,7 @@ Partial Class mainForm
         'stopFolderScan
         '
         Me.stopFolderScan.BackColor = System.Drawing.SystemColors.Highlight
+        Me.stopFolderScan.Enabled = False
         Me.stopFolderScan.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.stopFolderScan.ForeColor = System.Drawing.SystemColors.Control
         Me.stopFolderScan.Location = New System.Drawing.Point(372, 10)
@@ -602,6 +609,7 @@ Partial Class mainForm
         'stopQuickScan
         '
         Me.stopQuickScan.BackColor = System.Drawing.SystemColors.Highlight
+        Me.stopQuickScan.Enabled = False
         Me.stopQuickScan.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.stopQuickScan.ForeColor = System.Drawing.SystemColors.Control
         Me.stopQuickScan.Location = New System.Drawing.Point(372, 11)
@@ -724,7 +732,7 @@ Partial Class mainForm
         'ListBox1
         '
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(497, 511)
+        Me.ListBox1.Location = New System.Drawing.Point(518, 589)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(120, 95)
         Me.ListBox1.TabIndex = 70
@@ -778,6 +786,7 @@ Partial Class mainForm
         'FileSystemWatcher1
         '
         Me.FileSystemWatcher1.EnableRaisingEvents = True
+        Me.FileSystemWatcher1.IncludeSubdirectories = True
         Me.FileSystemWatcher1.SynchronizingObject = Me
         '
         'NotifyIcon1
@@ -795,9 +804,9 @@ Partial Class mainForm
         'ListBox3
         '
         Me.ListBox3.FormattingEnabled = True
-        Me.ListBox3.Location = New System.Drawing.Point(634, 500)
+        Me.ListBox3.Location = New System.Drawing.Point(493, 500)
         Me.ListBox3.Name = "ListBox3"
-        Me.ListBox3.Size = New System.Drawing.Size(132, 95)
+        Me.ListBox3.Size = New System.Drawing.Size(264, 95)
         Me.ListBox3.TabIndex = 72
         '
         'getSignatures
@@ -826,12 +835,31 @@ Partial Class mainForm
         Me.statusLabel.TabIndex = 77
         Me.statusLabel.Text = "Status Bar"
         '
+        'notifyQuarantineFile
+        '
+        Me.notifyQuarantineFile.Text = "NotifyIcon2"
+        Me.notifyQuarantineFile.Visible = True
+        '
+        'timeLeftLabel
+        '
+        Me.timeLeftLabel.AutoSize = True
+        Me.timeLeftLabel.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.timeLeftLabel.Location = New System.Drawing.Point(44, 254)
+        Me.timeLeftLabel.Name = "timeLeftLabel"
+        Me.timeLeftLabel.Size = New System.Drawing.Size(183, 13)
+        Me.timeLeftLabel.TabIndex = 78
+        Me.timeLeftLabel.Text = "Time Left:       0 Hours And 0 Minutes"
+        '
+        'etaTimer
+        '
+        Me.etaTimer.Interval = 1000
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Highlight
-        Me.ClientSize = New System.Drawing.Size(805, 479)
+        Me.ClientSize = New System.Drawing.Size(805, 480)
         Me.Controls.Add(Me.statusLabel)
         Me.Controls.Add(Me.ListBox3)
         Me.Controls.Add(Me.ListBox2)
@@ -897,7 +925,6 @@ Partial Class mainForm
     Friend WithEvents stopFullScanButton As Button
     Friend WithEvents quickScanBGW As System.ComponentModel.BackgroundWorker
     Friend WithEvents fullScanBGW As System.ComponentModel.BackgroundWorker
-    Friend WithEvents filesPropertiesButton As Button
     Friend WithEvents copyHashButton As Button
     Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ListBox1 As ListBox
@@ -940,4 +967,8 @@ Partial Class mainForm
     Friend WithEvents elapsedLabel As Label
     Friend WithEvents currentFile As Label
     Friend WithEvents scanningFileLabel As Label
+    Friend WithEvents filesPropertiesButton As Button
+    Friend WithEvents notifyQuarantineFile As NotifyIcon
+    Friend WithEvents timeLeftLabel As Label
+    Friend WithEvents etaTimer As Timer
 End Class

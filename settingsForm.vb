@@ -4,7 +4,7 @@ Imports Microsoft.VisualBasic.CompilerServices
 Public Class settingsForm
 
     Dim scheduledScan As Boolean = False
-
+    Dim mainDrive As String = Mid(Environment.GetFolderPath(Environment.SpecialFolder.System), 1, 3)
     Public Const WM_NCLBUTTONDOWN As Integer = &HA1
     Public Const HT_CAPTION As Integer = &H2
 
@@ -469,6 +469,7 @@ Public Class settingsForm
             mainForm.statusLabel.Text = "Real-Time Scan Started..."
             mainForm.statusLabel.Refresh()
             FileSystemWatcher1.EnableRaisingEvents = True
+            FileSystemWatcher1.Path = mainDrive
             WriteToLog("Real Time Scan Started At:  " & Date.Now & "")
         Else
             realTimeCheckBox.Text = "Off"
@@ -483,8 +484,8 @@ Public Class settingsForm
             mainForm.stopFullScanButton.Visible = False
             mainForm.startFolderScan.Visible = False
             mainForm.stopFolderScan.Visible = False
-            mainForm.stopQuickScan.Visible = True
-            mainForm.quickScanLabel.Visible = True
+            mainForm.stopQuickScan.Visible = False
+            mainForm.quickScanLabel.Visible = False
             mainForm.fullScanLabel.Visible = False
             mainForm.quarantineLabel.Visible = False
             mainForm.folderScanLabel.Visible = False
@@ -506,6 +507,7 @@ Public Class settingsForm
             mainForm.statusLabel.Text = "Real-Time Scan Stopped..."
             mainForm.statusLabel.Refresh()
             FileSystemWatcher1.EnableRaisingEvents = False
+            FileSystemWatcher1.Path = mainDrive
             WriteToLog("Real Time Scan Stopped At: " & Date.Now & "")
         End If
 

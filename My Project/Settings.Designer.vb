@@ -159,6 +159,39 @@ Namespace My
                 Me("scheduleMinute") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property quarantinedFiles() As Global.System.Collections.Specialized.StringCollection
+            Get
+                Return CType(Me("quarantinedFiles"),Global.System.Collections.Specialized.StringCollection)
+            End Get
+            Set
+                Me("quarantinedFiles") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property quarantinedSig() As Global.System.Collections.Specialized.StringCollection
+            Get
+                Return CType(Me("quarantinedSig"),Global.System.Collections.Specialized.StringCollection)
+            End Get
+            Set
+                Me("quarantinedSig") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property quarantinedSize() As Global.System.Collections.Specialized.StringCollection
+            Get
+                Return CType(Me("quarantinedSize"),Global.System.Collections.Specialized.StringCollection)
+            End Get
+            Set
+                Me("quarantinedSize") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
