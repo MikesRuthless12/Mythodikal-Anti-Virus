@@ -512,6 +512,9 @@ Public Class mainForm
     End Sub
 
     Private Sub quarantineButton_Click(sender As Object, e As EventArgs) Handles quarantineButton.Click
+        If My.Settings.realTimeScan = True Then
+            Exit Sub
+        End If
         copyHashButton.Visible = True
         filesPropertiesButton.Visible = True
         startFolderScan.Visible = False
@@ -606,7 +609,25 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             e.Cancel = True
         Else
             If quarantineGridView.Rows.Count > 0 Then
-                quarantineButton_Click(sender, e)
+                copyHashButton.Visible = True
+                filesPropertiesButton.Visible = True
+                startFolderScan.Visible = False
+                stopFolderScan.Visible = False
+                stopFullScanButton.Visible = False
+                startQuickScan.Visible = False
+                startFullScan.Visible = False
+                stopQuickScan.Visible = False
+                quickScanLabel.Visible = False
+                fullScanLabel.Visible = False
+                quarantineLabel.Visible = True
+                folderScanLabel.Visible = False
+                quarantineGridView.Visible = True
+                restoreAllButton.Visible = True
+                restoreFileButton.Visible = True
+                deleteAllButton.Visible = True
+                deletefileButton.Visible = True
+                quarantineGroupBox.Visible = True
+                scanGroupBox.Visible = False
                 For i = 0 To quarantineGridView.Rows.Count - 1
                     quarantineGridView.Rows(i).Selected = True
                     Dim fileItsOn As String = (quarantineGridView.CurrentRow.Cells(0).Value)
@@ -3083,7 +3104,6 @@ MessageBoxButtons.OK, MessageBoxIcon.Information)
         fileCountLabel.Visible = True
         currentFile.Visible = True
         elapsedTimeLabel.Visible = True
-        My.Settings.realTimeScan = True
         My.Settings.Save()
         'realTimeScanTimer.Start()
         WriteToLog("Real Time Scan Started At: " & Date.Now & "")
@@ -4288,6 +4308,31 @@ MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = DialogResult.No Then
             End If
         End If
 
+    End Sub
+
+    Private Sub realTimeScanButton_Click(sender As Object, e As EventArgs) Handles realTimeScanButton.Click
+        realTimeLabel.Visible = True
+        realTimeOffButton.Visible = True
+        realTimeOnButton.Visible = True
+        copyHashButton.Visible = False
+        filesPropertiesButton.Visible = False
+        startFolderScan.Visible = False
+        stopFolderScan.Visible = False
+        stopFullScanButton.Visible = False
+        startQuickScan.Visible = False
+        startFullScan.Visible = False
+        stopQuickScan.Visible = False
+        quickScanLabel.Visible = False
+        fullScanLabel.Visible = False
+        quarantineLabel.Visible = False
+        folderScanLabel.Visible = False
+        quarantineGridView.Visible = False
+        restoreAllButton.Visible = False
+        restoreFileButton.Visible = False
+        deleteAllButton.Visible = False
+        deletefileButton.Visible = False
+        quarantineGroupBox.Visible = False
+        scanGroupBox.Visible = True
     End Sub
 
     Private Sub realTimeScanBGW_DoWork(sender As Object, e As DoWorkEventArgs) Handles realTimeScanBGW.DoWork
