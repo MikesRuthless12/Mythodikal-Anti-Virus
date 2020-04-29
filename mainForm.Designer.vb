@@ -27,6 +27,7 @@ Partial Class mainForm
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.titleLabel = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.realTimeScanButton = New System.Windows.Forms.Button()
         Me.quarantineGroupBox = New System.Windows.Forms.GroupBox()
         Me.quarantineGridView = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -102,7 +103,6 @@ Partial Class mainForm
         Me.notifyQuarantineFile = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.etaTimer = New System.Windows.Forms.Timer(Me.components)
         Me.realTimeScanBGW = New System.ComponentModel.BackgroundWorker()
-        Me.realTimeScanButton = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.quarantineGroupBox.SuspendLayout()
@@ -151,6 +151,18 @@ Partial Class mainForm
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(214, 400)
         Me.Panel2.TabIndex = 6
+        '
+        'realTimeScanButton
+        '
+        Me.realTimeScanButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.realTimeScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.realTimeScanButton.ForeColor = System.Drawing.SystemColors.Control
+        Me.realTimeScanButton.Location = New System.Drawing.Point(3, 267)
+        Me.realTimeScanButton.Name = "realTimeScanButton"
+        Me.realTimeScanButton.Size = New System.Drawing.Size(206, 39)
+        Me.realTimeScanButton.TabIndex = 75
+        Me.realTimeScanButton.Text = "Real Time Scan"
+        Me.realTimeScanButton.UseVisualStyleBackColor = False
         '
         'quarantineGroupBox
         '
@@ -584,11 +596,11 @@ Partial Class mainForm
         'folderScanLabel
         '
         Me.folderScanLabel.AutoSize = True
-        Me.folderScanLabel.Font = New System.Drawing.Font("Snap ITC", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.folderScanLabel.Font = New System.Drawing.Font("Snap ITC", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.folderScanLabel.ForeColor = System.Drawing.Color.Snow
-        Me.folderScanLabel.Location = New System.Drawing.Point(214, 15)
+        Me.folderScanLabel.Location = New System.Drawing.Point(216, 15)
         Me.folderScanLabel.Name = "folderScanLabel"
-        Me.folderScanLabel.Size = New System.Drawing.Size(163, 27)
+        Me.folderScanLabel.Size = New System.Drawing.Size(151, 25)
         Me.folderScanLabel.TabIndex = 61
         Me.folderScanLabel.Text = "Folder Scan"
         '
@@ -860,18 +872,6 @@ Partial Class mainForm
         'realTimeScanBGW
         '
         Me.realTimeScanBGW.WorkerSupportsCancellation = True
-        '
-        'realTimeScanButton
-        '
-        Me.realTimeScanButton.BackColor = System.Drawing.SystemColors.Highlight
-        Me.realTimeScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.realTimeScanButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.realTimeScanButton.Location = New System.Drawing.Point(3, 267)
-        Me.realTimeScanButton.Name = "realTimeScanButton"
-        Me.realTimeScanButton.Size = New System.Drawing.Size(206, 39)
-        Me.realTimeScanButton.TabIndex = 75
-        Me.realTimeScanButton.Text = "Real Time Scan"
-        Me.realTimeScanButton.UseVisualStyleBackColor = False
         '
         'mainForm
         '

@@ -737,6 +737,7 @@ nextone:
             startQuickScan.Enabled = False
             stopQuickScan.Enabled = True
             startFullScan.Enabled = False
+            realTimeScanButton.Enabled = False
             stopFullScanButton.Enabled = True
             CheckForIllegalCrossThreadCalls = False
             scanTimer.Start()
@@ -1336,6 +1337,7 @@ nextone:
         stopQuickScan.Enabled = False
         startFullScan.Enabled = True
         stopFullScanButton.Enabled = False
+        realTimeScanButton.Enabled = True
         startFolderScan.Enabled = True
         stopFolderScan.Enabled = False
         startQuickScan.Enabled = True
@@ -1363,6 +1365,7 @@ nextone:
             startQuickScan.Enabled = False
             stopQuickScan.Enabled = True
             startFullScan.Enabled = False
+            realTimeScanButton.Enabled = False
             stopFullScanButton.Enabled = True
             etaTimer.Start()
         End If
@@ -1859,6 +1862,7 @@ nextone:
         startFolderScan.Enabled = True
         stopFolderScan.Enabled = False
         startQuickScan.Enabled = True
+        realTimeScanButton.Enabled = True
         stopQuickScan.Enabled = False
         startFullScan.Enabled = True
         stopFullScanButton.Enabled = False
@@ -2326,6 +2330,7 @@ nextone:
             startQuickScan.Enabled = False
             stopQuickScan.Enabled = True
             startFullScan.Enabled = False
+            realTimeScanButton.Enabled = False
             stopFullScanButton.Enabled = True
             etaTimer.Start()
         End If
@@ -2411,6 +2416,7 @@ nextone:
         startFolderScan.Enabled = True
         stopFolderScan.Enabled = False
         startQuickScan.Enabled = True
+        realTimeScanButton.Enabled = True
         stopQuickScan.Enabled = False
         startFullScan.Enabled = True
         stopFullScanButton.Enabled = False
@@ -3432,6 +3438,7 @@ cancelScan:
                 deleteAllButton.Enabled = True
                 startFullScan.Enabled = True
                 startQuickScan.Enabled = True
+                realTimeScanButton.Enabled = True
                 startFolderScan.Enabled = True
                 realTimeOnButton.Enabled = True
                 iconPicBox.Image = Nothing
@@ -3471,6 +3478,7 @@ cancelScan:
                 filesPropertiesButton.Visible = False
                 startFolderScan.Visible = False
                 stopFolderScan.Visible = False
+                realTimeScanButton.Enabled = True
                 stopFullScanButton.Visible = False
                 startQuickScan.Visible = False
                 startFullScan.Visible = False
@@ -3513,8 +3521,8 @@ cancelScan:
         Try
             ' (Application.StartupPath & "\" & "VirusSignatures.dat")
             If IO.File.Exists(Application.StartupPath & "\" & "VirusSignatures.dat") Then
-                ' signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
-                ' signaturesCount = signatures.Count
+                signatures = System.IO.File.ReadAllLines(Application.StartupPath & "\" & "VirusSignatures.dat").OrderBy(Function(x) Asc(x)).ToArray
+                signaturesCount = signatures.Count
             Else
                 MessageBox.Show("You Must Have The (VirusSignatures.dat) File Inside Of The Main Program Directory!", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If

@@ -34,3 +34,16 @@ Real Time Scan Started At: 4/29/2020 12:15:37 PM
 Real Time Scan Started At: 4/29/2020 12:18:17 PM
 Real Time Scan Started At: 4/29/2020 12:19:23 PM
 Real Time Scan Started At: 4/29/2020 12:20:31 PM
+Real Time Scan Started At: 4/29/2020 1:36:01 PM
+Quick Scan Started At: 4/29/2020 1:36:13 PM
+Real Time Scan Started At: 4/29/2020 1:38:28 PM
+Quick Scan Started At: 4/29/2020 1:38:32 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/29/2020 1:39:57 PM
+Quick Scan Started At: 4/29/2020 1:40:02 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/29/2020 1:40:15 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/29/2020 1:40:33 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/29/2020 1:42:01 PM
