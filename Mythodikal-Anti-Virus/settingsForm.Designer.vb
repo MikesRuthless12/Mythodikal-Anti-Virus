@@ -55,6 +55,7 @@ Partial Class settingsForm
         Me.realTimeProtectionLabel = New System.Windows.Forms.Label()
         Me.archivedFilesCheckBox = New System.Windows.Forms.CheckBox()
         Me.archivedFilesLabel = New System.Windows.Forms.Label()
+        Me.windowsStartCheckBox = New System.Windows.Forms.CheckBox()
         Me.windowsStartLabel = New System.Windows.Forms.Label()
         Me.securityLabel = New System.Windows.Forms.Label()
         Me.generalLabel = New System.Windows.Forms.Label()
@@ -67,7 +68,6 @@ Partial Class settingsForm
         Me.scheduleScanLabel = New System.Windows.Forms.Label()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
         Me.creditTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.windowsStartCheckBox = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.minimizePicBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -402,8 +402,6 @@ Partial Class settingsForm
         'realTimeCheckBox
         '
         Me.realTimeCheckBox.AutoSize = True
-        Me.realTimeCheckBox.Checked = True
-        Me.realTimeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.realTimeCheckBox.ForeColor = System.Drawing.Color.White
         Me.realTimeCheckBox.Location = New System.Drawing.Point(495, 247)
         Me.realTimeCheckBox.Name = "realTimeCheckBox"
@@ -447,6 +445,19 @@ Partial Class settingsForm
         Me.archivedFilesLabel.TabIndex = 83
         Me.archivedFilesLabel.Text = "Scan Within Archived Files:"
         Me.archivedFilesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'windowsStartCheckBox
+        '
+        Me.windowsStartCheckBox.AutoSize = True
+        Me.windowsStartCheckBox.Checked = True
+        Me.windowsStartCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.windowsStartCheckBox.ForeColor = System.Drawing.Color.White
+        Me.windowsStartCheckBox.Location = New System.Drawing.Point(496, 69)
+        Me.windowsStartCheckBox.Name = "windowsStartCheckBox"
+        Me.windowsStartCheckBox.Size = New System.Drawing.Size(40, 17)
+        Me.windowsStartCheckBox.TabIndex = 82
+        Me.windowsStartCheckBox.Text = "On"
+        Me.windowsStartCheckBox.UseVisualStyleBackColor = True
         '
         'windowsStartLabel
         '
@@ -511,7 +522,7 @@ Partial Class settingsForm
         Me.addProgramButton.BackColor = System.Drawing.SystemColors.Highlight
         Me.addProgramButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.addProgramButton.ForeColor = System.Drawing.SystemColors.Control
-        Me.addProgramButton.Location = New System.Drawing.Point(5, 6)
+        Me.addProgramButton.Location = New System.Drawing.Point(5, 5)
         Me.addProgramButton.Name = "addProgramButton"
         Me.addProgramButton.Size = New System.Drawing.Size(206, 40)
         Me.addProgramButton.TabIndex = 75
@@ -577,19 +588,6 @@ Partial Class settingsForm
         'creditTimer
         '
         '
-        'windowsStartCheckBox
-        '
-        Me.windowsStartCheckBox.AutoSize = True
-        Me.windowsStartCheckBox.Checked = True
-        Me.windowsStartCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.windowsStartCheckBox.ForeColor = System.Drawing.Color.White
-        Me.windowsStartCheckBox.Location = New System.Drawing.Point(496, 69)
-        Me.windowsStartCheckBox.Name = "windowsStartCheckBox"
-        Me.windowsStartCheckBox.Size = New System.Drawing.Size(40, 17)
-        Me.windowsStartCheckBox.TabIndex = 82
-        Me.windowsStartCheckBox.Text = "On"
-        Me.windowsStartCheckBox.UseVisualStyleBackColor = True
-        '
         'settingsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -646,6 +644,7 @@ Partial Class settingsForm
     Friend WithEvents realTimeProtectionLabel As Label
     Friend WithEvents archivedFilesCheckBox As CheckBox
     Friend WithEvents archivedFilesLabel As Label
+    Friend WithEvents windowsStartCheckBox As CheckBox
     Friend WithEvents windowsStartLabel As Label
     Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
     Friend WithEvents aboutProgramLabel As Label
@@ -665,5 +664,4 @@ Partial Class settingsForm
     Friend WithEvents militaryLabel As Label
     Friend WithEvents amPMLabel As Label
     Friend WithEvents aboutScheduledScansLabel As Label
-    Friend WithEvents windowsStartCheckBox As CheckBox
 End Class

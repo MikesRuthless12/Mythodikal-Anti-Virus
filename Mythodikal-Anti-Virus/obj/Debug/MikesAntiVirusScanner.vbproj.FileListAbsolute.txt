@@ -11,4 +11,3 @@ C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanne
 C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.exe
 C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.xml
 C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.pdb
-C:\Users\miken\source\repos\MikesAntiVirusScanner\obj\Debug\MikesAntiVirusScanner.vbprojAssemblyReference.cache

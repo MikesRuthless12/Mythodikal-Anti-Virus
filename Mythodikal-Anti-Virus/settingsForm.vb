@@ -191,17 +191,13 @@ Public Class settingsForm
                                  "Number Of Times Loaded: " & My.Settings.numLoads & "" & vbCrLf & vbCrLf &
                                  "Total Virus Signatures: " & mainForm.signaturesCount.ToString("N0") & ""
 
-
         Dim aPath As String = Application.StartupPath()
         If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
-
             Dim lines = IO.File.ReadAllLines(aPath & "\ProgramSettings.ini")
             If lines.Contains("realCheck = False") Then
                 My.Settings.realTimeScan = False
                 mainForm.realTimeOffButton.Enabled = False
                 mainForm.realTimeOnButton.Enabled = True
-                realTimeCheckBox.Checked = False
-                realTimeCheckBox.Text = "Off"
             Else
                 My.Settings.realTimeScan = True
                 mainForm.realTimeOffButton.Enabled = True
@@ -209,8 +205,16 @@ Public Class settingsForm
                 mainForm.statusLabel.Text = "Starting Real-Time Scan..."
                 FileSystemWatcher1.EnableRaisingEvents = True
                 WriteToLog("Real Time Scan Started At: " & Date.Now & "")
+            End If
+
+            If lines.Contains("realCheck = False") Then
+                realTimeCheckBox.Checked = False
+                realTimeCheckBox.Text = "Off"
+                My.Settings.realTimeScan = False
+            Else
                 realTimeCheckBox.Checked = True
                 realTimeCheckBox.Text = "On"
+                My.Settings.realTimeScan = True
             End If
 
             If lines.Contains("windowsStart = False") Then
@@ -323,11 +327,17 @@ Public Class settingsForm
             Next
         End If
         Dim aPath As String = Application.StartupPath()
+        If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
+            IO.File.Delete(aPath & "\ProgramSettings.ini")
+        Else
+            realTimeCheckBox.Checked = True
+
+        End If
 
 
 
 
-        Using writer As New StreamWriter(aPath & "\ProgramSettings.ini", False)
+        Using writer As New StreamWriter(aPath & "\ProgramSettings.ini", True)
             If realTimeCheckBox.Checked = True Then
                 writer.WriteLine("realCheck = True")
             Else
@@ -423,65 +433,139 @@ Public Class settingsForm
     End Sub
 
     Private Sub realTimeCheckBox_Click(sender As Object, e As EventArgs) Handles realTimeCheckBox.Click
-        If realTimeCheckBox.Text = "On" Then
-            realTimeCheckBox.Text = "Off"
-            realTimeCheckBox.Checked = False
-            mainForm.realTimeOffButton_Click(sender, e)
+        If realTimeCheckBox.Checked = True Then
+            realTimeCheckBox.Text = "On"
+            My.Settings.realTimeScan = True
+            mainForm.realTimeLabel.Visible = True
+            mainForm.realTimeOffButton.Visible = True
+            mainForm.realTimeOnButton.Visible = True
+            mainForm.copyHashButton.Visible = False
+            mainForm.filesPropertiesButton.Visible = False
+            mainForm.startQuickScan.Visible = False
+            mainForm.startFullScan.Visible = False
+            mainForm.stopFullScanButton.Visible = False
+            mainForm.startFolderScan.Visible = False
+            mainForm.stopFolderScan.Visible = False
+            mainForm.stopQuickScan.Visible = False
+            mainForm.quickScanLabel.Visible = True
+            mainForm.fullScanLabel.Visible = False
+            mainForm.quarantineLabel.Visible = False
+            mainForm.folderScanLabel.Visible = False
+            mainForm.quarantineGridView.Visible = False
+            mainForm.restoreAllButton.Visible = False
+            mainForm.restoreFileButton.Visible = False
+            mainForm.deleteAllButton.Visible = False
+            mainForm.deletefileButton.Visible = False
+            mainForm.infectedLabel.Visible = True
+            mainForm.onFileLabel.Visible = True
+            mainForm.elapsedLabel.Visible = True
+            mainForm.scanningFileLabel.Visible = True
+            mainForm.numberInfectedFilesLabel.Visible = True
+            mainForm.scanProgressBar.Visible = True
+            mainForm.percentLabel.Visible = True
+            mainForm.fileCountLabel.Visible = True
+            mainForm.currentFile.Visible = True
+            mainForm.elapsedTimeLabel.Visible = True
+            mainForm.statusLabel.Text = "Real-Time Scan Started..."
+            mainForm.statusLabel.Refresh()
+            FileSystemWatcher1.EnableRaisingEvents = True
+            FileSystemWatcher1.Path = mainDrive
+            WriteToLog("Real Time Scan Started At:  " & Date.Now & "")
         Else
-            If realTimeCheckBox.Text = "Off" Then
-                realTimeCheckBox.Text = "On"
-                realTimeCheckBox.Checked = True
-                mainForm.realTimeOnButton_Click(sender, e)
-            End If
+            realTimeCheckBox.Text = "Off"
+            My.Settings.realTimeScan = False
+            mainForm.realTimeLabel.Visible = True
+            mainForm.realTimeOffButton.Visible = True
+            mainForm.realTimeOnButton.Visible = True
+            mainForm.copyHashButton.Visible = False
+            mainForm.filesPropertiesButton.Visible = False
+            mainForm.startQuickScan.Visible = False
+            mainForm.startFullScan.Visible = False
+            mainForm.stopFullScanButton.Visible = False
+            mainForm.startFolderScan.Visible = False
+            mainForm.stopFolderScan.Visible = False
+            mainForm.stopQuickScan.Visible = False
+            mainForm.quickScanLabel.Visible = False
+            mainForm.fullScanLabel.Visible = False
+            mainForm.quarantineLabel.Visible = False
+            mainForm.folderScanLabel.Visible = False
+            mainForm.quarantineGridView.Visible = False
+            mainForm.restoreAllButton.Visible = False
+            mainForm.restoreFileButton.Visible = False
+            mainForm.deleteAllButton.Visible = False
+            mainForm.deletefileButton.Visible = False
+            mainForm.infectedLabel.Visible = True
+            mainForm.onFileLabel.Visible = True
+            mainForm.elapsedLabel.Visible = True
+            mainForm.scanningFileLabel.Visible = True
+            mainForm.numberInfectedFilesLabel.Visible = True
+            mainForm.scanProgressBar.Visible = True
+            mainForm.percentLabel.Visible = True
+            mainForm.fileCountLabel.Visible = True
+            mainForm.currentFile.Visible = True
+            mainForm.elapsedTimeLabel.Visible = True
+            mainForm.statusLabel.Text = "Real-Time Scan Stopped..."
+            mainForm.statusLabel.Refresh()
+            FileSystemWatcher1.EnableRaisingEvents = False
+            FileSystemWatcher1.Path = mainDrive
+            WriteToLog("Real Time Scan Stopped At: " & Date.Now & "")
+        End If
+
+        If realTimeCheckBox.Checked = True Then
+            mainForm.realTimeOnButton.Enabled = False
+            mainForm.realTimeOffButton.Enabled = True
+        Else
+            mainForm.realTimeOnButton.Enabled = True
+            mainForm.realTimeOffButton.Enabled = False
         End If
     End Sub
 
     Private Sub settingsForm_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-        'Dim aPath As String = Application.StartupPath()
-        ''   MessageBox.Show(aPath & "\ProgramSettings.ini")
-        'If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
-        '    Dim lines = IO.File.ReadAllLines(aPath & "\ProgramSettings.ini")
+        Dim aPath As String = Application.StartupPath()
+        '   MessageBox.Show(aPath & "\ProgramSettings.ini")
+        If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
+            Dim lines = IO.File.ReadAllLines(aPath & "\ProgramSettings.ini")
 
-        '    If lines.Contains("realCheck = False") Then
-        '        realTimeCheckBox.Checked = False
-        '        realTimeCheckBox.Text = "Off"
-        '        My.Settings.realTimeScan = False
-        '        mainForm.realTimeOnButton.Enabled = True
-        '        mainForm.realTimeOffButton.Enabled = False
-        '    Else
-        '        realTimeCheckBox.Checked = True
-        '        realTimeCheckBox.Text = "On"
-        '        My.Settings.realTimeScan = True
-        '        mainForm.realTimeOnButton.Enabled = False
-        '        mainForm.realTimeOffButton.Enabled = True
-        '    End If
+            If lines.Contains("realCheck = False") Then
+                realTimeCheckBox.Checked = False
+                realTimeCheckBox.Text = "Off"
+                My.Settings.realTimeScan = False
+                mainForm.realTimeOnButton.Enabled = True
+                mainForm.realTimeOffButton.Enabled = False
+            Else
+                realTimeCheckBox.Checked = True
+                realTimeCheckBox.Text = "On"
+                My.Settings.realTimeScan = True
+                mainForm.realTimeOnButton.Enabled = False
+                mainForm.realTimeOffButton.Enabled = True
+            End If
 
-        '    If lines.Contains("windowsStart = False") Then
-        '        windowsStartCheckBox.Checked = False
-        '        windowsStartCheckBox.Text = "Off"
-        '    Else
-        '        windowsStartCheckBox.Checked = True
-        '        windowsStartCheckBox.Text = "On"
-        '    End If
+            If lines.Contains("windowsStart = False") Then
+                windowsStartCheckBox.Checked = False
+                windowsStartCheckBox.Text = "Off"
+            Else
+                windowsStartCheckBox.Checked = True
+                windowsStartCheckBox.Text = "On"
+            End If
 
-        '    If lines.Contains("archiveFiles = False") Then
-        '        archivedFilesCheckBox.Checked = False
-        '        archivedFilesCheckBox.Text = "Off"
-        '    Else
-        '        archivedFilesCheckBox.Checked = True
-        '        archivedFilesCheckBox.Text = "On"
-        '    End If
+            If lines.Contains("archiveFiles = False") Then
+                archivedFilesCheckBox.Checked = False
+                archivedFilesCheckBox.Text = "Off"
+            Else
+                archivedFilesCheckBox.Checked = True
+                archivedFilesCheckBox.Text = "On"
+            End If
 
-        '    If lines.Contains("webProtect = False") Then
-        '        webProtectionCheckBox.Checked = False
-        '        webProtectionCheckBox.Text = "Off"
-        '    Else
-        '        webProtectionCheckBox.Checked = True
-        '        webProtectionCheckBox.Text = "On"
-        '    End If
-        'Else
+            If lines.Contains("webProtect = False") Then
+                webProtectionCheckBox.Checked = False
+                webProtectionCheckBox.Text = "Off"
+            Else
+                webProtectionCheckBox.Checked = True
+                webProtectionCheckBox.Text = "On"
+            End If
+        Else
 
-        'End If
+        End If
     End Sub
 
     Private Sub VscrollTmr_Tick(sender As Object, e As EventArgs) Handles creditTimer.Tick
