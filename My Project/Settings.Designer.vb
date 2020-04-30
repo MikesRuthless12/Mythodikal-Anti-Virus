@@ -192,6 +192,54 @@ Namespace My
                 Me("quarantinedSize") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("English")>  _
+        Public Property selectedLanguage() As String
+            Get
+                Return CType(Me("selectedLanguage"),String)
+            End Get
+            Set
+                Me("selectedLanguage") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal Priority")>  _
+        Public Property scanPriority() As String
+            Get
+                Return CType(Me("scanPriority"),String)
+            End Get
+            Set
+                Me("scanPriority") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property writeScanLogs() As Boolean
+            Get
+                Return CType(Me("writeScanLogs"),Boolean)
+            End Get
+            Set
+                Me("writeScanLogs") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10 Seconds")>  _
+        Public Property closeNotificationSeconds() As String
+            Get
+                Return CType(Me("closeNotificationSeconds"),String)
+            End Get
+            Set
+                Me("closeNotificationSeconds") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

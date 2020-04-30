@@ -69,119 +69,61 @@ Public Class settingsForm
         End If
     End Sub
 
-    Private Sub clearScanDateAndTimeButton_Click(sender As Object, e As EventArgs) Handles clearScanDateAndTimeButton.Click
-        scheduledScan = True
-        scheduleDateAndTimeButton.Enabled = True
-        clearScanDateAndTimeButton.Enabled = False
-        mainForm.scheduledScanTimer.Enabled = False
-        quickScanRadioButton.Checked = False
-        fullScanRadioButton.Checked = False
-        folderScanRadioButton.Checked = False
-        MonthCalendar2.SelectionEnd = Date.Today
-        hourUpAndDown.Value = 1
-        minuteUpAndDown.Value = 0
-    End Sub
-
     Private Sub allowListButton_Click(sender As Object, e As EventArgs) Handles allowListButton.Click
-        aboutScheduledScansLabel.Visible = False
-        aboutProgramLabel.Visible = False
-        scheduleScanLabel.Visible = False
+        securityGroupBox.Visible = False
+        generalGroupBox.Visible = False
+        allowedProgramsGroupBox.Visible = True
         scheduleScanGroupBox.Visible = False
-        scheduleDateAndTimeButton.Visible = False
-        clearScanDateAndTimeButton.Visible = False
-        generalLabel.Visible = False
-        allowListLabel.Visible = True
-        allowProgramsListBox.Visible = True
-        addProgramButton.Visible = True
-        removeProgramButton.Visible = True
-        securityLabel.Visible = False
-        realTimeProtectionLabel.Visible = False
-        realTimeCheckBox.Visible = False
-        webProtectionLabel.Visible = False
-        webProtectionCheckBox.Visible = False
-        windowsStartLabel.Visible = False
-        windowsStartCheckBox.Visible = False
-        archivedFilesLabel.Visible = False
-        archivedFilesCheckBox.Visible = False
+        aboutProgramGroupBox.Visible = False
         If allowProgramsListBox.Items.Count > 0 Then
             allowProgramsListBox.SelectedIndex = 0
         End If
     End Sub
 
     Private Sub generalSettingsButton_Click(sender As Object, e As EventArgs) Handles generalSettingsButton.Click
-        aboutScheduledScansLabel.Visible = False
-        aboutProgramLabel.Visible = False
-        scheduleScanLabel.Visible = False
+        securityGroupBox.Visible = False
+        generalGroupBox.Visible = True
+        allowedProgramsGroupBox.Visible = False
         scheduleScanGroupBox.Visible = False
-        scheduleDateAndTimeButton.Visible = False
-        clearScanDateAndTimeButton.Visible = False
-        allowProgramsListBox.Visible = False
-        generalLabel.Visible = True
-        addProgramButton.Visible = False
-        removeProgramButton.Visible = False
-        securityLabel.Visible = False
-        realTimeProtectionLabel.Visible = False
-        realTimeCheckBox.Visible = False
-        webProtectionLabel.Visible = False
-        webProtectionCheckBox.Visible = False
-        windowsStartLabel.Visible = False
-        windowsStartCheckBox.Visible = False
-        archivedFilesLabel.Visible = False
-        archivedFilesCheckBox.Visible = False
+        aboutProgramGroupBox.Visible = False
+        Try
+            languageComboBox.SelectedItem = My.Settings.selectedLanguage
+            scanPriorityComboBox.SelectedItem = My.Settings.scanPriority
+            If My.Settings.writeScanLogs = False Then
+                scanLogsOffRadioButton.Checked = True
+                scanLogsOnRadioButton.Checked = False
+            Else
+                scanLogsOffRadioButton.Checked = False
+                scanLogsOnRadioButton.Checked = True
+            End If
+
+            Dim blah As String = My.Settings.closeNotificationSeconds
+            If closeNotificationsComboBox.Items.Contains(blah.ToString()) Then
+                closeNotificationsComboBox.SelectedItem = blah.ToString()
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub securityButton_Click(sender As Object, e As EventArgs) Handles securityButton.Click
-        aboutScheduledScansLabel.Visible = False
-        aboutProgramLabel.Visible = False
-        scheduleScanLabel.Visible = False
+        securityGroupBox.Visible = True
+        generalGroupBox.Visible = False
+        allowedProgramsGroupBox.Visible = False
         scheduleScanGroupBox.Visible = False
-        scheduleDateAndTimeButton.Visible = False
-        clearScanDateAndTimeButton.Visible = False
-        allowListLabel.Visible = False
-        allowProgramsListBox.Visible = False
-        generalLabel.Visible = False
-        addProgramButton.Visible = False
-        removeProgramButton.Visible = False
-        securityLabel.Visible = True
-        realTimeProtectionLabel.Visible = True
-        realTimeCheckBox.Visible = True
-        webProtectionLabel.Visible = True
-        webProtectionCheckBox.Visible = True
-        windowsStartLabel.Visible = True
-        windowsStartCheckBox.Visible = True
-        archivedFilesLabel.Visible = True
-        archivedFilesCheckBox.Visible = True
+        aboutProgramGroupBox.Visible = False
     End Sub
 
     Private Sub aboutButton_Click(sender As Object, e As EventArgs) Handles aboutButton.Click
-        creditTimer.Interval = 20
+        creditTimer.Interval = 10
         creditTimer.Enabled = True
-        aboutProgramLabel.Top = Panel3.Height
-        scheduleScanLabel.Visible = False
+        aboutProgramLabel.Top = aboutProgramGroupBox.Height
+        securityGroupBox.Visible = False
+        generalGroupBox.Visible = False
+        allowedProgramsGroupBox.Visible = False
         scheduleScanGroupBox.Visible = False
-        scheduleDateAndTimeButton.Visible = False
-        clearScanDateAndTimeButton.Visible = False
-        allowListLabel.Visible = False
-        allowProgramsListBox.Visible = False
-        generalLabel.Visible = False
+        aboutProgramGroupBox.Visible = True
         aboutProgramLabel.Visible = True
-        aboutProgramLabel.Location = New Point(8, 396)
-        addProgramButton.Visible = False
-        removeProgramButton.Visible = False
-        securityLabel.Visible = False
-        realTimeProtectionLabel.Visible = False
-        realTimeCheckBox.Visible = False
-        webProtectionLabel.Visible = False
-        webProtectionCheckBox.Visible = False
-        windowsStartLabel.Visible = False
-        windowsStartCheckBox.Visible = False
-        archivedFilesLabel.Visible = False
-        archivedFilesCheckBox.Visible = False
-        aboutScheduledScansLabel.Visible = False
-    End Sub
-
-    Private Sub settingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         aboutProgramLabel.Text = "About Mythodikal Anti-Virus" & vbCrLf & vbCrLf &
                                  "Version 1.0.0" & vbCrLf & vbCrLf &
                                  "Programmed By:" & vbCrLf &
@@ -190,7 +132,15 @@ Public Class settingsForm
                                  "VB.Net - Visual Studio 2019 Enterprise" & vbCrLf & vbCrLf &
                                  "Number Of Times Loaded: " & My.Settings.numLoads & "" & vbCrLf & vbCrLf &
                                  "Total Virus Signatures: " & mainForm.signaturesCount.ToString("N0") & ""
+    End Sub
 
+    Private Sub settingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim numLoadsNow As Integer = 0
+        numLoadsNow = My.Settings.numLoads
+        My.Settings.numLoads = numLoadsNow
+        If numLoadsNow = 1 Then
+            MessageBox.Show("Your Settings Will Save As Soon As You Hit The Exit Button On This Form. This Will Be The Only Time That You See This Messaage.", "Mythodikal Anti-Virus", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
         Dim aPath As String = Application.StartupPath()
         If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
@@ -271,7 +221,7 @@ Public Class settingsForm
             End If
             Dim scanHourNow As String = Nothing
             If My.Settings.scheduleHour = "" Then
-                hourUpAndDown.Value = 0
+                hourUpAndDown.Value = 1
             Else
                 scanHourNow = My.Settings.scheduleHour
             End If
@@ -290,27 +240,53 @@ Public Class settingsForm
                 minuteUpAndDown.Value = scanMinuteNow
             Else
             End If
-        End If
 
-        aboutProgramLabel.Visible = False
-        scheduleScanLabel.Visible = False
+            If lines.Contains("scanMinute = " & scanMinuteNow) Then
+                minuteUpAndDown.Value = scanMinuteNow
+            Else
+            End If
+
+            If lines.Contains("closeNotificationSeconds = 5") Then
+                closeNotificationsComboBox.SelectedIndex = 0
+            Else
+            End If
+            If lines.Contains("closeNotificationSeconds = 10") Then
+                closeNotificationsComboBox.SelectedIndex = 1
+            Else
+            End If
+            If lines.Contains("closeNotificationSeconds = 15") Then
+                closeNotificationsComboBox.SelectedIndex = 2
+            Else
+            End If
+            If lines.Contains("closeNotificationSeconds = 20") Then
+                closeNotificationsComboBox.SelectedIndex = 3
+            Else
+            End If
+            If lines.Contains("closeNotificationSeconds = 30") Then
+                closeNotificationsComboBox.SelectedIndex = 4
+            Else
+            End If
+            If lines.Contains("writeScanLogs = True") Then
+                scanLogsOnRadioButton.Checked = True
+                scanLogsOffRadioButton.Checked = False
+            Else
+                scanLogsOnRadioButton.Checked = False
+                scanLogsOffRadioButton.Checked = False
+            End If
+            If lines.Contains("language = English") Then
+                languageComboBox.SelectedIndex = 0
+            Else
+            End If
+            If lines.Contains("language = German") Then
+                languageComboBox.SelectedIndex = 1
+            Else
+            End If
+        End If
+        securityGroupBox.Visible = True
+        generalGroupBox.Visible = False
+        allowedProgramsGroupBox.Visible = False
         scheduleScanGroupBox.Visible = False
-        scheduleDateAndTimeButton.Visible = False
-        clearScanDateAndTimeButton.Visible = False
-        allowListLabel.Visible = False
-        allowProgramsListBox.Visible = False
-        generalLabel.Visible = False
-        addProgramButton.Visible = False
-        removeProgramButton.Visible = False
-        securityLabel.Visible = True
-        realTimeProtectionLabel.Visible = True
-        realTimeCheckBox.Visible = True
-        webProtectionLabel.Visible = True
-        webProtectionCheckBox.Visible = True
-        windowsStartLabel.Visible = True
-        windowsStartCheckBox.Visible = True
-        archivedFilesLabel.Visible = True
-        archivedFilesCheckBox.Visible = True
+        aboutProgramGroupBox.Visible = False
     End Sub
 
     Private Sub exitPicBox_Click(sender As Object, e As EventArgs) Handles exitPicBox.Click
@@ -323,8 +299,6 @@ Public Class settingsForm
             Next
         End If
         Dim aPath As String = Application.StartupPath()
-
-
 
 
         Using writer As New StreamWriter(aPath & "\ProgramSettings.ini", False)
@@ -377,12 +351,16 @@ Public Class settingsForm
                 Dim dateEnd As Date = MonthCalendar2.SelectionEnd
                 My.Settings.scheduleDate = dateEnd
 
+
                 writer.WriteLine("scanDate = " & dateEnd)
                 writer.WriteLine("scanHour = " & hourUpAndDown.Value)
                 writer.WriteLine("scanMinute = " & minuteUpAndDown.Value)
+                writer.WriteLine("closeNotificationSeconds = " & My.Settings.closeNotificationSeconds & "")
+                writer.WriteLine("writeScanLogs = " & My.Settings.writeScanLogs & "")
+                writer.WriteLine("language = " & My.Settings.selectedLanguage & "")
+                writer.WriteLine("scanPriority = " & My.Settings.scanPriority)
                 My.Settings.scheduleHour = hourUpAndDown.Value
                 My.Settings.scheduleMinute = minuteUpAndDown.Value
-                My.Settings.Save()
             End If
         End Using
 
@@ -395,31 +373,75 @@ Public Class settingsForm
         Me.WindowState = FormWindowState.Minimized
     End Sub
 
-    Private Sub addProgramButton_Click(sender As Object, e As EventArgs) Handles addProgramButton.Click
-        Try
 
-            Dim blah As New OpenFileDialog
-            blah.FileName = ""
-            blah.Multiselect = False
-            blah.Title = "Add Program To Allowed List"
-            If (blah.ShowDialog() = DialogResult.OK) Then
-                Dim currDir As String = blah.FileName & "\"
-                allowProgramsListBox.Items.Add(currDir)
-                allowProgramsListBox.SelectedIndex = 0
-                allowProgramsListBox.Text = ""
+
+
+
+
+    Private Sub scanPriorityComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles scanPriorityComboBox.SelectedIndexChanged
+        Try
+            If scanPriorityComboBox.SelectedIndex = 0 Then
+                Process.GetCurrentProcess.PriorityClass = ProcessPriorityClass.BelowNormal
+                My.Settings.scanPriority = "Low Priority"
+            ElseIf scanPriorityComboBox.SelectedIndex = 1 Then
+                Process.GetCurrentProcess.PriorityClass = ProcessPriorityClass.Normal
+                My.Settings.scanPriority = "Normal Priority"
+            ElseIf scanPriorityComboBox.SelectedIndex = 2 Then
+                Process.GetCurrentProcess.PriorityClass = ProcessPriorityClass.AboveNormal
+                My.Settings.scanPriority = "Above Normal Priority"
+            ElseIf scanPriorityComboBox.SelectedIndex = 3 Then
+                Process.GetCurrentProcess.PriorityClass = ProcessPriorityClass.High
+                My.Settings.scanPriority = "High Priority"
             Else
-                Exit Sub
+                Process.GetCurrentProcess.PriorityClass = ProcessPriorityClass.RealTime
+                My.Settings.scanPriority = "Really High Priority"
             End If
         Catch ex As Exception
         End Try
     End Sub
 
-    Private Sub removeProgramButton_Click(sender As Object, e As EventArgs) Handles removeProgramButton.Click
-        If allowProgramsListBox.SelectedIndex = -1 Then
-            Exit Sub
-        Else
-            allowProgramsListBox.Items.Remove(allowProgramsListBox.SelectedItem)
+    Private Sub closeNotificationsComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles closeNotificationsComboBox.SelectedIndexChanged
+        Try
+            If closeNotificationsComboBox.SelectedIndex = 0 Then
+                My.Settings.closeNotificationSeconds = 5 & " Seconds"
+            ElseIf closeNotificationsComboBox.SelectedIndex = 1 Then
+                My.Settings.closeNotificationSeconds = 10 & " Seconds"
+            ElseIf closeNotificationsComboBox.SelectedIndex = 2 Then
+                My.Settings.closeNotificationSeconds = 15 & " Seconds"
+            ElseIf closeNotificationsComboBox.SelectedIndex = 3 Then
+                My.Settings.closeNotificationSeconds = 20 & " Seconds"
+            Else
+                My.Settings.closeNotificationSeconds = 30 & " Seconds"
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub scanLogsOnRadioButton_Click(sender As Object, e As EventArgs) Handles scanLogsOnRadioButton.Click
+        If scanLogsOnRadioButton.Checked = True Then
+            scanLogsOffRadioButton.Checked = False
+            My.Settings.writeScanLogs = True
         End If
+        My.Settings.Save()
+    End Sub
+
+    Private Sub scanLogsOffRadioButton_Click(sender As Object, e As EventArgs) Handles scanLogsOffRadioButton.Click
+        If scanLogsOffRadioButton.Checked = True Then
+            scanLogsOnRadioButton.Checked = False
+            My.Settings.writeScanLogs = False
+        End If
+        My.Settings.Save()
+    End Sub
+
+    Private Sub languageComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles languageComboBox.SelectedIndexChanged
+        Try
+            If languageComboBox.SelectedIndex = 0 Then
+                My.Settings.selectedLanguage = languageComboBox.SelectedItem.ToString()
+            ElseIf languageComboBox.SelectedIndex = 1 Then
+                My.Settings.selectedLanguage = languageComboBox.SelectedItem.ToString()
+            End If
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub realTimeCheckBox_Click(sender As Object, e As EventArgs) Handles realTimeCheckBox.Click
@@ -433,71 +455,6 @@ Public Class settingsForm
                 realTimeCheckBox.Checked = True
                 mainForm.realTimeOnButton_Click(sender, e)
             End If
-        End If
-    End Sub
-
-    Private Sub settingsForm_Activated(sender As Object, e As EventArgs) Handles Me.Activated
-        'Dim aPath As String = Application.StartupPath()
-        ''   MessageBox.Show(aPath & "\ProgramSettings.ini")
-        'If IO.File.Exists(aPath & "\ProgramSettings.ini") Then
-        '    Dim lines = IO.File.ReadAllLines(aPath & "\ProgramSettings.ini")
-
-        '    If lines.Contains("realCheck = False") Then
-        '        realTimeCheckBox.Checked = False
-        '        realTimeCheckBox.Text = "Off"
-        '        My.Settings.realTimeScan = False
-        '        mainForm.realTimeOnButton.Enabled = True
-        '        mainForm.realTimeOffButton.Enabled = False
-        '    Else
-        '        realTimeCheckBox.Checked = True
-        '        realTimeCheckBox.Text = "On"
-        '        My.Settings.realTimeScan = True
-        '        mainForm.realTimeOnButton.Enabled = False
-        '        mainForm.realTimeOffButton.Enabled = True
-        '    End If
-
-        '    If lines.Contains("windowsStart = False") Then
-        '        windowsStartCheckBox.Checked = False
-        '        windowsStartCheckBox.Text = "Off"
-        '    Else
-        '        windowsStartCheckBox.Checked = True
-        '        windowsStartCheckBox.Text = "On"
-        '    End If
-
-        '    If lines.Contains("archiveFiles = False") Then
-        '        archivedFilesCheckBox.Checked = False
-        '        archivedFilesCheckBox.Text = "Off"
-        '    Else
-        '        archivedFilesCheckBox.Checked = True
-        '        archivedFilesCheckBox.Text = "On"
-        '    End If
-
-        '    If lines.Contains("webProtect = False") Then
-        '        webProtectionCheckBox.Checked = False
-        '        webProtectionCheckBox.Text = "Off"
-        '    Else
-        '        webProtectionCheckBox.Checked = True
-        '        webProtectionCheckBox.Text = "On"
-        '    End If
-        'Else
-
-        'End If
-    End Sub
-
-    Private Sub VscrollTmr_Tick(sender As Object, e As EventArgs) Handles creditTimer.Tick
-        aboutProgramLabel.Location = New Point(aboutProgramLabel.Location.X, aboutProgramLabel.Location.Y - 1)
-        If aboutProgramLabel.Location = New Point(8, -385) Then
-            aboutProgramLabel.Location = New Point(8, 396)
-        End If
-    End Sub
-
-    Private Sub windowsStartCheckBox_Click(sender As Object, e As EventArgs) Handles windowsStartCheckBox.Click
-        If windowsStartCheckBox.Checked = True Then
-            windowsStartCheckBox.Text = "On"
-            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).SetValue(Application.ProductName, Application.ExecutablePath)
-        Else
-            windowsStartCheckBox.Text = "Off"
-            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
         End If
     End Sub
 
@@ -515,29 +472,6 @@ Public Class settingsForm
         Else
             archivedFilesCheckBox.Text = "Off"
         End If
-    End Sub
-
-    Private Sub scheduleScanButton_Click(sender As Object, e As EventArgs) Handles scheduleScanButton.Click
-        aboutScheduledScansLabel.Visible = True
-        aboutProgramLabel.Visible = False
-        scheduleScanLabel.Visible = True
-        scheduleScanGroupBox.Visible = True
-        scheduleDateAndTimeButton.Visible = True
-        clearScanDateAndTimeButton.Visible = True
-        generalLabel.Visible = False
-        allowListLabel.Visible = False
-        allowProgramsListBox.Visible = False
-        addProgramButton.Visible = False
-        removeProgramButton.Visible = False
-        securityLabel.Visible = False
-        realTimeProtectionLabel.Visible = False
-        realTimeCheckBox.Visible = False
-        webProtectionLabel.Visible = False
-        webProtectionCheckBox.Visible = False
-        windowsStartLabel.Visible = False
-        windowsStartCheckBox.Visible = False
-        archivedFilesLabel.Visible = False
-        archivedFilesCheckBox.Visible = False
     End Sub
 
     Private Sub scheduleDateAndTimeButton_Click(sender As Object, e As EventArgs) Handles scheduleDateAndTimeButton.Click
@@ -561,6 +495,71 @@ Public Class settingsForm
         End If
         If hourUpAndDown.Value = 24 Then
             amPMLabel.Text = "AM"
+        End If
+    End Sub
+
+    Private Sub removeProgramButton_Click(sender As Object, e As EventArgs) Handles removeProgramButton.Click
+        If allowProgramsListBox.SelectedIndex = -1 Then
+            Exit Sub
+        Else
+            allowProgramsListBox.Items.Remove(allowProgramsListBox.SelectedItem)
+        End If
+    End Sub
+
+    Private Sub addProgramButton_Click(sender As Object, e As EventArgs) Handles addProgramButton.Click
+        Try
+
+            Dim blah As New OpenFileDialog
+            blah.FileName = ""
+            blah.Multiselect = False
+            blah.Title = "Add Program To Allowed List"
+            If (blah.ShowDialog() = DialogResult.OK) Then
+                Dim currDir As String = blah.FileName & "\"
+                allowProgramsListBox.Items.Add(currDir)
+                allowProgramsListBox.SelectedIndex = 0
+                allowProgramsListBox.Text = ""
+            Else
+                Exit Sub
+            End If
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub clearScanDateAndTimeButton_Click(sender As Object, e As EventArgs) Handles clearScanDateAndTimeButton.Click
+        scheduledScan = True
+        scheduleDateAndTimeButton.Enabled = True
+        clearScanDateAndTimeButton.Enabled = False
+        mainForm.scheduledScanTimer.Enabled = False
+        quickScanRadioButton.Checked = False
+        fullScanRadioButton.Checked = False
+        folderScanRadioButton.Checked = False
+        MonthCalendar2.SelectionEnd = Date.Today
+        hourUpAndDown.Value = 1
+        minuteUpAndDown.Value = 0
+    End Sub
+
+    Private Sub scheduleScanButton_Click(sender As Object, e As EventArgs) Handles scheduleScanButton.Click
+        securityGroupBox.Visible = False
+        generalGroupBox.Visible = False
+        allowedProgramsGroupBox.Visible = False
+        scheduleScanGroupBox.Visible = True
+        aboutProgramGroupBox.Visible = False
+    End Sub
+
+    Private Sub windowsStartCheckBox_Click(sender As Object, e As EventArgs) Handles windowsStartCheckBox.Click
+        If windowsStartCheckBox.Checked = True Then
+            windowsStartCheckBox.Text = "On"
+            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).SetValue(Application.ProductName, Application.ExecutablePath)
+        Else
+            windowsStartCheckBox.Text = "Off"
+            My.Computer.Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).DeleteValue(Application.ProductName)
+        End If
+    End Sub
+
+    Private Sub creditTimer_Tick(sender As Object, e As EventArgs) Handles creditTimer.Tick
+        aboutProgramLabel.Location = New Point(aboutProgramLabel.Location.X, aboutProgramLabel.Location.Y - 1)
+        If aboutProgramLabel.Location = New Point(8, -385) Then
+            aboutProgramLabel.Location = New Point(8, 396)
         End If
     End Sub
 End Class

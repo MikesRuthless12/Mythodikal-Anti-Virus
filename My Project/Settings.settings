@@ -38,5 +38,17 @@
     <Setting Name="quarantinedSize" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="selectedLanguage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">English</Value>
+    </Setting>
+    <Setting Name="scanPriority" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal Priority</Value>
+    </Setting>
+    <Setting Name="writeScanLogs" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="closeNotificationSeconds" Type="System.String" Scope="User">
+      <Value Profile="(Default)">10 Seconds</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
