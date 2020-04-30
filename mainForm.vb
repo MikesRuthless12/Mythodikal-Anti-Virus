@@ -478,6 +478,8 @@ Public Class mainForm
         quarantineLabel.Visible = False
         folderScanLabel.Visible = False
         quarantineGridView.Visible = False
+        copyHashButton.Visible = False
+        filesPropertiesButton.Visible = False
         scanGroupBox.Visible = True
         quarantineGroupBox.Visible = False
     End Sub
@@ -496,6 +498,8 @@ Public Class mainForm
         fullScanLabel.Visible = False
         quarantineLabel.Visible = False
         folderScanLabel.Visible = False
+        copyHashButton.Visible = False
+        filesPropertiesButton.Visible = False
         quarantineGridView.Visible = False
         scanGroupBox.Visible = True
         quarantineGroupBox.Visible = False
@@ -537,6 +541,8 @@ Public Class mainForm
         folderScanLabel.Visible = True
         quarantineGridView.Visible = False
         scanGroupBox.Visible = True
+        copyHashButton.Visible = False
+        filesPropertiesButton.Visible = False
         quarantineGroupBox.Visible = False
     End Sub
 
