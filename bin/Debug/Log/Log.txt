@@ -185,3 +185,371 @@ Real Time Scan Started At: 4/30/2020 3:54:59 PM
 Real Time Scan Stopped At: 4/30/2020 3:55:29 PM
 Folder Scan Started At: 4/30/2020 3:55:39 PM
 Full Scan Started At: 4/30/2020 3:58:40 PM
+Real Time Scan Started At: 4/30/2020 4:20:54 PM
+Real Time Scan Stopped At: 4/30/2020 4:21:07 PM
+Full Scan Started At: 4/30/2020 4:21:33 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 4:26:38 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 4:37:52 PM
+Real Time Scan Started At: 4/30/2020 4:41:21 PM
+Real Time Scan Stopped At: 4/30/2020 4:41:26 PM
+Full Scan Started At: 4/30/2020 4:41:30 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 4:43:19 PM
+Full Scan Started At: 4/30/2020 4:57:59 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 5:01:50 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:02:33 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:02:36 PM
+Full Scan Started At: 4/30/2020 5:06:05 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 5:15:02 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 5:15:08 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:15:13 PM
+Real Time Scan Started At: 4/30/2020 5:17:08 PM
+Real Time Scan Stopped At: 4/30/2020 5:17:10 PM
+Full Scan Started At: 4/30/2020 5:17:12 PM
+Full Scan Started At: 4/30/2020 5:19:11 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:19:18 PM
+Full Scan Started At: 4/30/2020 5:22:24 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 5:22:29 PM
+Real Time Scan Stopped At: 4/30/2020 5:22:31 PM
+Quick Scan Started At: 4/30/2020 5:22:33 PM
+Real Time Scan Started At: 4/30/2020 5:24:06 PM
+Real Time Scan Stopped At: 4/30/2020 5:24:08 PM
+Full Scan Started At: 4/30/2020 5:24:09 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:24:22 PM
+Full Scan Started At: 4/30/2020 5:25:56 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 5:26:17 PM
+Real Time Scan Stopped At: 4/30/2020 5:26:18 PM
+Full Scan Started At: 4/30/2020 5:26:20 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:26:27 PM
+Quick Scan Started At: 4/30/2020 5:29:05 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 5:29:18 PM
+Full Scan Started At: 4/30/2020 5:31:00 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 5:31:13 PM
+Real Time Scan Stopped At: 4/30/2020 5:31:15 PM
+Quick Scan Started At: 4/30/2020 5:31:17 PM
+Full Scan Started At: 4/30/2020 5:34:10 PM
+Full Scan Started At: 4/30/2020 5:36:20 PM
+Full Scan Started At: 4/30/2020 5:37:27 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:37:44 PM
+Full Scan Started At: 4/30/2020 5:41:10 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:41:30 PM
+Real Time Scan Started At: 4/30/2020 5:43:54 PM
+Real Time Scan Stopped At: 4/30/2020 5:43:56 PM
+Full Scan Started At: 4/30/2020 5:43:58 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:44:15 PM
+Quick Scan Started At: 4/30/2020 5:45:31 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 5:45:46 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 5:47:47 PM
+Quick Scan Started At: 4/30/2020 5:48:50 PM
+Real Time Scan Started At: 4/30/2020 9:38:07 PM
+Real Time Scan Stopped At: 4/30/2020 9:38:12 PM
+Quick Scan Started At: 4/30/2020 9:38:15 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 9:39:18 PM
+Full Scan Started At: 4/30/2020 9:41:22 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 9:56:52 PM
+Quick Scan Started At: 4/30/2020 9:56:59 PM
+Real Time Scan Started At: 4/30/2020 9:57:46 PM
+Real Time Scan Started At: 4/30/2020 9:58:31 PM
+Real Time Scan Stopped At: 4/30/2020 9:58:34 PM
+Quick Scan Started At: 4/30/2020 9:58:36 PM
+Quick Scan Started At: 4/30/2020 10:00:58 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 10:08:48 PM
+Real Time Scan Stopped At: 4/30/2020 10:08:53 PM
+Quick Scan Started At: 4/30/2020 10:08:55 PM
+Quick Scan Started At: 4/30/2020 10:10:19 PM
+Quick Scan Started At: 4/30/2020 10:21:36 PM
+Quick Scan Started At: 4/30/2020 10:25:42 PM
+Quick Scan Started At: 4/30/2020 10:34:52 PM
+Quick Scan Started At: 4/30/2020 10:36:39 PM
+Folder Scan Started At: 4/30/2020 10:49:49 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 10:53:02 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 10:54:20 PM
+Folder Scan Started At: 4/30/2020 10:55:41 PM
+Folder Scan Started At: 4/30/2020 10:56:19 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 10:59:34 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 11:08:42 PM
+Real Time Scan Started At: 4/30/2020 11:27:41 PM
+Real Time Scan Stopped At: 4/30/2020 11:27:48 PM
+Folder Scan Started At: 4/30/2020 11:27:55 PM
+Scan Was Cancelled By User At: 4/30/2020 11:28:03 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:28:07 PM
+Folder Scan Started At: 4/30/2020 11:30:42 PM
+Scan Was Cancelled By User At: 4/30/2020 11:30:47 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:30:48 PM
+Folder Scan Started At: 4/30/2020 11:32:12 PM
+Scan Was Cancelled By User At: 4/30/2020 11:32:15 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:32:17 PM
+Full Scan Started At: 4/30/2020 11:34:25 PM
+Scan Was Cancelled By User At: 4/30/2020 11:34:41 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 11:34:46 PM
+Folder Scan Started At: 4/30/2020 11:36:41 PM
+Scan Was Cancelled By User At: 4/30/2020 11:36:47 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:36:48 PM
+Folder Scan Started At: 4/30/2020 11:37:37 PM
+Scan Was Cancelled By User At: 4/30/2020 11:37:42 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:37:45 PM
+Scan Was Cancelled By User At: 4/30/2020 11:38:18 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 11:38:23 PM
+Folder Scan Started At: 4/30/2020 11:41:41 PM
+Scan Was Cancelled By User At: 4/30/2020 11:41:48 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:41:49 PM
+Scan Was Cancelled By User At: 4/30/2020 11:41:58 PM
+0 Threats Were Detected.
+Quick Scan Started At: 4/30/2020 11:41:59 PM
+Scan Was Cancelled By User At: 4/30/2020 11:42:06 PM
+0 Threats Were Detected.
+Full Scan Started At: 4/30/2020 11:42:07 PM
+Scan Was Cancelled By User At: 4/30/2020 11:42:12 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 11:42:20 PM
+Real Time Scan Started At: 4/30/2020 11:44:32 PM
+Folder Scan Started At: 4/30/2020 11:44:37 PM
+Real Time Scan Stopped At: 4/30/2020 11:44:57 PM
+Folder Scan Started At: 4/30/2020 11:51:57 PM
+Scan Was Cancelled By User At: 4/30/2020 11:52:01 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 4/30/2020 11:54:01 PM
+Real Time Scan Stopped At: 4/30/2020 11:54:07 PM
+Folder Scan Started At: 4/30/2020 11:54:15 PM
+Folder Scan Started At: 4/30/2020 11:56:05 PM
+Scan Was Completed By User At: 4/30/2020 11:56:05 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 11:56:16 PM
+Scan Was Completed By User At: 4/30/2020 11:56:20 PM
+0 Threats Were Detected.
+Folder Scan Started At: 4/30/2020 11:56:30 PM
+Scan Was Completed By User At: 4/30/2020 11:56:37 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 12:18:12 AM
+Real Time Scan Stopped At: 5/1/2020 12:18:14 AM
+Folder Scan Started At: 5/1/2020 12:18:20 AM
+Scan Was Completed By User At: 5/1/2020 12:18:21 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 12:20:07 AM
+Scan Was Completed By User At: 5/1/2020 12:20:14 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 12:28:43 AM
+Folder Scan Started At: 5/1/2020 12:32:02 AM
+Folder Scan Started At: 5/1/2020 12:37:05 AM
+Folder Scan Started At: 5/1/2020 12:38:25 AM
+Folder Scan Started At: 5/1/2020 12:39:24 AM
+Folder Scan Started At: 5/1/2020 12:43:14 AM
+Folder Scan Started At: 5/1/2020 12:45:34 AM
+Scan Was Completed By User At: 5/1/2020 12:45:37 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 12:46:45 AM
+Scan Was Completed By User At: 5/1/2020 12:46:48 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 12:54:55 AM
+Folder Scan Started At: 5/1/2020 12:54:59 AM
+Scan Was Completed By User At: 5/1/2020 12:55:05 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 12:59:03 AM
+Real Time Scan Stopped At: 5/1/2020 12:59:08 AM
+Folder Scan Started At: 5/1/2020 12:59:14 AM
+Scan Was Completed By User At: 5/1/2020 12:59:20 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 1:00:02 AM
+Scan Was Completed By User At: 5/1/2020 1:00:07 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 1:04:58 AM
+Folder Scan Started At: 5/1/2020 1:08:00 AM
+Folder Scan Started At: 5/1/2020 1:11:10 AM
+Scan Was Completed By User At: 5/1/2020 1:11:28 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 1:12:33 AM
+Scan Was Completed By User At: 5/1/2020 1:12:39 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 1:23:55 AM
+Folder Scan Started At: 5/1/2020 1:24:48 AM
+Folder Scan Started At: 5/1/2020 1:55:16 AM
+Scan Was Completed By User At: 5/1/2020 1:55:22 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:01:01 AM
+Scan Was Completed By User At: 5/1/2020 2:01:04 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:05:23 AM
+Scan Was Completed By User At: 5/1/2020 2:05:27 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 2:08:39 AM
+Real Time Scan Stopped At: 5/1/2020 2:08:44 AM
+Folder Scan Started At: 5/1/2020 2:08:47 AM
+Scan Was Completed By User At: 5/1/2020 2:08:50 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 2:18:10 AM
+Scan Was Cancelled By User At: 5/1/2020 2:18:47 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:19:46 AM
+Scan Was Completed By User At: 5/1/2020 2:20:23 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:21:14 AM
+Scan Was Completed By User At: 5/1/2020 2:21:28 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:23:40 AM
+Scan Was Completed By User At: 5/1/2020 2:24:19 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 2:25:15 AM
+Real Time Scan Stopped At: 5/1/2020 2:25:17 AM
+Folder Scan Started At: 5/1/2020 2:25:39 AM
+Folder Scan Started At: 5/1/2020 2:26:41 AM
+Folder Scan Started At: 5/1/2020 2:28:55 AM
+Folder Scan Started At: 5/1/2020 2:32:30 AM
+Folder Scan Started At: 5/1/2020 2:38:00 AM
+Folder Scan Started At: 5/1/2020 2:39:20 AM
+Real Time Scan Started At: 5/1/2020 2:46:50 AM
+Real Time Scan Stopped At: 5/1/2020 2:46:55 AM
+Folder Scan Started At: 5/1/2020 2:47:14 AM
+Folder Scan Started At: 5/1/2020 2:49:13 AM
+Real Time Scan Started At: 5/1/2020 2:50:42 AM
+Folder Scan Started At: 5/1/2020 2:50:53 AM
+Real Time Scan Stopped At: 5/1/2020 2:51:09 AM
+Folder Scan Started At: 5/1/2020 2:51:57 AM
+Folder Scan Started At: 5/1/2020 2:53:38 AM
+Scan Was Completed By User At: 5/1/2020 2:53:38 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 2:53:46 AM
+Folder Scan Started At: 5/1/2020 3:00:20 AM
+Real Time Scan Started At: 5/1/2020 3:06:15 AM
+Real Time Scan Stopped At: 5/1/2020 3:06:18 AM
+Folder Scan Started At: 5/1/2020 3:06:23 AM
+Folder Scan Started At: 5/1/2020 3:08:32 AM
+Folder Scan Started At: 5/1/2020 3:09:35 AM
+Folder Scan Started At: 5/1/2020 3:12:54 AM
+Folder Scan Started At: 5/1/2020 3:14:47 AM
+Scan Was Completed By User At: 5/1/2020 3:14:47 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 3:14:56 AM
+Folder Scan Started At: 5/1/2020 3:16:25 AM
+Scan Was Completed By User At: 5/1/2020 3:16:25 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 3:16:33 AM
+Folder Scan Started At: 5/1/2020 3:23:56 AM
+Scan Was Cancelled By User At: 5/1/2020 3:24:23 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:24:25 AM
+Scan Was Completed By User At: 5/1/2020 3:24:29 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 3:26:36 AM
+Real Time Scan Stopped At: 5/1/2020 3:26:38 AM
+Full Scan Started At: 5/1/2020 3:26:39 AM
+Scan Was Cancelled By User At: 5/1/2020 3:27:36 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:27:38 AM
+Scan Was Completed By User At: 5/1/2020 3:27:40 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:30:18 AM
+Scan Was Cancelled By User At: 5/1/2020 3:30:28 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:30:30 AM
+Scan Was Cancelled By User At: 5/1/2020 3:30:35 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:30:36 AM
+Scan Was Completed By User At: 5/1/2020 3:30:41 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:31:37 AM
+Scan Was Cancelled By User At: 5/1/2020 3:31:43 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:31:44 AM
+Full Scan Started At: 5/1/2020 3:32:27 AM
+Scan Was Cancelled By User At: 5/1/2020 3:32:32 AM
+0 Threats Were Detected.
+Quick Scan Started At: 5/1/2020 3:32:35 AM
+Scan Was Completed By User At: 5/1/2020 3:32:37 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 3:37:27 AM
+Real Time Scan Stopped At: 5/1/2020 3:37:29 AM
+Folder Scan Started At: 5/1/2020 3:37:34 AM
+Scan Was Completed By User At: 5/1/2020 3:37:34 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:37:36 AM
+Scan Was Cancelled By User At: 5/1/2020 3:37:40 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:37:41 AM
+Scan Was Completed By User At: 5/1/2020 3:37:44 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:41:01 AM
+Scan Was Cancelled By User At: 5/1/2020 3:41:06 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:41:07 AM
+Scan Was Cancelled By User At: 5/1/2020 3:41:15 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 3:41:16 AM
+Scan Was Cancelled By User At: 5/1/2020 3:41:21 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 3:41:26 AM
+Full Scan Started At: 5/1/2020 3:44:18 AM
+Full Scan Started At: 5/1/2020 3:48:49 AM
+Full Scan Started At: 5/1/2020 3:50:43 AM
+Full Scan Started At: 5/1/2020 4:02:01 AM
+Full Scan Started At: 5/1/2020 4:03:35 AM
+Scan Was Cancelled By User At: 5/1/2020 4:06:02 AM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 4:06:05 AM
+Scan Was Cancelled By User At: 5/1/2020 4:06:08 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 11:55:59 AM
+Real Time Scan Stopped At: 5/1/2020 11:56:03 AM
+Folder Scan Started At: 5/1/2020 11:56:10 AM
+Scan Was Cancelled By User At: 5/1/2020 11:56:34 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 11:58:36 AM
+Scan Was Cancelled By User At: 5/1/2020 11:58:54 AM
+0 Threats Were Detected.
+Folder Scan Started At: 5/1/2020 11:58:58 AM
+Scan Was Completed By User At: 5/1/2020 11:58:58 AM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 12:01:52 PM
+Real Time Scan Started At: 5/1/2020 12:02:27 PM
+Real Time Scan Stopped At: 5/1/2020 12:02:27 PM
+Folder Scan Started At: 5/1/2020 12:02:46 PM
+Folder Scan Started At: 5/1/2020 12:05:34 PM
+Scan Was Cancelled By User At: 5/1/2020 12:05:50 PM
+0 Threats Were Detected.
+Real Time Scan Started At: 5/1/2020 12:07:05 PM
+Folder Scan Started At: 5/1/2020 12:07:10 PM
+Real Time Scan Started At: 5/1/2020 12:09:45 PM
+Real Time Scan Stopped At: 5/1/2020 12:09:47 PM
+Folder Scan Started At: 5/1/2020 12:09:51 PM
+Full Scan Started At: 5/1/2020 12:14:23 PM
+Scan Was Cancelled By User At: 5/1/2020 12:15:25 PM
+0 Threats Were Detected.
+Full Scan Started At: 5/1/2020 12:16:02 PM
+Full Scan Started At: 5/1/2020 12:32:48 PM
+Full Scan Started At: 5/1/2020 12:45:11 PM
+Scan Was Cancelled By User At: 5/1/2020 12:46:25 PM
+0 Threats Were Detected.
