@@ -28,7 +28,6 @@ C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\bin\Debug\MikesAntiViru
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\bin\Debug\MikesAntiVirusScanner.exe
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\bin\Debug\MikesAntiVirusScanner.pdb
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\bin\Debug\MikesAntiVirusScanner.xml
-C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\obj\Debug\MikesAntiVirusScanner.vbprojAssemblyReference.cache
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\obj\Debug\MikesAntiVirusScanner.mainForm.resources
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\obj\Debug\MikesAntiVirusScanner.Resources.resources
 C:\Users\miken\source\repos\Mythodikal-Anti-Virus-master\obj\Debug\MikesAntiVirusScanner.ScanUSBToast.resources

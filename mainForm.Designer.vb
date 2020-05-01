@@ -856,7 +856,7 @@ Partial Class mainForm
         '
         'etaTimer
         '
-        Me.etaTimer.Interval = 1000
+        Me.etaTimer.Interval = 250
         '
         'realTimeScanBGW
         '
