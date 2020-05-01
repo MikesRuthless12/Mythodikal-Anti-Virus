@@ -25,7 +25,6 @@ Partial Class mainForm
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mainForm))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.titleLabel = New System.Windows.Forms.Label()
         Me.quarantineGroupBox = New System.Windows.Forms.GroupBox()
         Me.quarantineGridView = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -106,6 +105,7 @@ Partial Class mainForm
         Me.loadMythodikal = New System.ComponentModel.BackgroundWorker()
         Me.scanFilesBGW = New System.ComponentModel.BackgroundWorker()
         Me.filesPerSecTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.titleLabel = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.quarantineGroupBox.SuspendLayout()
         CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -130,17 +130,6 @@ Partial Class mainForm
         Me.Panel1.Size = New System.Drawing.Size(638, 52)
         Me.Panel1.TabIndex = 4
         '
-        'titleLabel
-        '
-        Me.titleLabel.AutoSize = True
-        Me.titleLabel.Font = New System.Drawing.Font("Snap ITC", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.titleLabel.ForeColor = System.Drawing.Color.Snow
-        Me.titleLabel.Location = New System.Drawing.Point(167, 12)
-        Me.titleLabel.Name = "titleLabel"
-        Me.titleLabel.Size = New System.Drawing.Size(302, 27)
-        Me.titleLabel.TabIndex = 5
-        Me.titleLabel.Text = "Mythodikal Anti-Virus"
-        '
         'quarantineGroupBox
         '
         Me.quarantineGroupBox.Controls.Add(Me.quarantineGridView)
@@ -148,7 +137,7 @@ Partial Class mainForm
         Me.quarantineGroupBox.Controls.Add(Me.restoreAllButton)
         Me.quarantineGroupBox.Controls.Add(Me.deletefileButton)
         Me.quarantineGroupBox.Controls.Add(Me.deleteAllButton)
-        Me.quarantineGroupBox.Location = New System.Drawing.Point(0, 372)
+        Me.quarantineGroupBox.Location = New System.Drawing.Point(5, 57)
         Me.quarantineGroupBox.Name = "quarantineGroupBox"
         Me.quarantineGroupBox.Size = New System.Drawing.Size(573, 343)
         Me.quarantineGroupBox.TabIndex = 75
@@ -900,6 +889,17 @@ Partial Class mainForm
         '
         Me.filesPerSecTimer.Interval = 1000
         '
+        'titleLabel
+        '
+        Me.titleLabel.AutoSize = True
+        Me.titleLabel.Font = New System.Drawing.Font("Snap ITC", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.titleLabel.ForeColor = System.Drawing.Color.Snow
+        Me.titleLabel.Location = New System.Drawing.Point(3, 14)
+        Me.titleLabel.Name = "titleLabel"
+        Me.titleLabel.Size = New System.Drawing.Size(479, 27)
+        Me.titleLabel.TabIndex = 5
+        Me.titleLabel.Text = "Mythodikal Anti-Virus - Last Scan: "
+        '
         'mainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -921,6 +921,7 @@ Partial Class mainForm
         Me.Name = "mainForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Mythodikal Anti-Virus"
+        Me.TopMost = True
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.quarantineGroupBox.ResumeLayout(False)
@@ -944,7 +945,6 @@ Partial Class mainForm
     Friend WithEvents minimizePicBox As PictureBox
     Friend WithEvents menuPicBox As PictureBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents titleLabel As Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents quarantineButton As Button
     Friend WithEvents quickScanButton As Button
@@ -1022,4 +1022,5 @@ Partial Class mainForm
     Friend WithEvents filePerSecondLabel As Label
     Friend WithEvents infectedLabel As Label
     Friend WithEvents filesPerSecTimer As Timer
+    Friend WithEvents titleLabel As Label
 End Class

@@ -111,6 +111,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="scanNowQuestionToast.Designer.vb">
+      <DependentUpon>scanNowQuestionToast.vb</DependentUpon>
+    </Compile>
+    <Compile Include="scanNowQuestionToast.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ScanUSBToast.Designer.vb">
       <DependentUpon>ScanUSBToast.vb</DependentUpon>
     </Compile>
@@ -134,6 +140,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scanNowQuestionToast.resx">
+      <DependentUpon>scanNowQuestionToast.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScanUSBToast.resx">
       <DependentUpon>ScanUSBToast.vb</DependentUpon>

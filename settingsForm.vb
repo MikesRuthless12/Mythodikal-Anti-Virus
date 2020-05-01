@@ -158,12 +158,15 @@ Public Class settingsForm
                 mainForm.realTimeOnButton.Enabled = False
                 mainForm.statusLabel.Text = "Starting Real-Time Scan..."
                 FileSystemWatcher1.EnableRaisingEvents = True
-                WriteToLog("Real Time Scan Started At: " & Date.Now & "")
-                realTimeCheckBox.Checked = True
-                realTimeCheckBox.Text = "On"
-            End If
+                If My.Settings.writeScanLogs = True Then
+                    WriteToLog("Real Time Scan Started At: " & Date.Now & "")
+                End If
 
-            If lines.Contains("windowsStart = False") Then
+                realTimeCheckBox.Checked = True
+                    realTimeCheckBox.Text = "On"
+                End If
+
+                If lines.Contains("windowsStart = False") Then
                 windowsStartCheckBox.Checked = False
                 windowsStartCheckBox.Text = "Off"
             Else

@@ -103,7 +103,7 @@ Partial Class settingsForm
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.Highlight
+        Me.Panel1.BackColor = System.Drawing.Color.DodgerBlue
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.titleLabel)
         Me.Panel1.Location = New System.Drawing.Point(0, -1)
@@ -124,7 +124,7 @@ Partial Class settingsForm
         '
         'exitPicBox
         '
-        Me.exitPicBox.BackColor = System.Drawing.SystemColors.Highlight
+        Me.exitPicBox.BackColor = System.Drawing.Color.DodgerBlue
         Me.exitPicBox.Image = Global.MikesAntiVirusScanner.My.Resources.Resources.closeIcon
         Me.exitPicBox.Location = New System.Drawing.Point(750, -1)
         Me.exitPicBox.Name = "exitPicBox"
@@ -134,7 +134,7 @@ Partial Class settingsForm
         '
         'minimizePicBox
         '
-        Me.minimizePicBox.BackColor = System.Drawing.SystemColors.Highlight
+        Me.minimizePicBox.BackColor = System.Drawing.Color.DodgerBlue
         Me.minimizePicBox.Image = Global.MikesAntiVirusScanner.My.Resources.Resources.minimizeIcon
         Me.minimizePicBox.Location = New System.Drawing.Point(698, -1)
         Me.minimizePicBox.Name = "minimizePicBox"
@@ -159,7 +159,7 @@ Partial Class settingsForm
         '
         'securityButton
         '
-        Me.securityButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.securityButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.securityButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.securityButton.ForeColor = System.Drawing.SystemColors.Control
         Me.securityButton.Location = New System.Drawing.Point(5, 262)
@@ -171,7 +171,7 @@ Partial Class settingsForm
         '
         'generalSettingsButton
         '
-        Me.generalSettingsButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.generalSettingsButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.generalSettingsButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.generalSettingsButton.ForeColor = System.Drawing.SystemColors.Control
         Me.generalSettingsButton.Location = New System.Drawing.Point(5, 180)
@@ -183,7 +183,7 @@ Partial Class settingsForm
         '
         'aboutButton
         '
-        Me.aboutButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.aboutButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.aboutButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.aboutButton.ForeColor = System.Drawing.SystemColors.Control
         Me.aboutButton.Location = New System.Drawing.Point(5, 348)
@@ -195,7 +195,7 @@ Partial Class settingsForm
         '
         'allowListButton
         '
-        Me.allowListButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.allowListButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.allowListButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.allowListButton.ForeColor = System.Drawing.SystemColors.Control
         Me.allowListButton.Location = New System.Drawing.Point(5, 12)
@@ -207,7 +207,7 @@ Partial Class settingsForm
         '
         'scheduleScanButton
         '
-        Me.scheduleScanButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.scheduleScanButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.scheduleScanButton.Font = New System.Drawing.Font("Snap ITC", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.scheduleScanButton.ForeColor = System.Drawing.SystemColors.Control
         Me.scheduleScanButton.Location = New System.Drawing.Point(5, 96)
@@ -241,6 +241,7 @@ Partial Class settingsForm
         '
         'aboutProgramGroupBox
         '
+        Me.aboutProgramGroupBox.BackColor = System.Drawing.Color.Black
         Me.aboutProgramGroupBox.Controls.Add(Me.aboutProgramLabel)
         Me.aboutProgramGroupBox.Location = New System.Drawing.Point(3, 3)
         Me.aboutProgramGroupBox.Name = "aboutProgramGroupBox"

@@ -240,6 +240,54 @@ Namespace My
                 Me("closeNotificationSeconds") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property scanDateDay() As String
+            Get
+                Return CType(Me("scanDateDay"),String)
+            End Get
+            Set
+                Me("scanDateDay") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property scanDateMonth() As Integer
+            Get
+                Return CType(Me("scanDateMonth"),Integer)
+            End Get
+            Set
+                Me("scanDateMonth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property scanDateYear() As Integer
+            Get
+                Return CType(Me("scanDateYear"),Integer)
+            End Get
+            Set
+                Me("scanDateYear") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property Setting() As Integer
+            Get
+                Return CType(Me("Setting"),Integer)
+            End Get
+            Set
+                Me("Setting") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

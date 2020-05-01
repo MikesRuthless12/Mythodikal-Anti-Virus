@@ -24,11 +24,12 @@ Partial Class ScanUSBToast
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.scanUSBLabel = New System.Windows.Forms.Label()
-        Me.exitPicBox = New System.Windows.Forms.PictureBox()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.exitTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.loadTimer = New System.Windows.Forms.Timer(Me.components)
         Me.scanUSBDriveButton = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.secondsBGW = New System.ComponentModel.BackgroundWorker()
+        Me.exitPicBox = New System.Windows.Forms.PictureBox()
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -41,26 +42,19 @@ Partial Class ScanUSBToast
         Me.scanUSBLabel.Size = New System.Drawing.Size(345, 41)
         Me.scanUSBLabel.TabIndex = 70
         Me.scanUSBLabel.Text = "Would You Like To Scan The Newly Plugged In Device?  Device Name: "
+        Me.scanUSBLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'exitPicBox
+        'exitTimer
         '
-        Me.exitPicBox.BackColor = System.Drawing.SystemColors.Highlight
-        Me.exitPicBox.Image = Global.MikesAntiVirusScanner.My.Resources.Resources.closeIcon
-        Me.exitPicBox.Location = New System.Drawing.Point(388, 0)
-        Me.exitPicBox.Name = "exitPicBox"
-        Me.exitPicBox.Size = New System.Drawing.Size(52, 50)
-        Me.exitPicBox.TabIndex = 71
-        Me.exitPicBox.TabStop = False
+        Me.exitTimer.Enabled = True
+        Me.exitTimer.Interval = 1000
         '
-        'Timer1
-        '
-        '
-        'Timer2
+        'loadTimer
         '
         '
         'scanUSBDriveButton
         '
-        Me.scanUSBDriveButton.BackColor = System.Drawing.SystemColors.Highlight
+        Me.scanUSBDriveButton.BackColor = System.Drawing.Color.DodgerBlue
         Me.scanUSBDriveButton.Font = New System.Drawing.Font("Snap ITC", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.scanUSBDriveButton.ForeColor = System.Drawing.Color.White
         Me.scanUSBDriveButton.Location = New System.Drawing.Point(15, 56)
@@ -77,11 +71,24 @@ Partial Class ScanUSBToast
         Me.TextBox1.Size = New System.Drawing.Size(100, 20)
         Me.TextBox1.TabIndex = 73
         '
+        'secondsBGW
+        '
+        '
+        'exitPicBox
+        '
+        Me.exitPicBox.BackColor = System.Drawing.Color.DodgerBlue
+        Me.exitPicBox.Image = Global.MikesAntiVirusScanner.My.Resources.Resources.closeIcon
+        Me.exitPicBox.Location = New System.Drawing.Point(388, 0)
+        Me.exitPicBox.Name = "exitPicBox"
+        Me.exitPicBox.Size = New System.Drawing.Size(52, 50)
+        Me.exitPicBox.TabIndex = 71
+        Me.exitPicBox.TabStop = False
+        '
         'ScanUSBToast
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.Highlight
+        Me.BackColor = System.Drawing.Color.DodgerBlue
         Me.ClientSize = New System.Drawing.Size(439, 105)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.scanUSBDriveButton)
@@ -98,8 +105,9 @@ Partial Class ScanUSBToast
     End Sub
     Friend WithEvents scanUSBLabel As Label
     Friend WithEvents exitPicBox As PictureBox
-    Friend WithEvents Timer1 As Timer
-    Friend WithEvents Timer2 As Timer
+    Friend WithEvents exitTimer As Timer
+    Friend WithEvents loadTimer As Timer
     Friend WithEvents scanUSBDriveButton As Button
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents secondsBGW As System.ComponentModel.BackgroundWorker
 End Class
