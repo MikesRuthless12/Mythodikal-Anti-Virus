@@ -544,14 +544,12 @@ Partial Class settingsForm
         'realTimeCheckBox
         '
         Me.realTimeCheckBox.AutoSize = True
-        Me.realTimeCheckBox.Checked = True
-        Me.realTimeCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.realTimeCheckBox.ForeColor = System.Drawing.Color.White
         Me.realTimeCheckBox.Location = New System.Drawing.Point(513, 229)
         Me.realTimeCheckBox.Name = "realTimeCheckBox"
         Me.realTimeCheckBox.Size = New System.Drawing.Size(40, 17)
         Me.realTimeCheckBox.TabIndex = 132
-        Me.realTimeCheckBox.Text = "On"
+        Me.realTimeCheckBox.Text = "Off"
         Me.realTimeCheckBox.UseVisualStyleBackColor = True
         '
         'realTimeProtectionLabel
@@ -809,6 +807,7 @@ Partial Class settingsForm
         Me.Controls.Add(Me.exitPicBox)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "settingsForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "settingsForm"

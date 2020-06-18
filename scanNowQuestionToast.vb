@@ -86,4 +86,9 @@
             exitTimer.Start()
         End If
     End Sub
+
+    Private Sub exitPicBox_Click(sender As Object, e As EventArgs) Handles exitPicBox.Click
+        exitNow = True
+        exitTimer.Start()
+    End Sub
 End Class

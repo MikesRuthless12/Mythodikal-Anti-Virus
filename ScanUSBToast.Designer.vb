@@ -23,6 +23,7 @@ Partial Class ScanUSBToast
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ScanUSBToast))
         Me.scanUSBLabel = New System.Windows.Forms.Label()
         Me.exitTimer = New System.Windows.Forms.Timer(Me.components)
         Me.loadTimer = New System.Windows.Forms.Timer(Me.components)
@@ -95,6 +96,7 @@ Partial Class ScanUSBToast
         Me.Controls.Add(Me.exitPicBox)
         Me.Controls.Add(Me.scanUSBLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ScanUSBToast"
         Me.Opacity = 0R
         Me.Text = "ScanUSBToast"

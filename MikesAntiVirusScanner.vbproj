@@ -51,7 +51,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>scan.ico</ApplicationIcon>
+    <ApplicationIcon>Mythodikal.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Crc32.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
@@ -66,6 +66,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -178,7 +179,8 @@
     <None Include="menuIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scan.ico" />
+    <Content Include="Mythodikal.ico" />
+    <None Include="Resources\Mythodikal.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

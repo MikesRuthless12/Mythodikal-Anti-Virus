@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MikesAntiVirusScanner", "MikesAntiVirusScanner.vbproj", "{84A2539E-A5C8-4C00-A86F-28A4AEF8979B}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Copy That", "..\Copy That\Copy That.vbproj", "{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{84A2539E-A5C8-4C00-A86F-28A4AEF8979B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84A2539E-A5C8-4C00-A86F-28A4AEF8979B}.Release|x86.ActiveCfg = Release|Any CPU
 		{84A2539E-A5C8-4C00-A86F-28A4AEF8979B}.Release|x86.Build.0 = Release|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Debug|x86.Build.0 = Debug|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Release|x86.ActiveCfg = Release|Any CPU
+		{E2B35AB7-1D8B-4987-AFD9-13440537FEE7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

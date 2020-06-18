@@ -25,6 +25,7 @@ Partial Class mainForm
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(mainForm))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.titleLabel = New System.Windows.Forms.Label()
         Me.quarantineGroupBox = New System.Windows.Forms.GroupBox()
         Me.quarantineGridView = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -105,7 +106,7 @@ Partial Class mainForm
         Me.loadMythodikal = New System.ComponentModel.BackgroundWorker()
         Me.scanFilesBGW = New System.ComponentModel.BackgroundWorker()
         Me.filesPerSecTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.titleLabel = New System.Windows.Forms.Label()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.Panel1.SuspendLayout()
         Me.quarantineGroupBox.SuspendLayout()
         CType(Me.quarantineGridView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -130,6 +131,17 @@ Partial Class mainForm
         Me.Panel1.Size = New System.Drawing.Size(638, 52)
         Me.Panel1.TabIndex = 4
         '
+        'titleLabel
+        '
+        Me.titleLabel.AutoSize = True
+        Me.titleLabel.Font = New System.Drawing.Font("Snap ITC", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.titleLabel.ForeColor = System.Drawing.Color.Snow
+        Me.titleLabel.Location = New System.Drawing.Point(3, 14)
+        Me.titleLabel.Name = "titleLabel"
+        Me.titleLabel.Size = New System.Drawing.Size(479, 27)
+        Me.titleLabel.TabIndex = 5
+        Me.titleLabel.Text = "Mythodikal Anti-Virus - Last Scan: "
+        '
         'quarantineGroupBox
         '
         Me.quarantineGroupBox.Controls.Add(Me.quarantineGridView)
@@ -137,9 +149,9 @@ Partial Class mainForm
         Me.quarantineGroupBox.Controls.Add(Me.restoreAllButton)
         Me.quarantineGroupBox.Controls.Add(Me.deletefileButton)
         Me.quarantineGroupBox.Controls.Add(Me.deleteAllButton)
-        Me.quarantineGroupBox.Location = New System.Drawing.Point(5, 57)
+        Me.quarantineGroupBox.Location = New System.Drawing.Point(8, 55)
         Me.quarantineGroupBox.Name = "quarantineGroupBox"
-        Me.quarantineGroupBox.Size = New System.Drawing.Size(573, 343)
+        Me.quarantineGroupBox.Size = New System.Drawing.Size(575, 341)
         Me.quarantineGroupBox.TabIndex = 75
         Me.quarantineGroupBox.TabStop = False
         '
@@ -889,16 +901,8 @@ Partial Class mainForm
         '
         Me.filesPerSecTimer.Interval = 1000
         '
-        'titleLabel
+        'BackgroundWorker1
         '
-        Me.titleLabel.AutoSize = True
-        Me.titleLabel.Font = New System.Drawing.Font("Snap ITC", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.titleLabel.ForeColor = System.Drawing.Color.Snow
-        Me.titleLabel.Location = New System.Drawing.Point(3, 14)
-        Me.titleLabel.Name = "titleLabel"
-        Me.titleLabel.Size = New System.Drawing.Size(479, 27)
-        Me.titleLabel.TabIndex = 5
-        Me.titleLabel.Text = "Mythodikal Anti-Virus - Last Scan: "
         '
         'mainForm
         '
@@ -1023,4 +1027,5 @@ Partial Class mainForm
     Friend WithEvents infectedLabel As Label
     Friend WithEvents filesPerSecTimer As Timer
     Friend WithEvents titleLabel As Label
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

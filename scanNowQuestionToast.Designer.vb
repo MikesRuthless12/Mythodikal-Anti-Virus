@@ -23,6 +23,7 @@ Partial Class scanNowQuestionToast
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(scanNowQuestionToast))
         Me.quickScanButton = New System.Windows.Forms.Button()
         Me.scanCPULabel = New System.Windows.Forms.Label()
         Me.exitPicBox = New System.Windows.Forms.PictureBox()
@@ -99,6 +100,7 @@ Partial Class scanNowQuestionToast
         Me.Controls.Add(Me.exitPicBox)
         Me.Controls.Add(Me.scanCPULabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "scanNowQuestionToast"
         CType(Me.exitPicBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
